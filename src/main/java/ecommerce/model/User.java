@@ -1,9 +1,9 @@
 package ecommerce.model;
 
 public class User {
-    private String id;
-    private String name;
-    private Role role;
+    private final String id;
+    private final String name;
+    private final Role role;
 
     public User(String id, String name, Role role) {
         this.id = id;
@@ -11,8 +11,20 @@ public class User {
         this.role = role;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
     @Override
     public String toString() {
-        return "User:\n" + id + "\n" + name + "\n" + role + "\n";
+        return "USER: " + id + "\nNAME: " + name + "\nROLE: " + role + "\n";
     }
 }
