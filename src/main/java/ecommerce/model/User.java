@@ -10,4 +10,9 @@ public class User {
         this.name = name;
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "User:\n" + id + "\n" + name + "\n" + role + "\n";
+    }
 }
