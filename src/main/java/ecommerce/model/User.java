@@ -1,4 +1,4 @@
-package main.java.ecommerce.model;
+package ecommerce.model;
 
 public class User {
     private String id;

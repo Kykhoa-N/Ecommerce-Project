@@ -1,4 +1,4 @@
-package main.java.ecommerce.service;
+package ecommerce.service;
 
 public class CartService {
 }

@@ -1,4 +1,4 @@
-package main.java.ecommerce.model;
+package ecommerce.model;
 import java.util.Map;
 
 public class Order {

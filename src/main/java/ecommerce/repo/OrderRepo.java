@@ -1,4 +1,4 @@
-package main.java.ecommerce.repo;
+package ecommerce.repo;
 
 public class OrderRepo {
 }
