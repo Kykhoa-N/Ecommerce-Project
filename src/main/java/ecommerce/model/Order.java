@@ -12,13 +12,13 @@ public class Order {
     private OrderStatus status;
 
     // CONSTRUCTOR
-    public Order(String id, String user_id, Map<String, Integer> product_list, double total_price) {
-        this.id = id;
+    public Order(String user_id, Map<String, Integer> product_list, double total_price) {
+        this.id = user_id + " ID NUMBER AMOUNT";
         this.user_id = user_id;
         this.product_list = product_list;
         this.total_price = total_price;
-        timestamp = 0;
-        status = OrderStatus.PROCESSED;
+        this.timestamp = 0;
+        this.status = OrderStatus.PROCESSED;
     }
 
     // GETTER METHOD

@@ -10,8 +10,8 @@ public class Product {
     private int quantity;
 
     // CONSTRUCTOR
-    public Product(String id, String name, String category, double price, int quantity) {
-        this.id = id;
+    public Product(String name, String category, double price, int quantity) {
+        this.id = category + name;
         this.name = name;
         this.category = category;
         this.price = price;
