@@ -39,7 +39,7 @@ public class Order {
         return total_price;
     }
 
-    public int getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
