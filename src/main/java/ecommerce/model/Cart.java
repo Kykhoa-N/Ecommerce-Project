@@ -6,11 +6,11 @@ public class Cart {
 
     // FIELD
     private final String user_id;
-    private Map<String, Integer> product_list;
+    private final Map<String, Integer> product_list;
     private final String address;
 
     // CONSTRUCTOR
-    public Cart(String user_id, Map<String, Integer> product_list, String address) {
+    public Cart(String user_id, String address) {
         this.user_id = user_id;
         this.product_list = new HashMap<>();
         this.address = address;
@@ -21,9 +21,10 @@ public class Cart {
         return user_id;
     }
 
-    public Map<String, Integer> getProductlist() {
+    public Map<String, Integer> getProductList() {
         return product_list;
     }
+
     public String getAddress() {
         return address;
     }
