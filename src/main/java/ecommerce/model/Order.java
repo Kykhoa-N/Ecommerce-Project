@@ -12,7 +12,7 @@ public class Order {
     private OrderStatus status;
 
     // CONSTRUCTOR
-    public Order(String id, String user_id, Map<String, Integer> product_list, double total_price, String userId, Map<String, Integer> productList, double totalPrice) {
+    public Order(String id, String user_id, Map<String, Integer> product_list, double total_price) {
         this.id = id;
         this.user_id = user_id;
         this.product_list = product_list;
