@@ -1,5 +1,6 @@
 package ecommerce.model;
 import java.util.Map;
+import java.time.*;
 
 public class Order {
 
@@ -8,7 +9,7 @@ public class Order {
     private final String user_id;
     private final Map<String, Integer> product_list;
     private final double total_price;
-    private final int timestamp;
+    private final LocalDateTime timestamp;
     private OrderStatus status;
 
     // CONSTRUCTOR
@@ -17,7 +18,7 @@ public class Order {
         this.user_id = user_id;
         this.product_list = product_list;
         this.total_price = total_price;
-        this.timestamp = 0;
+        this.timestamp = LocalDateTime.now();
         this.status = OrderStatus.PROCESSED;
     }
 
