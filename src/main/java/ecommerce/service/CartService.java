@@ -9,8 +9,8 @@ public class CartService {
         return false;
     }
 
-    public boolean remove() {
-        return false;
+    public void remove() {
+
     }
 
     public void viewAll() {
