@@ -10,9 +10,6 @@ public class Main {
 
         UserRepo userRepo = new UserRepo();
 
-        userRepo.add(admin);
-        userRepo.add(client);
-
         System.out.println(userRepo);
     }
 }
