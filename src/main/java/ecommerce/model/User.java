@@ -26,10 +26,4 @@ public class User {
     public Role getRole() {
         return role;
     }
-
-    // PRINT TEST
-    @Override
-    public String toString() {
-        return "NAME: " + name + "\nUSER: " + id + "\nROLE: " + role + "\n";
-    }
 }
