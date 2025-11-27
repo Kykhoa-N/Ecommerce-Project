@@ -8,15 +8,25 @@ public class UserRepo {
     // FIELD
     private final List<User> repo = new ArrayList<>();
 
-    // LIST METHOD
+    // REPO METHOD
     public void add(User user) {
         repo.add(user);
     }
 
-    public void getAll() {
-        System.out.println("___________ ACCOUNTS ___________");
+    public User getUser(String name) {
         for(User user: repo) {
-            System.out.printf("%10s %12s %8s%n", user.getName(), user.getId(), user.getRole());
+            if(user.getName().equals(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public void getAll() {
+        System.out.println("_______________ ACCOUNTS _______________");
+        System.out.printf("%-16s %-16s %-8s%n", "USER", "USER", "ROLE");
+        for(User user: repo) {
+            System.out.printf("%-16s %-16s %-8s%n", user.getName(), user.getId(), user.getRole());
         }
     }
 
