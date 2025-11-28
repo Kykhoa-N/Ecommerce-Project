@@ -14,8 +14,11 @@ public class Main {
 
         auth.register("kyanh", "ktn5110", Role.ADMIN);
         auth.register("kykhoa", "kn1029928", Role.ADMIN);
-        auth.register("kykhoa", "kn1029928", Role.ADMIN);
-        auth.register("nicole","kn1029928", Role.CLIENT);
+        auth.register("jacob", "kn1029928", Role.ADMIN);
+        auth.register("nicole","no1029928", Role.CLIENT);
         userRepo.getAll();
+
+        System.out.println();
+        System.out.println(auth.login("kykhoa", "kn1029928"));
     }
 }

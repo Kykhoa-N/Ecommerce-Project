@@ -12,15 +12,19 @@ public class AuthService {
     }
 
     public boolean register(String name, String id, Role role) {
-        if(repo.getUser(id) == null) {
+        if(repo.findUser(id) == null) {
             repo.add(new User(name, id, role));
             return true;
         }
         return false;
     }
 
-    public boolean login() {
-        return false;
+    public boolean login(String name, String id) {
+        User user = repo.findUser(id);
+        if(user == null) {
+            return false;
+        }
+        return user.getName().equals(name);
     }
 
 }

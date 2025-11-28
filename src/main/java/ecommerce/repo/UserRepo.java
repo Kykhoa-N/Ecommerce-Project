@@ -13,7 +13,7 @@ public class UserRepo {
         repo.add(user);
     }
 
-    public User getUser(String id) {
+    public User findUser(String id) {
         for(User user: repo) {
             if(user.getId().equals(id)) {
                 return user;
