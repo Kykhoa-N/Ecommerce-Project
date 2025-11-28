@@ -13,9 +13,9 @@ public class UserRepo {
         repo.add(user);
     }
 
-    public User getUser(String name) {
+    public User getUser(String id) {
         for(User user: repo) {
-            if(user.getName().equals(name)) {
+            if(user.getId().equals(id)) {
                 return user;
             }
         }

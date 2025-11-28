@@ -11,14 +11,12 @@ public class AuthService {
         this.repo = repo;
     }
 
-    public void register(String name, String id, Role role) {
-        if(repo.getUser(name) == null) {
+    public boolean register(String name, String id, Role role) {
+        if(repo.getUser(id) == null) {
             repo.add(new User(name, id, role));
-            System.out.println("ACCOUNT REGISTERED");
+            return true;
         }
-        else {
-            System.out.println("TRY AGAIN");
-        }
+        return false;
     }
 
     public boolean login() {
