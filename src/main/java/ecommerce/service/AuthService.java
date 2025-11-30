@@ -12,15 +12,14 @@ public class AuthService {
     }
 
     public boolean register(String name, String id, Role role) {
-        if(repo.findUser(id) == null) {
-            repo.add(new User(name, id, role));
-            return true;
+        if(repo.getUser(id) == null) {
+            return repo.add(new User(name, id, role));
         }
         return false;
     }
 
     public boolean login(String name, String id) {
-        User user = repo.findUser(id);
+        User user = repo.getUser(id);
         if(user == null) {
             return false;
         }

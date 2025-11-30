@@ -9,11 +9,11 @@ public class UserRepo {
     private final List<User> repo = new ArrayList<>();
 
     // REPO METHOD
-    public void add(User user) {
-        repo.add(user);
+    public boolean add(User user) {
+        return repo.add(user);
     }
 
-    public User findUser(String id) {
+    public User getUser(String id) {
         for(User user: repo) {
             if(user.getId().equals(id)) {
                 return user;
