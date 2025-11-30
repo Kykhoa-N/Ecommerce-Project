@@ -9,9 +9,21 @@ public class ProductRepo {
     private final List<Product> repo = new ArrayList<>();
 
     // REPO METHOD
-    public void add(Product product) {
-        repo.add(product);
+    public boolean add(Product product) {
+        return repo.add(product);
     }
 
-    //public void remove();
+
+    public boolean remove(String name) {
+        for(Product product: repo) {
+            if(product.getName().equals(name)) {
+                return repo.remove(product);
+            }
+        }
+        return false;
+    }
+
+    public List<Product> getRepo() {
+        return repo;
+    }
 }
