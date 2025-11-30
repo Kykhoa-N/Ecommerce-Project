@@ -6,40 +6,23 @@ import java.util.*;
 public class OrderRepo {
 
     // FIELD
-    private List<Order> repo;
+    private final List<Order> repo = new ArrayList<>();
 
-    // CONSTRUCTOR
-    public OrderRepo() {
-        this.repo = new ArrayList<>();
+    // REPO METHOD
+    public boolean add(Order order) {
+        return repo.add(order);
     }
 
-    // ADD an order
-    public void add(Order order) {
-        if (order != null) {
-            repo.add(order);
-        }
-    }
-
-    // REMOVE an order
-    public boolean remove(Order order) {
-        return repo.remove(order);
-    }
-
-    // REMOVE an order by ID
-    public boolean removeById(String orderId) {
-        return repo.removeIf(o -> o.getId().equals(orderId));
-    }
-
-    // GET an order by index
-    public Order get(int index) {
-        if (index >= 0 && index < repo.size()) {
-            return repo.get(index);
+    public Order getOrder(String id) {
+        for(Order order: repo) {
+            if(order.getId().equals(id)) {
+                return order;
+            }
         }
         return null;
     }
 
-    // GET all orders
-    public List<Order> getAll() {
-        return new ArrayList<>(repo);
+    public List<Order> getRepo() {
+        return repo;
     }
 }
