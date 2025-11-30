@@ -6,36 +6,34 @@ import java.util.*;
 public class CartRepo {
 
     // FIELD
-    private List<Cart> repo;
+    private final List<Cart> repo = new ArrayList<>();
+    ;
 
-    //Constructor
-    public CartRepo() {
-        this.repo = new ArrayList<>();
+    // REPO METHOD
+    public boolean add(Cart cart) {
+        return repo.add(cart);
     }
 
-    //Add a cart
-    public void addItemToCart(Cart cart) {
-        if (cart != null) {
-            repo.add(cart);
+    public boolean remove(String user_id) {
+        for (Cart cart : repo) {
+            if (cart.getUserId().equals(user_id)) {
+                return repo.remove(cart);
+            }
         }
-    }
-
-    //Remove a cart
-    public boolean removeItemFromCart(Cart cart) {
-        return repo.remove(cart);
+        return false;
     }
 
     //Get cart by index
-    public Cart get(int index)
-        if(index >=0&&index<repo.size())
-
-    {
-        return repo.get(index);
-    }
+    public Cart get(String user_id) {
+        for (Cart cart : repo) {
+            if (cart.getUserId().equals(user_id)) {
+                return cart;
+            }
+        }
         return null;
-}
+    }
 
-    // GET all carts
-    public List<Cart> getAll() {
-        return new ArrayList<>(repo);
+    public List<Cart> getRepo() {
+        return repo;
+    }
 }
