@@ -9,11 +9,11 @@ public class CartService {
         return false;
     }
 
-    public void remove() {
-
+    public boolean remove() {
+        return false;
     }
 
-    public void viewAll() {
-
+    public boolean viewAll() {
+        return false;
     }
 }

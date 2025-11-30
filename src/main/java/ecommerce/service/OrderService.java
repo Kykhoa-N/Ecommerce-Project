@@ -5,11 +5,11 @@ import ecommerce.repo.*;
 
 public class OrderService {
 
-    public void viewAll() {
-
+    public boolean viewAll() {
+        return false;
     }
 
-    public void update() {
-
+    public boolean update() {
+        return false;
     }
 }

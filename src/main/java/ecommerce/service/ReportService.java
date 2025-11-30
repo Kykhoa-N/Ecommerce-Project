@@ -5,19 +5,19 @@ import ecommerce.repo.*;
 
 public class ReportService {
 
-    public void viewEmpty() {
-
+    public boolean viewEmpty() {
+        return false;
     }
 
-    public void viewOrders() {
-
+    public boolean viewOrders() {
+        return false;
     }
 
-    public void viewPopular() {
-
+    public boolean viewPopular() {
+        return false;
     }
 
-    public void viewRevenue() {
-
+    public boolean viewRevenue() {
+        return false;
     }
 }
