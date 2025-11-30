@@ -13,7 +13,6 @@ public class ProductRepo {
         return repo.add(product);
     }
 
-
     public boolean remove(String name) {
         for(Product product: repo) {
             if(product.getName().equals(name)) {
@@ -21,6 +20,15 @@ public class ProductRepo {
             }
         }
         return false;
+    }
+
+    public Product getProduct(String name) {
+        for(Product product: repo) {
+            if(product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
     }
 
     public List<Product> getRepo() {
