@@ -1,39 +1,65 @@
 package ecommerce.service;
 
-import ecommerce.model.*;
-import ecommerce.repo.*;
+import ecommerce.model.Product;
+import ecommerce.repo.ProductRepo;
 
 public class ProductService {
 
-    public boolean add() {
-        return false;
+    private final ProductRepo repo;
+
+    public ProductService(ProductRepo repo) {
+        this.repo = repo;
     }
 
-    public boolean update() {
-        return false;
+    // ADD
+    public boolean addProduct(String name, String category, double price, int quantity) {
+        if (name == null || category == null || price < 0 || quantity < 0) return false;
+        Product p = new Product(name, category, price, quantity);
+        return repo.add(p);
     }
 
-    public boolean remove() {
-        return false;
+    // READ
+    public Product getProduct(String name) {
+        return repo.getProduct(name);
     }
 
-    public void search() {
-
+    // DELETE
+    public boolean deleteProduct(String name) {
+        return repo.remove(name);
     }
 
-    public void viewAll() {
-
+    // UPDATE PRICE
+    public boolean updatePrice(String name, double newPrice) {
+        Product p = repo.getProduct(name);
+        if (p == null || newPrice < 0) return false;
+        p.setPrice(newPrice);
+        return true;
     }
 
-    public void filterPrice() {
+    // UPDATE CATEGORY
+    public boolean updateCategory(String name, String newCategory) {
+        Product old = repo.getProduct(name);
+        if (old == null || newCategory == null) return false;
 
+        // create a NEW product
+        Product updated = new Product(
+                old.getName(),
+                newCategory,
+                old.getPrice(),
+                old.getQuantity()
+        );
+
+        repo.remove(old.getName());
+        repo.add(updated);
+
+        return true;
     }
 
-    public boolean checkout() {
-        return false;
-    }
-
-    public void orderHistory() {
-        
+    // UPDATE QUANTITY
+    public boolean updateQuantity(String name, int newQty) {
+        Product p = repo.getProduct(name);
+        if (p == null || newQty < 0) return false;
+        p.setQuantity(newQty);
+        return true;
     }
 }
