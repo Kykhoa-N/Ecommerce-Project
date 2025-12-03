@@ -36,8 +36,9 @@ public class Cart {
     }
 
     // UTILITY METHOD
-    public void add(String product, int quantity) {
+    public boolean add(String product, int quantity) {
         product_list.put(product, product_list.getOrDefault(product, 0) + quantity);
+        return true;
     }
 
     public boolean remove(String product, int quantity) {

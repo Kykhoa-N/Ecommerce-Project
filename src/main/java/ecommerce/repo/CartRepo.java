@@ -10,8 +10,8 @@ public class CartRepo {
 
 
     // REPO METHOD
-    public boolean add(Cart cart) {
-        return repo.add(cart);
+    public void add(Cart cart) {
+        repo.add(cart);
     }
 
     public boolean remove(String user_id) {
