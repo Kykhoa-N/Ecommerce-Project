@@ -16,7 +16,7 @@ public class CartService {
     public boolean add(User user, String product, int quantity) {
         Cart cart = repo.getCart(user.getId());
         if(cart == null) {
-            repo.add(new Cart(user.getId(), ))
+            repo.add(new Cart(user.getId()));
         }
         return false;
     }

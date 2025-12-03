@@ -40,6 +40,8 @@ public class Cart {
         product_list.put(product, product_list.getOrDefault(product, 0) + quantity);
     }
 
-
+    public void remove () {
+        // code
+    }
 
 }
