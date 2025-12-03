@@ -22,8 +22,8 @@ public class UserRepo {
         return null;
     }
 
-    public List<User> getRepo() {
-        return repo;
+    public List<User> getAll() {
+        return new ArrayList<>(repo);
     }
 
 }

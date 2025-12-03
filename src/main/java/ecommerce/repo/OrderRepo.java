@@ -1,12 +1,23 @@
 package ecommerce.repo;
 
 import ecommerce.model.Order;
+import ecommerce.model.Product;
+
 import java.util.*;
 
 public class OrderRepo {
 
     // FIELD
     private final List<Order> repo = new ArrayList<>();;
+
+    // REPO METHOD
+    public boolean add(Order order) {
+        return repo.add(order);
+    }
+
+    public List<Order> getAll() {
+        return new ArrayList<>(repo);
+    }
 
 
     /** Fix Method Because repo convert from a Hashmap to an ArrayList */
