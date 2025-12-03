@@ -72,9 +72,9 @@ public class ProductService {
         }
         return result;
     }
-    /** HAVE TO FIX
-     *  ORDER REPO CHANGE FROM HASHMAP TO ARRAYLIST
 
+    /** Fix Method Because of OrderRepo Class*/
+    /*
     public boolean checkout(String userId, List<String> productNames) {
         if (productNames == null || productNames.isEmpty()) return false;
 
