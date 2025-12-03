@@ -24,11 +24,7 @@ public class CartService {
 
     public boolean remove(User user, String product, int quantity) {
         Cart cart = repo.getCart(user.getId());
-        if(cart == null) {
-            return false;
-        } else {
-            return cart.remove(product, quantity);
-        }
+        return cart.remove(product, quantity);
     }
 
     public boolean viewAll() {
