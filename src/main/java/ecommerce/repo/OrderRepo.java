@@ -1,28 +1,59 @@
 package ecommerce.repo;
 
-import ecommerce.model.*;
+import ecommerce.model.Order;
 import java.util.*;
 
 public class OrderRepo {
 
     // FIELD
-    private final List<Order> repo = new ArrayList<>();
+    private final Map<String, Order> repo;
 
-    // REPO METHOD
-    public boolean add(Order order) {
-        return repo.add(order);
+    // CONSTRUCTOR
+    public OrderRepo() {
+        this.repo = new HashMap<>();
     }
 
-    public Order getOrder(String id) {
-        for(Order order: repo) {
-            if(order.getId().equals(id)) {
-                return order;
+    // ADD ORDER
+    public boolean add(Order order) {
+        if (order == null) return false;
+        if (repo.containsKey(order.getId())) return false;
+        repo.put(order.getId(), order);
+        return true;
+    }
+
+    // GET ORDER BY ID
+    public Optional<Order> get(String id) {
+        if (id == null) return Optional.empty();
+        return Optional.ofNullable(repo.get(id));
+    }
+
+    // GET ALL ORDERS
+    public List<Order> getAll() {
+        return new ArrayList<>(repo.values());
+    }
+
+    // GET ALL ORDERS FOR A SPECIFIC USER
+    public List<Order> getByUser(String userId) {
+        List<Order> result = new ArrayList<>();
+        for (Order order : repo.values()) {
+            if (order.getUserId().equals(userId)) {
+                result.add(order);
             }
         }
-        return null;
+        return result;
     }
 
-    public List<Order> getRepo() {
-        return repo;
+    // UPDATE ORDER (mainly status)
+    public boolean update(Order order) {
+        if (order == null) return false;
+        if (!repo.containsKey(order.getId())) return false;
+        repo.put(order.getId(), order);
+        return true;
+    }
+
+    // REMOVE ORDER
+    public boolean remove(String id) {
+        if (id == null) return false;
+        return repo.remove(id) != null;
     }
 }
