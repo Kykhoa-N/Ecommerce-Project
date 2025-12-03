@@ -4,6 +4,7 @@ import ecommerce.model.*;
 import ecommerce.repo.*;
 import ecommerce.service.AuthService;
 import ecommerce.service.CartService;
+import ecommerce.service.OrderService;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Main {
 
         AuthService auth = new AuthService(userRepo);
         CartService cart = new CartService(cartRepo);
+        OrderService order = new OrderService(orderRepo);
 
         auth.register("kyanh", "ktn5110", Role.ADMIN);
         auth.register("kykhoa", "kn1029928", Role.ADMIN);

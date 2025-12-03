@@ -5,7 +5,14 @@ import ecommerce.repo.*;
 
 public class OrderService {
 
+    private final OrderRepo repo;
+
+    public OrderService(OrderRepo repo) {
+        this.repo = repo;
+    }
+
     public boolean viewAll() {
+
         return false;
     }
 

@@ -6,13 +6,10 @@ import java.util.*;
 public class OrderRepo {
 
     // FIELD
-    private final Map<String, Order> repo;
+    private final List<Order> repo = new ArrayList<>();;
 
-    // CONSTRUCTOR
-    public OrderRepo() {
-        this.repo = new HashMap<>();
-    }
 
+    /*
     // ADD ORDER
     public boolean add(Order order) {
         if (order == null) return false;
@@ -56,4 +53,5 @@ public class OrderRepo {
         if (id == null) return false;
         return repo.remove(id) != null;
     }
+     */
 }
