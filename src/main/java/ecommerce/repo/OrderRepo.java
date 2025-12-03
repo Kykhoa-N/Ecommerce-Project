@@ -12,39 +12,27 @@ public class OrderRepo {
 
     // REPO METHOD
     public boolean add(Order order) {
-        return repo.add(order);
-    }
-
-    public List<Order> getAll() {
-        return new ArrayList<>(repo);
-    }
-
-
-    /** Fix Method Because repo convert from a Hashmap to an ArrayList */
-    /*
-    // ADD ORDER
-    public boolean add(Order order) {
         if (order == null) return false;
-        if (repo.containsKey(order.getId())) return false;
-        repo.put(order.getId(), order);
-        return true;
+        return repo.add(order);
     }
 
     // GET ORDER BY ID
     public Optional<Order> get(String id) {
         if (id == null) return Optional.empty();
-        return Optional.ofNullable(repo.get(id));
+        return repo.stream()
+                .filter(o -> o.getId().equals(id))
+                .findFirst();
     }
 
-    // GET ALL ORDERS
+    // Get All
     public List<Order> getAll() {
-        return new ArrayList<>(repo.values());
+        return new ArrayList<>(repo);
     }
 
     // GET ALL ORDERS FOR A SPECIFIC USER
     public List<Order> getByUser(String userId) {
         List<Order> result = new ArrayList<>();
-        for (Order order : repo.values()) {
+        for (Order order : repo) {
             if (order.getUserId().equals(userId)) {
                 result.add(order);
             }
@@ -55,15 +43,18 @@ public class OrderRepo {
     // UPDATE ORDER (mainly status)
     public boolean update(Order order) {
         if (order == null) return false;
-        if (!repo.containsKey(order.getId())) return false;
-        repo.put(order.getId(), order);
-        return true;
+
+        for (int i = 0; i < repo.size(); i++) {
+            if (repo.get(i).getId().equals(order.getId())) {
+                repo.set(i, order);
+                return true;
+            }
+        }
+        return false;
     }
 
     // REMOVE ORDER
     public boolean remove(String id) {
-        if (id == null) return false;
-        return repo.remove(id) != null;
+        return repo.removeIf(o -> o.getId().equals(id));
     }
-     */
 }
