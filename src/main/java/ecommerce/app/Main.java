@@ -29,7 +29,7 @@ public class Main {
         cart.add(user, "oranges", 4);
         cart.add(user, "banana", 12);
         //cart.remove(user, "apple", 10);
-        //cart.remove(user, "banana", 10);
+        cart.remove(user, "banana", 10);
         //cart.remove(user, "oranges", 10);
 
         System.out.println(cart.viewAll(user));
