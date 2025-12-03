@@ -4,6 +4,7 @@ import ecommerce.model.*;
 import ecommerce.repo.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class CartService {
 
@@ -27,7 +28,16 @@ public class CartService {
         return cart.remove(product, quantity);
     }
 
-    public boolean viewAll() {
-        return false;
+    public boolean viewAll(User user) {
+        Cart cart = repo.getCart(user.getId());
+        if(cart == null || cart.getProductList().isEmpty()) {
+            return false;
+        } else {
+            System.out.printf("%s CART%n", user.getName().toUpperCase());
+            for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
+                System.out.printf(" %4d %s%n", item.getValue(), item.getKey());
+            }
+            return true;
+        }
     }
 }
