@@ -40,8 +40,19 @@ public class Cart {
         product_list.put(product, product_list.getOrDefault(product, 0) + quantity);
     }
 
-    public void remove () {
-        // code
+    public boolean remove(String product, int quantity) {
+        if(product_list.get(product) == null) {
+            return false;
+        }
+        else {
+            int difference = product_list.get(product) - quantity;
+            if(difference > 0) {
+                product_list.put(product, difference);
+            } else {
+                product_list.remove(product);
+            }
+            return true;
+        }
     }
 
 }
