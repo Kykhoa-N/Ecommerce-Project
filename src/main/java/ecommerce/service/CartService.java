@@ -34,15 +34,14 @@ public class CartService {
     // VIEW ITEMS OF CART
     public boolean viewAll(User user) {
         Cart cart = repo.getCart(user.getId());
-        if(cart == null || cart.getProductList().isEmpty()) {
-            return false;
+        if(cart == null) {
+            cart = new Cart(user.getId());
+            repo.add(cart);
         }
-        else {
-            System.out.printf("%s CART%n", user.getName().toUpperCase());
-            for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
-                System.out.printf(" %4d %s%n", item.getValue(), item.getKey());
-            }
-            return true;
+        System.out.printf("%s CART%n", user.getName().toUpperCase());
+        for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
+            System.out.printf(" %4d %s%n", item.getValue(), item.getKey());
         }
+        return true;
     }
 }

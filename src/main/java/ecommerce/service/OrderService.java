@@ -13,7 +13,10 @@ public class OrderService {
 
     public boolean viewAll() {
 
-        return false;
+        for(Order order: repo.getAll()) {
+            System.out.printf("%s %s %s%n", order.getId(), order.getUserId(), order.getStatus());
+        }
+        return true;
     }
 
     public boolean update() {
