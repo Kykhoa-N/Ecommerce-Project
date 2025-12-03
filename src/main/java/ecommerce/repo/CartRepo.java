@@ -7,7 +7,7 @@ public class CartRepo {
 
     // FIELD
     private final List<Cart> repo = new ArrayList<>();
-    ;
+
 
     // REPO METHOD
     public boolean add(Cart cart) {
@@ -23,8 +23,7 @@ public class CartRepo {
         return false;
     }
 
-    //Get cart by index
-    public Cart get(String user_id) {
+    public Cart getCart(String user_id) {
         for (Cart cart : repo) {
             if (cart.getUserId().equals(user_id)) {
                 return cart;
