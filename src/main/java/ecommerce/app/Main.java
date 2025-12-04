@@ -50,6 +50,6 @@ public class Main {
         orderRepo.getAll().get(4).setStatus(OrderStatus.SHIPPED);
         orderRepo.getAll().get(0).setStatus(OrderStatus.DELIVERED);
 
-        System.out.println(order.viewAll());
+        System.out.println(order.viewAll(1));
     }
 }

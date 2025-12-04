@@ -16,15 +16,21 @@ public class OrderService {
     }
 
     // VIEW ORDERS IN CATALOG
-    public boolean viewAll() {
-        List<Order> copy = new ArrayList<>(repo.getAll());
-        copy.sort(Comparator.comparing(order -> order.getStatus().ordinal()));
+    public List<Order> viewAll(int view) {
 
-        System.out.println("- ORDER CATALOG -");
-        for(Order order: copy) {
-            System.out.printf("     %-15s %-15s %-15s%n", order.getStatus(), order.getId(), order.getTimestamp());
+        List<Order> catalog = repo.getAll();
+
+        if(view == 0) {
+            catalog.sort(Comparator.comparing(order -> order.getStatus().ordinal()));
         }
-        return true;
+        else if(view == 1) {
+            catalog.sort(Comparator.comparing(Order::getUserId));
+        }
+        else if (view == 2) {
+            catalog.sort(Comparator.comparing(Order::getTimestamp));
+        }
+
+        return catalog;
     }
 
     // UPDATE AN ORDER STATUS

@@ -98,14 +98,9 @@ public class ProductService {
             return cartRepo.remove(user.getId());
         }
     }
-    
-    /** Fix Checkout because the product_list is a Hashmap not a List
-     *  Fix Order History to use the getAll() to grab the information */
 
-    /*
     // ORDER HISTORY
-    public List<Order> orderHistory(String userId) {
-        return orders.getByUser(userId);
+    public List<Order> orderHistory(User user) {
+        return orderRepo.getHistory(user.getId());
     }
-     */
 }
