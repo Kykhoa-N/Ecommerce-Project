@@ -1,9 +1,6 @@
 package ecommerce.repo;
 
-import ecommerce.model.Order;
-import ecommerce.model.OrderStatus;
-import ecommerce.model.Product;
-
+import ecommerce.model.*;
 import java.util.*;
 
 public class OrderRepo {

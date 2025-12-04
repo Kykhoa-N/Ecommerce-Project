@@ -7,9 +7,7 @@ import ecommerce.repo.OrderRepo;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ProductService {
 
@@ -73,39 +71,36 @@ public class ProductService {
         return result;
     }
 
-    /** Fix Method Because of OrderRepo Class*/
+    /** Fix Checkout because the product_list is a Hashmap not a List
+     *  Fix Order History to use the getAll() to grab the information */
     /*
+    // CHECKOUT
     public boolean checkout(String userId, List<String> productNames) {
         if (productNames == null || productNames.isEmpty()) return false;
 
         double total = 0.0;
-        Map<String, Integer> productMap = new HashMap<>();
+        List<String> purchasedProducts = new ArrayList<>();
 
-        // Reduce quantities and build product map
         for (String name : productNames) {
             Product p = repo.getProduct(name);
             if (p == null || p.getQuantity() <= 0) return false;
 
+            // Reduce product quantity
             p.setQuantity(p.getQuantity() - 1);
             total += p.getPrice();
 
-            productMap.put(name, productMap.getOrDefault(name, 0) + 1);
+            // Track purchased products
+            purchasedProducts.add(name);
         }
 
-        // Create order with Map
-        Order order = new Order(userId, productMap, total);
+        // Create an order using the list of product names
+        Order order = new Order(userId, purchasedProducts, total);
         return orders.add(order);
     }
 
     // ORDER HISTORY
     public List<Order> orderHistory(String userId) {
-        List<Order> result = new ArrayList<>();
-        for (Order o : orders.getAll()) {
-            if (o.getUserId().equals(userId)) {
-                result.add(o);
-            }
-        }
-        return result;
+        return orders.getByUser(userId);
     }
      */
 }
