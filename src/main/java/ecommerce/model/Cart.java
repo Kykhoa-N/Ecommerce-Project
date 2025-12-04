@@ -8,13 +8,11 @@ public class Cart {
     // FIELD
     private final String user_id;
     private final Map<String, Integer> product_list;
-    private String address;
 
     // CONSTRUCTOR
     public Cart(String user_id) {
         this.user_id = user_id;
         this.product_list = new HashMap<>();
-        this.address = null;
     }
 
     // GETTER METHOD
@@ -24,15 +22,6 @@ public class Cart {
 
     public Map<String, Integer> getProductList() {
         return product_list;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    // SETTER METHOD
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     // UTILITY METHOD

@@ -1,34 +1,31 @@
 package ecommerce.service;
 
-import ecommerce.model.Product;
-import ecommerce.model.Order;
-import ecommerce.repo.ProductRepo;
-import ecommerce.repo.OrderRepo;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import ecommerce.model.*;
+import ecommerce.repo.*;
+import java.util.*;
 
 public class ProductService {
 
-    private final ProductRepo repo;
-    private final OrderRepo orders;
+    private final ProductRepo productRepo;
+    private final OrderRepo orderRepo;
+    private final CartRepo cartRepo;
 
-    public ProductService(ProductRepo repo, OrderRepo orders) {
-        this.repo = repo;
-        this.orders = orders;
+    public ProductService(ProductRepo productRepo, OrderRepo orderRepo, CartRepo cartRepo) {
+        this.productRepo = productRepo;
+        this.orderRepo = orderRepo;
+        this.cartRepo = cartRepo;
     }
 
     // ADD PRODUCT
     public boolean add(String name, String category, double price, int quantity) {
         if (name == null || category == null || price < 0 || quantity < 0) return false;
         Product p = new Product(name, category, price, quantity);
-        return repo.add(p);
+        return productRepo.add(p);
     }
 
     // UPDATE PRODUCT
     public boolean update(String name, String newCategory, Double newPrice, Integer newQty) {
-        Product p = repo.getProduct(name);
+        Product p = productRepo.getProduct(name);
         if (p == null) return false;
 
         if (newCategory != null) p.setCategory(newCategory);
@@ -40,30 +37,30 @@ public class ProductService {
 
     // REMOVE PRODUCT
     public boolean remove(String name) {
-        return repo.remove(name);
+        return productRepo.remove(name);
     }
 
     // SEARCH by name
     public Product search(String name) {
-        return repo.getProduct(name);
+        return productRepo.getProduct(name);
     }
 
     // SORT by price
     public List<Product> sortPrice() {
-        List<Product> list = new ArrayList<>(repo.getAll());
+        List<Product> list = new ArrayList<>(productRepo.getAll());
         list.sort(Comparator.comparingDouble(Product::getPrice));
         return list;
     }
 
     // VIEW ALL PRODUCTS
     public List<Product> viewAll() {
-        return new ArrayList<>(repo.getAll());
+        return new ArrayList<>(productRepo.getAll());
     }
 
     // FILTER products cheaper than given price
     public List<Product> filterPrice(double maxPrice) {
         List<Product> result = new ArrayList<>();
-        for (Product p : repo.getAll()) {
+        for (Product p : productRepo.getAll()) {
             if (p.getPrice() <= maxPrice) {
                 result.add(p);
             }
@@ -71,6 +68,36 @@ public class ProductService {
         return result;
     }
 
+    // CHECKOUT CLIENT CART
+    public boolean checkout(User user, String tax) {
+        Cart cart = cartRepo.getCart(user.getId());
+
+        if(cart == null || cart.getProductList().isEmpty()) {
+            return false;
+        }
+        else {
+            // calculate total price and reduce stock
+            double price = 0.00;
+
+            for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
+
+                Product product = productRepo.getProduct(item.getKey());
+
+                // add item price to total price
+                double item_price = product.getPrice();
+                price += item_price * item.getValue();
+
+                // reduce product quantity from stock
+                product.setQuantity(product.getQuantity()-item.getValue());
+            }
+            price *= (1 + (Double.parseDouble(tax)/100));
+
+            // creates order adds it to catalog and remove cart
+            Order order = new Order(user.getId(), cart.getProductList(), price);
+            orderRepo.add(order);
+            return cartRepo.remove(user.getId());
+        }
+    }
     /** Fix Checkout because the product_list is a Hashmap not a List
      *  Fix Order History to use the getAll() to grab the information */
     /*

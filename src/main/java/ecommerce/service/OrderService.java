@@ -29,6 +29,12 @@ public class OrderService {
 
     // UPDATE AN ORDER STATUS
     public boolean update(String order_id, OrderStatus status) {
-        return repo.update(order_id, status);
+        Order order =  repo.getOrder(order_id);
+        if(order == null) {
+            return false;
+        } {
+            order.setStatus(status);
+            return true;
+        }
     }
 }

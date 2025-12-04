@@ -13,16 +13,6 @@ public class OrderRepo {
         return repo.add(order);
     }
 
-    public boolean update(String id, OrderStatus status) {
-        for(Order order: repo) {
-            if(order.getId().equals(id)) {
-                order.setStatus(status);
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Order getOrder(String id) {
         for(Order order: repo) {
             if(order.getId().equals(id)){
