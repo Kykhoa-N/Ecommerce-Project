@@ -14,7 +14,7 @@ public class User {
         this.role = role;
     }
 
-    // GETTER METHODS
+    // GETTER METHOD
     public String getName() {
         return name;
     }

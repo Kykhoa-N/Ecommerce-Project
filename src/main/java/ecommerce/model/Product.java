@@ -2,7 +2,7 @@ package ecommerce.model;
 
 public class Product {
 
-    // FIELDS
+    // FIELD
     private final String id;
     private final String name;
     private String category;
