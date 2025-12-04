@@ -19,6 +19,7 @@ public class CartService {
         // ADD ITEM TO CART
     public boolean add(User user, String product, int quantity) {
         Cart cart = repo.getCart(user.getId());
+
         if(cart == null) {
             cart = new Cart(user.getId());
             repo.add(cart);
@@ -33,9 +34,9 @@ public class CartService {
     }
 
         // VIEW ITEMS OF CART
-    public List<List<String>> viewAll(User user) {
+    public List<CartItem> viewAll(User user) {
+        List<CartItem> cart_items = new ArrayList<>();
         Cart cart = repo.getCart(user.getId());
-        List<List<String>> cart_items = new ArrayList<>();
 
         if(cart == null) {
             cart = new Cart(user.getId());
@@ -43,7 +44,7 @@ public class CartService {
         }
 
         for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
-            cart_items.add(List.of(Integer.toString(item.getValue()), item.getKey()));
+            cart_items.add(new CartItem(item.getKey(), item.getValue()));
         }
         return cart_items;
     }
