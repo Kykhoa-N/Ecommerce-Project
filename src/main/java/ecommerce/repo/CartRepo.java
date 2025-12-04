@@ -31,7 +31,7 @@ public class CartRepo {
         return null;
     }
 
-    public List<Cart> getRepo() {
-        return repo;
+    public List<Cart> getAll() {
+        return new ArrayList<>(repo);
     }
 }

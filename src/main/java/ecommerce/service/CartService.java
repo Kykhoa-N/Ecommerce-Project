@@ -38,9 +38,9 @@ public class CartService {
             cart = new Cart(user.getId());
             repo.add(cart);
         }
-        System.out.printf("%s CART%n", user.getName().toUpperCase());
+        System.out.printf("- %s CART -%n", user.getName().toUpperCase());
         for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
-            System.out.printf(" %4d %s%n", item.getValue(), item.getKey());
+            System.out.printf("     %3d %s%n", item.getValue(), item.getKey());
         }
         return true;
     }

@@ -22,18 +22,34 @@ public class Main {
 
         auth.register("kyanh", "ktn5110", Role.ADMIN);
         auth.register("kykhoa", "kn1029928", Role.ADMIN);
-        auth.register("jacob", "kn1029928", Role.ADMIN);
-        auth.register("nicole","no1029928", Role.CLIENT);
+        auth.register("jacob", "ja213214", Role.ADMIN);
+        auth.register("nicole", "no1029928", Role.CLIENT);
 
-        User user = new User("nicole","no1029928", Role.CLIENT);
+        User user = new User("nicole", "no1029928", Role.CLIENT);
 
         cart.add(user, "apple", 40);
         cart.add(user, "oranges", 4);
         cart.add(user, "banana", 12);
-        //cart.remove(user, "apple", 10);
         cart.remove(user, "banana", 10);
-        //cart.remove(user, "oranges", 10);
 
-        System.out.println(cart.viewAll(user));
+        Cart cart1 = cartRepo.getAll().getFirst();
+
+        Order order1 = new Order(userRepo.getAll().getFirst().getId(), cart1.getProductList(), 35.00);
+        Order order2 = new Order(userRepo.getAll().get(1).getId(), cart1.getProductList(), 45.00);
+        Order order3 = new Order(userRepo.getAll().get(2).getId(), cart1.getProductList(), 15.00);
+        Order order4 = new Order(userRepo.getAll().get(3).getId(), cart1.getProductList(), 15.00);
+        Order order5 = new Order(userRepo.getAll().get(1).getId(), cart1.getProductList(), 15.00);
+        orderRepo.add(order1);
+        orderRepo.add(order2);
+        orderRepo.add(order3);
+        orderRepo.add(order4);
+        orderRepo.add(order5);
+
+
+        orderRepo.getAll().get(2).setStatus(OrderStatus.DELIVERED);
+        orderRepo.getAll().get(4).setStatus(OrderStatus.SHIPPED);
+        orderRepo.getAll().get(0).setStatus(OrderStatus.DELIVERED);
+
+        System.out.println(order.viewAll());
     }
 }

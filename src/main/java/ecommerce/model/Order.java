@@ -15,7 +15,7 @@ public class Order {
 
     // CONSTRUCTOR
     public Order(String user_id, Map<String, Integer> product_list, double total_price) {
-        this.id = user_id + " ID NUMBER AMOUNT";
+        this.id = user_id + "2";
         this.user_id = user_id;
         this.product_list = product_list;
         this.total_price = total_price;

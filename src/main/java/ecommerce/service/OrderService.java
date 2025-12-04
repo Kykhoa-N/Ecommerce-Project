@@ -3,6 +3,8 @@ package ecommerce.service;
 import ecommerce.model.*;
 import ecommerce.repo.*;
 
+import java.util.*;
+
 public class OrderService {
 
     private final OrderRepo repo;
@@ -13,8 +15,12 @@ public class OrderService {
 
     public boolean viewAll() {
 
-        for(Order order: repo.getAll()) {
-            System.out.printf("%s %s %s%n", order.getId(), order.getUserId(), order.getStatus());
+        List<Order> copy = new ArrayList<>(repo.getAll());
+        copy.sort(Comparator.comparing(order -> order.getStatus().ordinal()));
+
+        System.out.println("- ORDER CATALOG -");
+        for(Order order: copy) {
+            System.out.printf("     %-15s %-15s %-15s%n", order.getStatus(), order.getId(), order.getUserId());
         }
         return true;
     }
