@@ -10,6 +10,11 @@ public class OrderService {
     // FIELD
     private final OrderRepo repo;
 
+    // CONSTANT
+    private static final Comparator<Order> SORT_BY_STATUS = Comparator.comparing(order -> order.getStatus().ordinal());
+    private static final Comparator<Order> SORT_BY_USER = Comparator.comparing(Order::getUserId);
+    private static final Comparator<Order> Sort_BY_TIME = Comparator.comparing(Order::getTimestamp);
+
     // CONSTRUCTOR
     public OrderService(OrderRepo repo) {
         this.repo = repo;
@@ -17,19 +22,13 @@ public class OrderService {
 
     // VIEW ORDERS IN CATALOG
     public List<Order> viewAll(int view) {
-
         List<Order> catalog = repo.getAll();
 
-        if(view == 0) {
-            catalog.sort(Comparator.comparing(order -> order.getStatus().ordinal()));
+        switch(view) {
+            case 0 -> catalog.sort(SORT_BY_STATUS);
+            case 1 -> catalog.sort(SORT_BY_USER);
+            case 3 -> catalog.sort(Sort_BY_TIME);
         }
-        else if(view == 1) {
-            catalog.sort(Comparator.comparing(Order::getUserId));
-        }
-        else if (view == 2) {
-            catalog.sort(Comparator.comparing(Order::getTimestamp));
-        }
-
         return catalog;
     }
 
