@@ -14,7 +14,6 @@ public class OrderService {
     }
 
     public boolean viewAll() {
-
         List<Order> copy = new ArrayList<>(repo.getAll());
         copy.sort(Comparator.comparing(order -> order.getStatus().ordinal()));
 
@@ -25,7 +24,7 @@ public class OrderService {
         return true;
     }
 
-    public boolean update() {
-        return false;
+    public boolean update(String order_id, OrderStatus status) {
+        return repo.update(order_id, status);
     }
 }

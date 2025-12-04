@@ -1,6 +1,7 @@
 package ecommerce.repo;
 
 import ecommerce.model.Order;
+import ecommerce.model.OrderStatus;
 import ecommerce.model.Product;
 
 import java.util.*;
@@ -13,6 +14,25 @@ public class OrderRepo {
     // REPO METHOD
     public boolean add(Order order) {
         return repo.add(order);
+    }
+
+    public boolean update(String id, OrderStatus status) {
+        for(Order order: repo) {
+            if(order.getId().equals(id)) {
+                order.setStatus(status);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Order getOrder(String id) {
+        for(Order order: repo) {
+            if(order.getId().equals(id)){
+                return order;
+            }
+        }
+        return null;
     }
 
     public List<Order> getAll() {
