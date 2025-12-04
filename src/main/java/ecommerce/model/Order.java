@@ -14,8 +14,8 @@ public class Order {
     private OrderStatus status;
 
     // CONSTRUCTOR
-    public Order(String user_id, Map<String, Integer> product_list, double total_price) {
-        this.id = user_id + "2";
+    public Order(int id_number,String user_id, Map<String, Integer> product_list, double total_price) {
+        this.id = id_number + user_id;
         this.user_id = user_id;
         this.product_list = product_list;
         this.total_price = total_price;

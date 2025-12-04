@@ -76,11 +76,10 @@ public class ProductService {
             return false;
         }
         else {
-            // calculate total price and reduce stock
+            // total price
             double price = 0.00;
 
             for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
-
                 Product product = productRepo.getProduct(item.getKey());
 
                 // add item price to total price
@@ -90,41 +89,20 @@ public class ProductService {
                 // reduce product quantity from stock
                 product.setQuantity(product.getQuantity()-item.getValue());
             }
+            // calculate tax
             price *= (1 + (Double.parseDouble(tax)/100));
 
-            // creates order adds it to catalog and remove cart
-            Order order = new Order(user.getId(), cart.getProductList(), price);
+            // adds order to catalog and remove cart
+            Order order = new Order(orderRepo.getHistory(user.getId()).size() + 1, user.getId(), cart.getProductList(), price);
             orderRepo.add(order);
             return cartRepo.remove(user.getId());
         }
     }
+    
     /** Fix Checkout because the product_list is a Hashmap not a List
      *  Fix Order History to use the getAll() to grab the information */
+
     /*
-    // CHECKOUT
-    public boolean checkout(String userId, List<String> productNames) {
-        if (productNames == null || productNames.isEmpty()) return false;
-
-        double total = 0.0;
-        List<String> purchasedProducts = new ArrayList<>();
-
-        for (String name : productNames) {
-            Product p = repo.getProduct(name);
-            if (p == null || p.getQuantity() <= 0) return false;
-
-            // Reduce product quantity
-            p.setQuantity(p.getQuantity() - 1);
-            total += p.getPrice();
-
-            // Track purchased products
-            purchasedProducts.add(name);
-        }
-
-        // Create an order using the list of product names
-        Order order = new Order(userId, purchasedProducts, total);
-        return orders.add(order);
-    }
-
     // ORDER HISTORY
     public List<Order> orderHistory(String userId) {
         return orders.getByUser(userId);

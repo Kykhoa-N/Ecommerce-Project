@@ -22,7 +22,7 @@ public class OrderService {
 
         System.out.println("- ORDER CATALOG -");
         for(Order order: copy) {
-            System.out.printf("     %-15s %-15s %-15s%n", order.getStatus(), order.getId(), order.getUserId());
+            System.out.printf("     %-15s %-15s %-15s%n", order.getStatus(), order.getId(), order.getTimestamp());
         }
         return true;
     }

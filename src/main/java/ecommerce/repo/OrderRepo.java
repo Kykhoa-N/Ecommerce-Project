@@ -22,6 +22,16 @@ public class OrderRepo {
         return null;
     }
 
+    public List<Order> getHistory(String id) {
+        List<Order> history = new ArrayList<>();
+        for(Order order: repo) {
+            if(order.getUserId().equals(id)){
+                history.add(order);
+            }
+        }
+        return history;
+    }
+
     public List<Order> getAll() {
         return new ArrayList<>(repo);
     }

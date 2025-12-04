@@ -34,11 +34,11 @@ public class Main {
 
         Cart cart1 = cartRepo.getAll().getFirst();
 
-        Order order1 = new Order(userRepo.getAll().getFirst().getId(), cart1.getProductList(), 35.00);
-        Order order2 = new Order(userRepo.getAll().get(1).getId(), cart1.getProductList(), 45.00);
-        Order order3 = new Order(userRepo.getAll().get(2).getId(), cart1.getProductList(), 15.00);
-        Order order4 = new Order(userRepo.getAll().get(3).getId(), cart1.getProductList(), 15.00);
-        Order order5 = new Order(userRepo.getAll().get(1).getId(), cart1.getProductList(), 15.00);
+        Order order1 = new Order(1,userRepo.getAll().getFirst().getId(), cart1.getProductList(), 35.00);
+        Order order2 = new Order(2,userRepo.getAll().get(1).getId(), cart1.getProductList(), 45.00);
+        Order order3 = new Order(3, userRepo.getAll().get(2).getId(), cart1.getProductList(), 15.00);
+        Order order4 = new Order(4, userRepo.getAll().get(3).getId(), cart1.getProductList(), 15.00);
+        Order order5 = new Order(5, userRepo.getAll().get(1).getId(), cart1.getProductList(), 15.00);
         orderRepo.add(order1);
         orderRepo.add(order2);
         orderRepo.add(order3);
