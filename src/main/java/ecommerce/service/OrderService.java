@@ -20,7 +20,9 @@ public class OrderService {
         this.repo = repo;
     }
 
-    // VIEW ORDERS IN CATALOG
+    // METHOD
+
+        // VIEW ORDER CATALOG
     public List<Order> viewAll(int view) {
         List<Order> catalog = repo.getAll();
 
@@ -32,12 +34,14 @@ public class OrderService {
         return catalog;
     }
 
-    // UPDATE AN ORDER STATUS
+        // UPDATE AN ORDER STATUS
     public boolean update(String order_id, OrderStatus status) {
         Order order =  repo.getOrder(order_id);
+
         if(order == null) {
             return false;
-        } {
+        }
+        else {
             order.setStatus(status);
             return true;
         }
