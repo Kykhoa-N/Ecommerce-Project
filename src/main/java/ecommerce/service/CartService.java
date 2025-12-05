@@ -37,9 +37,9 @@ public class CartService {
     }
 
         // REMOVE ITEM FROM CART
-    public boolean remove(User user, String product, int quantity) {
+    public boolean remove(User user, String name, int quantity) {
         Cart cart = cartRepo.getCart(user.getId());
-        return cart.remove(product, quantity);
+        return cart.remove(name, quantity);
     }
 
         // VIEW CART CATALOG
