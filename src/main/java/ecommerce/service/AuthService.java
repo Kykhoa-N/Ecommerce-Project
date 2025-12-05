@@ -29,12 +29,12 @@ public class AuthService {
     }
 
         // LOGIN USER
-    public boolean login(String name, String id) {
+    public User login(String name, String id) {
         User user = repo.getUser(id);
-        if(user == null) {
-            return false;
+        if(user == null || !user.getName().equals(name)) {
+            return null;
         }
-        return user.getName().equals(name);
+        return user;
     }
 
         // VIEW USER CATALOG
