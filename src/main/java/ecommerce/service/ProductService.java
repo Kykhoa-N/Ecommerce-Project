@@ -6,21 +6,32 @@ import java.util.*;
 
 public class ProductService {
 
+    // FIELD
     private final ProductRepo productRepo;
     private final OrderRepo orderRepo;
     private final CartRepo cartRepo;
 
+    // CONSTANT
+    private static final Comparator<Product> SORT_BY_NAME = Comparator.comparing(Product::getName);
+    private static final Comparator<Product> SORT_BY_PRICE = Comparator.comparing(Product::getPrice);
+    private static final Comparator<Product> SORT_BY_CATEGORY = Comparator.comparing(Product::getCategory);
+
+    // CONSTRUCTOR
     public ProductService(ProductRepo productRepo, OrderRepo orderRepo, CartRepo cartRepo) {
         this.productRepo = productRepo;
         this.orderRepo = orderRepo;
         this.cartRepo = cartRepo;
     }
 
-    // ADD PRODUCT
+    // ADMIN METHOD
+
+        // ADD PRODUCT
     public boolean add(String name, String category, double price, int quantity) {
-        if (name == null || category == null || price < 0 || quantity < 0) return false;
-        Product p = new Product(name, category, price, quantity);
-        return productRepo.add(p);
+        // doesn't create product if wrong parameters or product already existed
+        if (name == null || category == null || price < 0 || quantity < 0 || !(productRepo.getProduct(name) == null)) {
+            return false;
+        }
+        return productRepo.add(new Product(name, category, price, quantity));
     }
 
     // UPDATE PRODUCT
@@ -35,26 +46,35 @@ public class ProductService {
         return true;
     }
 
-    // REMOVE PRODUCT
+        // REMOVE PRODUCT
     public boolean remove(String name) {
         return productRepo.remove(name);
     }
 
-    // SEARCH by name
+        // SEARCH FOR PRODUCT
     public Product search(String name) {
         return productRepo.getProduct(name);
     }
 
-    // SORT by price
+        // SORT PRICE
     public List<Product> sortPrice() {
-        List<Product> list = new ArrayList<>(productRepo.getAll());
-        list.sort(Comparator.comparingDouble(Product::getPrice));
-        return list;
+        List<Product> catalog = productRepo.getAll();
+        catalog.sort(SORT_BY_PRICE);
+        return catalog;
     }
 
-    // VIEW ALL PRODUCTS
+        // VIEW PRODUCT CATALOG
     public List<Product> viewAll() {
-        return new ArrayList<>(productRepo.getAll());
+        return productRepo.getAll();
+    }
+
+    // CLIENT METHOD
+
+        // VIEW STORE
+    public List<Product> viewAvailable() {
+        return productRepo.getAll().stream()
+                .filter(product -> product.getQuantity() > 0)
+                .toList();
     }
 
     // FILTER products cheaper than given price
@@ -68,7 +88,7 @@ public class ProductService {
         return result;
     }
 
-    // CHECKOUT CLIENT CART
+        // CHECKOUT CLIENT CART
     public boolean checkout(User user, String tax) {
         Cart cart = cartRepo.getCart(user.getId());
 
@@ -99,7 +119,7 @@ public class ProductService {
         }
     }
 
-    // ORDER HISTORY
+        // GET CLIENT ORDER HISTORY
     public List<Order> orderHistory(User user) {
         return orderRepo.getHistory(user.getId());
     }
