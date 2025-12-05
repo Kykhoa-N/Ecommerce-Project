@@ -53,7 +53,7 @@ public class CartService {
             cartRepo.add(cart);
         }
 
-        // convert hashmap to list for javafx display
+        // convert hashmap to list for display
         for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
             catalog.add(new CartItem(item.getKey(), item.getValue()));
         }

@@ -43,6 +43,8 @@ public class OrderService {
             case 0 -> catalog.sort(SORT_BY_STATUS);
             case 1 -> catalog.sort(SORT_BY_USER);
             case 3 -> catalog.sort(Sort_BY_TIME);
+            default -> {
+            }
         }
         return catalog;
     }

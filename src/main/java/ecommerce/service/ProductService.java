@@ -67,8 +67,16 @@ public class ProductService {
     }
 
         // VIEW PRODUCT CATALOG
-    public List<Product> viewAll() {
-        return productRepo.getAll();
+    public List<Product> viewAll(int view) {
+        List<Product> catalog = productRepo.getAll();
+
+        switch(view) {
+            case 0 -> catalog.sort(SORT_BY_CATEGORY);
+            case 1 -> catalog.sort(SORT_BY_NAME);
+            default -> {
+            }
+        }
+        return catalog;
     }
 
     // CLIENT METHOD

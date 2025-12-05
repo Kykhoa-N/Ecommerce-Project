@@ -46,6 +46,8 @@ public class AuthService {
         switch(view) {
             case 0 -> catalog.sort(SORT_BY_ID);
             case 1 -> catalog.sort(SORT_BY_ROLE);
+            default -> {
+            }
         }
         return catalog;
     }
