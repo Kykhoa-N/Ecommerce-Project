@@ -7,28 +7,28 @@ import java.util.*;
 public class AuthService {
 
     // FIELD
-    private final UserRepo repo;
+    private final UserRepo userRepo;
 
     // CONSTANT
     private static final Comparator<User> SORT_BY_ID = Comparator.comparing(User::getId);
     private static final Comparator<User> SORT_BY_ROLE = Comparator.comparing(user -> user.getRole().ordinal());
 
     // CONSTRUCTOR
-    public AuthService(UserRepo repo) {
-        this.repo = repo;
+    public AuthService(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
     // REGISTER USER
     public boolean register(String name, String id, Role role) {
-        if(repo.getUser(id) == null) {
-            return repo.add(new User(name, id, role));
+        if(userRepo.getUser(id) == null) {
+            return userRepo.add(new User(name, id, role));
         }
         return false;
     }
 
     // LOGIN USER
     public User login(String name, String id) {
-        User user = repo.getUser(id);
+        User user = userRepo.getUser(id);
 
         // if user doesn't exist or wrong name
         if(user == null || !user.getName().equals(name)) {
@@ -39,7 +39,7 @@ public class AuthService {
 
     // VIEW USER CATALOG
     public List<User> viewAll(int view) {
-        List<User> catalog = repo.getAll();
+        List<User> catalog = userRepo.getAll();
 
         switch(view) {
             case 0 -> catalog.sort(SORT_BY_ID);

@@ -7,27 +7,27 @@ import java.util.List;
 
 public class ReportService {
 
-    private final OrderRepo orders;
-    private final ProductRepo products;
+    private final OrderRepo orderRepo;
+    private final ProductRepo productRepo;
 
-    public ReportService(OrderRepo orders, ProductRepo products) {
-        this.orders = orders;
-        this.products = products;
+    public ReportService(OrderRepo orderRepo, ProductRepo productRepo) {
+        this.orderRepo = orderRepo;
+        this.productRepo = productRepo;
     }
 
     // Returns true if there are NO orders in the system.
     public boolean viewEmpty() {
-        return orders.getAll().isEmpty();
+        return orderRepo.getAll().isEmpty();
     }
 
     // Returns true if there is at least one order.
     public boolean viewOrders() {
-        return !orders.getAll().isEmpty();
+        return !orderRepo.getAll().isEmpty();
     }
 
     // Returns true if at least one product has been sold more than once.
     public boolean viewPopular() {
-        List<Order> allOrders = orders.getAll();
+        List<Order> allOrders = orderRepo.getAll();
 
         for (Order o1 : allOrders) {
             for (String productId : o1.getProductList().keySet()) {
@@ -53,7 +53,7 @@ public class ReportService {
     // Returns true if total revenue > 0.
     public boolean viewRevenue() {
         double total = 0.0;
-        for (Order o : orders.getAll()) {
+        for (Order o : orderRepo.getAll()) {
             total += o.getTotalPrice();
         }
         return total > 0.0;
