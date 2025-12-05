@@ -2,60 +2,63 @@ package ecommerce.service;
 
 import ecommerce.model.*;
 import ecommerce.repo.*;
-
-import java.util.List;
+import java.util.*;
 
 public class ReportService {
 
+    // FIELD
     private final OrderRepo orderRepo;
     private final ProductRepo productRepo;
 
+    // CONSTRUCTOR
     public ReportService(OrderRepo orderRepo, ProductRepo productRepo) {
         this.orderRepo = orderRepo;
         this.productRepo = productRepo;
     }
 
-    // Returns true if there are NO orders in the system.
-    public boolean viewEmpty() {
-        return orderRepo.getAll().isEmpty();
+    // VIEW EMPTY STOCKS
+    public List<Product> viewEmpty() {
+        return productRepo.getAll().stream()
+                .filter(product -> product.getQuantity() <= 0)
+                .toList();
     }
 
-    // Returns true if there is at least one order.
-    public boolean viewOrders() {
-        return !orderRepo.getAll().isEmpty();
+    // GET TOTAL ORDERS
+    public int totalOrder() {
+        return orderRepo.getAll().size();
     }
 
-    // Returns true if at least one product has been sold more than once.
-    public boolean viewPopular() {
-        List<Order> allOrders = orderRepo.getAll();
+    // GET FREQUENT ORDER
+    public Product getFrequent(User user) {
+        List<Order> catalog = orderRepo.getAll();
+        List<CartItem> frequent = new ArrayList<>();
+        Cart cart = new Cart(user.getId());
 
-        for (Order o1 : allOrders) {
-            for (String productId : o1.getProductList().keySet()) {
-                int totalQuantity = 0;
+        if(catalog.isEmpty()) return null;
 
-                // Count how many times this product appears in all orders
-                for (Order o2 : allOrders) {
-                    Integer qty = o2.getProductList().get(productId);
-                    if (qty != null) {
-                        totalQuantity += qty;
-                    }
-                }
-
-                if (totalQuantity > 1) {
-                    return true;
-                }
+        // count all orders product into cart
+        for(Order order: catalog) {
+            for(Map.Entry<String, Integer> item: order.getProductList().entrySet()) {
+                cart.add(item.getKey(), item.getValue());
             }
         }
 
-        return false;
+        // convert hashmap to list for display
+        for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
+            frequent.add(new CartItem(item.getKey(), item.getValue()));
+        }
+
+        if(frequent.isEmpty()) return null;
+
+        // return largest quantity
+        frequent.sort(Comparator.comparing(CartItem::getQuantity));
+        return productRepo.getProduct(frequent.getLast().getProduct());
     }
 
-    // Returns true if total revenue > 0.
-    public boolean viewRevenue() {
-        double total = 0.0;
-        for (Order o : orderRepo.getAll()) {
-            total += o.getTotalPrice();
-        }
-        return total > 0.0;
+    // CALCULATE REVENUE
+    public Double totalRevenue() {
+        return orderRepo.getAll().stream()
+                .mapToDouble(Order::getTotalPrice)
+                .sum();
     }
 }
