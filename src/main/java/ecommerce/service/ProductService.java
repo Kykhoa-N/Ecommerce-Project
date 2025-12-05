@@ -77,15 +77,12 @@ public class ProductService {
                 .toList();
     }
 
-    // FILTER products cheaper than given price
-    public List<Product> filterPrice(double maxPrice) {
-        List<Product> result = new ArrayList<>();
-        for (Product p : productRepo.getAll()) {
-            if (p.getPrice() <= maxPrice) {
-                result.add(p);
-            }
-        }
-        return result;
+        // FILTER PRICE BY BUDGET
+    public List<Product> filterPrice(double max_price) {
+        return productRepo.getAll().stream()
+                .filter(product -> product.getQuantity() > 0)
+                .filter(product -> product.getPrice() < max_price)
+                .toList();
     }
 
         // CHECKOUT CLIENT CART
