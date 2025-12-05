@@ -22,18 +22,6 @@ public class OrderService {
 
     // METHOD
 
-        // VIEW ORDER CATALOG
-    public List<Order> viewAll(int view) {
-        List<Order> catalog = repo.getAll();
-
-        switch(view) {
-            case 0 -> catalog.sort(SORT_BY_STATUS);
-            case 1 -> catalog.sort(SORT_BY_USER);
-            case 3 -> catalog.sort(Sort_BY_TIME);
-        }
-        return catalog;
-    }
-
         // UPDATE AN ORDER STATUS
     public boolean update(String order_id, OrderStatus status) {
         Order order =  repo.getOrder(order_id);
@@ -45,5 +33,17 @@ public class OrderService {
             order.setStatus(status);
             return true;
         }
+    }
+
+    // VIEW ORDER CATALOG
+    public List<Order> viewAll(int view) {
+        List<Order> catalog = repo.getAll();
+
+        switch(view) {
+            case 0 -> catalog.sort(SORT_BY_STATUS);
+            case 1 -> catalog.sort(SORT_BY_USER);
+            case 3 -> catalog.sort(Sort_BY_TIME);
+        }
+        return catalog;
     }
 }

@@ -33,9 +33,9 @@ public class CartService {
         return cart.remove(product, quantity);
     }
 
-        // VIEW ITEMS OF CART
+        // VIEW CART CATALOG
     public List<CartItem> viewAll(User user) {
-        List<CartItem> cart_items = new ArrayList<>();
+        List<CartItem> catalog = new ArrayList<>();
         Cart cart = repo.getCart(user.getId());
 
         if(cart == null) {
@@ -44,8 +44,8 @@ public class CartService {
         }
 
         for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
-            cart_items.add(new CartItem(item.getKey(), item.getValue()));
+            catalog.add(new CartItem(item.getKey(), item.getValue()));
         }
-        return cart_items;
+        return catalog;
     }
 }

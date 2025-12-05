@@ -2,15 +2,25 @@ package ecommerce.service;
 
 import ecommerce.model.*;
 import ecommerce.repo.*;
+import java.util.*;
 
 public class AuthService {
 
+    // FIELD
     private final UserRepo repo;
 
+    // CONSTANT
+    private static final Comparator<User> SORT_BY_ID = Comparator.comparing(User::getId);
+    private static final Comparator<User> SORT_BY_ROLE = Comparator.comparing(user -> user.getRole().ordinal());
+
+    // CONSTRUCTOR
     public AuthService(UserRepo repo) {
         this.repo = repo;
     }
 
+    // METHOD
+
+        // REGISTER USER
     public boolean register(String name, String id, Role role) {
         if(repo.getUser(id) == null) {
             return repo.add(new User(name, id, role));
@@ -18,6 +28,7 @@ public class AuthService {
         return false;
     }
 
+        // LOGIN USER
     public boolean login(String name, String id) {
         User user = repo.getUser(id);
         if(user == null) {
@@ -26,13 +37,15 @@ public class AuthService {
         return user.getName().equals(name);
     }
 
+        // VIEW USER CATALOG
+    public List<User> viewAll(int view) {
+        List<User> catalog = repo.getAll();
 
-    public void getAll() {
-        System.out.println("_______________ ACCOUNTS _______________");
-        System.out.printf("%-16s %-16s %-8s%n", "USER", "USER", "ROLE");
-        for(User user: repo.getAll()) {
-            System.out.printf("%-16s %-16s %-8s%n", user.getName(), user.getId(), user.getRole());
+        switch(view) {
+            case 0 -> catalog.sort(SORT_BY_ID);
+            case 1 -> catalog.sort(SORT_BY_ROLE);
         }
+        return catalog;
     }
 
 }
