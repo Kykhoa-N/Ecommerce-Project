@@ -34,14 +34,17 @@ public class ProductService {
         return productRepo.add(new Product(name, category, price, quantity));
     }
 
-    // UPDATE PRODUCT
-    public boolean update(String name, String newCategory, Double newPrice, Integer newQty) {
-        Product p = productRepo.getProduct(name);
-        if (p == null) return false;
+        // UPDATE PRODUCT
+    public boolean update(String name, String new_category, Double new_price, Integer new_quantity) {
+        Product product = productRepo.getProduct(name);
 
-        if (newCategory != null) p.setCategory(newCategory);
-        if (newPrice != null && newPrice >= 0) p.setPrice(newPrice);
-        if (newQty != null && newQty >= 0) p.setQuantity(newQty);
+        // doesn't update unavailable product
+        if (product == null) return false;
+
+        // update chosen information
+        if (new_category != null) product.setCategory(new_category);
+        if (new_price != null && new_price >= 0) product.setPrice(new_price);
+        if (new_quantity != null && new_quantity >= 0) product.setQuantity(new_quantity);
 
         return true;
     }
