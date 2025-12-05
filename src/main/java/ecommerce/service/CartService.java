@@ -19,6 +19,11 @@ public class CartService {
 
     // ADD ITEM TO CART
     public boolean add(User user, String name, int quantity) {
+
+        // PERMISSION
+        if(user.getRole() == Role.ADMIN) return false;
+
+        // local field
         Cart cart = cartRepo.getCart(user.getId());
         Product product = productRepo.getProduct(name);
 
@@ -28,7 +33,7 @@ public class CartService {
             cartRepo.add(cart);
         }
 
-        // doesn't add if product doesn't exist or quantity is more than stock
+        // Don't Add If: Product Non-Exist or Not Enough Stock
         if(product == null || product.getQuantity() < quantity) {
             return false;
         }
@@ -37,12 +42,21 @@ public class CartService {
 
     // REMOVE ITEM FROM CART
     public boolean remove(User user, String name, int quantity) {
+
+        // PERMISSION
+        if(user.getRole() == Role.ADMIN) return false;
+
         Cart cart = cartRepo.getCart(user.getId());
         return cart.remove(name, quantity);
     }
 
     // VIEW CART CATALOG
     public List<CartItem> viewAll(User user) {
+
+        // PERMISSION
+        if(user.getRole() == Role.ADMIN) return null;
+
+        // local field
         List<CartItem> catalog = new ArrayList<>();
         Cart cart = cartRepo.getCart(user.getId());
 
