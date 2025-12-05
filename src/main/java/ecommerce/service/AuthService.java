@@ -31,6 +31,8 @@ public class AuthService {
         // LOGIN USER
     public User login(String name, String id) {
         User user = repo.getUser(id);
+
+        // if user doesn't exist or wrong name
         if(user == null || !user.getName().equals(name)) {
             return null;
         }

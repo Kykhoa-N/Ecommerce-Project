@@ -18,7 +18,7 @@ public class Main {
         ProductRepo productRepo = new ProductRepo();
 
         AuthService auth = new AuthService(userRepo);
-        CartService cart = new CartService(cartRepo);
+        CartService cart = new CartService(cartRepo, productRepo);
         OrderService order = new OrderService(orderRepo);
         ProductService prod = new ProductService(productRepo, orderRepo, cartRepo);
 
