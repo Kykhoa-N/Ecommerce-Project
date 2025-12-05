@@ -19,14 +19,21 @@ public class CartService {
     // METHOD
 
         // ADD ITEM TO CART
-    public boolean add(User user, String product, int quantity) {
+    public boolean add(User user, String name, int quantity) {
         Cart cart = cartRepo.getCart(user.getId());
+        Product product = productRepo.getProduct(name);
 
+        // create cart if user don't have
         if(cart == null) {
             cart = new Cart(user.getId());
             cartRepo.add(cart);
         }
-        return cart.add(product, quantity);
+
+        // doesn't add if product doesn't exist or quantity is more than stock
+        if(product == null || product.getQuantity() < quantity) {
+            return false;
+        }
+        return cart.add(name, quantity);
     }
 
         // REMOVE ITEM FROM CART
@@ -40,11 +47,13 @@ public class CartService {
         List<CartItem> catalog = new ArrayList<>();
         Cart cart = cartRepo.getCart(user.getId());
 
+        // create cart if user don't have
         if(cart == null) {
             cart = new Cart(user.getId());
             cartRepo.add(cart);
         }
 
+        // convert hashmap to list for javafx display
         for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
             catalog.add(new CartItem(item.getKey(), item.getValue()));
         }
