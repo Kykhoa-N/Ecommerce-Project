@@ -31,7 +31,6 @@ public class ReportService {
     // GET FREQUENT ORDER
     public Product getFrequent(User user) {
         List<Order> catalog = orderRepo.getAll();
-        List<CartItem> frequent = new ArrayList<>();
         Cart cart = new Cart(user.getId());
 
         if(catalog.isEmpty()) return null;
@@ -43,16 +42,13 @@ public class ReportService {
             }
         }
 
-        // convert hashmap to list for display
-        for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
-            frequent.add(new CartItem(item.getKey(), item.getValue()));
-        }
+        // grab product with the largest quantity
+        String frequent = cart.getProductList().entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
 
-        if(frequent.isEmpty()) return null;
-
-        // return largest quantity
-        frequent.sort(Comparator.comparing(CartItem::getQuantity));
-        return productRepo.getProduct(frequent.getLast().getProduct());
+        return productRepo.getProduct(frequent);
     }
 
     // CALCULATE REVENUE
