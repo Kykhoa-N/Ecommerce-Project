@@ -16,9 +16,8 @@ public class CartService {
         this.productRepo = productRepo;
     }
 
-    // METHOD
 
-        // ADD ITEM TO CART
+    // ADD ITEM TO CART
     public boolean add(User user, String name, int quantity) {
         Cart cart = cartRepo.getCart(user.getId());
         Product product = productRepo.getProduct(name);
@@ -36,13 +35,13 @@ public class CartService {
         return cart.add(name, quantity);
     }
 
-        // REMOVE ITEM FROM CART
+    // REMOVE ITEM FROM CART
     public boolean remove(User user, String name, int quantity) {
         Cart cart = cartRepo.getCart(user.getId());
         return cart.remove(name, quantity);
     }
 
-        // VIEW CART CATALOG
+    // VIEW CART CATALOG
     public List<CartItem> viewAll(User user) {
         List<CartItem> catalog = new ArrayList<>();
         Cart cart = cartRepo.getCart(user.getId());

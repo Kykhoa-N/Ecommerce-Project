@@ -23,9 +23,7 @@ public class ProductService {
         this.cartRepo = cartRepo;
     }
 
-    // ADMIN METHOD
-
-        // ADD PRODUCT
+    // ADD PRODUCT
     public boolean add(String name, String category, double price, int quantity) {
         // doesn't create product if wrong parameters or product already existed
         if (name == null || category == null || price < 0 || quantity < 0 || !(productRepo.getProduct(name) == null)) {
@@ -34,7 +32,7 @@ public class ProductService {
         return productRepo.add(new Product(name, category, price, quantity));
     }
 
-        // UPDATE PRODUCT
+    // UPDATE PRODUCT
     public boolean update(String name, String new_category, Double new_price, Integer new_quantity) {
         Product product = productRepo.getProduct(name);
 
@@ -49,24 +47,24 @@ public class ProductService {
         return true;
     }
 
-        // REMOVE PRODUCT
+    // REMOVE PRODUCT
     public boolean remove(String name) {
         return productRepo.remove(name);
     }
 
-        // SEARCH FOR PRODUCT
+    // SEARCH FOR PRODUCT
     public Product search(String name) {
         return productRepo.getProduct(name);
     }
 
-        // SORT PRICE
+    // SORT PRICE
     public List<Product> sortPrice() {
         List<Product> catalog = productRepo.getAll();
         catalog.sort(SORT_BY_PRICE);
         return catalog;
     }
 
-        // VIEW PRODUCT CATALOG
+    // VIEW PRODUCT CATALOG
     public List<Product> viewAll(int view) {
         List<Product> catalog = productRepo.getAll();
 
@@ -79,16 +77,14 @@ public class ProductService {
         return catalog;
     }
 
-    // CLIENT METHOD
-
-        // VIEW STORE
+    // VIEW STORE
     public List<Product> viewAvailable() {
         return productRepo.getAll().stream()
                 .filter(product -> product.getQuantity() > 0)
                 .toList();
     }
 
-        // FILTER PRICE BY BUDGET
+    // FILTER PRICE BY BUDGET
     public List<Product> filterPrice(double max_price) {
         return productRepo.getAll().stream()
                 .filter(product -> product.getQuantity() > 0)
@@ -96,7 +92,7 @@ public class ProductService {
                 .toList();
     }
 
-        // CHECKOUT CLIENT CART
+    // CHECKOUT CLIENT CART
     public boolean checkout(User user, String tax) {
         Cart cart = cartRepo.getCart(user.getId());
 
@@ -127,7 +123,7 @@ public class ProductService {
         }
     }
 
-        // GET CLIENT ORDER HISTORY
+    // GET CLIENT ORDER HISTORY
     public List<Order> orderHistory(User user) {
         return orderRepo.getHistory(user.getId());
     }

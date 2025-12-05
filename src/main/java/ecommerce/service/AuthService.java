@@ -18,9 +18,7 @@ public class AuthService {
         this.repo = repo;
     }
 
-    // METHOD
-
-        // REGISTER USER
+    // REGISTER USER
     public boolean register(String name, String id, Role role) {
         if(repo.getUser(id) == null) {
             return repo.add(new User(name, id, role));
@@ -28,7 +26,7 @@ public class AuthService {
         return false;
     }
 
-        // LOGIN USER
+    // LOGIN USER
     public User login(String name, String id) {
         User user = repo.getUser(id);
 
@@ -39,7 +37,7 @@ public class AuthService {
         return user;
     }
 
-        // VIEW USER CATALOG
+    // VIEW USER CATALOG
     public List<User> viewAll(int view) {
         List<User> catalog = repo.getAll();
 

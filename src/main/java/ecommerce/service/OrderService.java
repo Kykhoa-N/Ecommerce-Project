@@ -20,9 +20,7 @@ public class OrderService {
         this.repo = repo;
     }
 
-    // METHOD
-
-        // UPDATE AN ORDER STATUS
+    // UPDATE AN ORDER STATUS
     public boolean update(String order_id, OrderStatus status) {
         Order order =  repo.getOrder(order_id);
 
