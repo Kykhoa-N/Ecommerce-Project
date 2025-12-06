@@ -52,6 +52,7 @@ public class CartService {
 
     // VIEW CART CATALOG
     public List<CartItem> viewAll(User user) {
+
         // PERMISSION
         if(user.getRole() == Role.ADMIN) return null;
 
@@ -65,7 +66,6 @@ public class CartService {
             cartRepo.add(cart);
         }
 
-        System.out.println(cart.getProductList());
         // convert hashmap to list for display
         for(Map.Entry<String, Integer> item: cart.getProductList().entrySet()) {
             catalog.add(new CartItem(item.getKey(), item.getValue()));

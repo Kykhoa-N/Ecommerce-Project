@@ -17,19 +17,34 @@ public class ReportService {
     }
 
     // VIEW EMPTY STOCKS
-    public List<Product> viewEmpty() {
+    public List<Product> viewEmpty(User user) {
+
+        // PERMISSION
+        if(user.getRole() == Role.CLIENT) return null;
+
+        // filter only empty stocks
         return productRepo.getAll().stream()
                 .filter(product -> product.getQuantity() <= 0)
                 .toList();
     }
 
     // GET TOTAL ORDERS
-    public int totalOrder() {
+    public int totalOrder(User user) {
+
+        // PERMISSION
+        if(user.getRole() == Role.CLIENT) return -1;
+
+        // count orders place
         return orderRepo.getAll().size();
     }
 
     // GET FREQUENT ORDER
     public Product getFrequent(User user) {
+
+        // PERMISSION
+        if(user.getRole() == Role.CLIENT) return null;
+
+        // local field
         List<Order> catalog = orderRepo.getAll();
         Cart cart = new Cart(user.getId());
 
@@ -47,12 +62,16 @@ public class ReportService {
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse(null);
-
         return productRepo.getProduct(frequent);
     }
 
     // CALCULATE REVENUE
-    public Double totalRevenue() {
+    public Double totalRevenue(User user) {
+
+        // PERMISSION
+        if(user.getRole() == Role.CLIENT) return -1.0;
+
+        // sum all the orders total price
         return orderRepo.getAll().stream()
                 .mapToDouble(Order::getTotalPrice)
                 .sum();
