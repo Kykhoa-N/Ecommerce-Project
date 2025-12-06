@@ -142,7 +142,7 @@ public class ProductService {
         // local field
         Cart cart = cartRepo.getCart(user.getId());
 
-        // cannot checkout an unavailable cart or an empty cart
+        // prohibit checkout of an unavailable cart or an empty cart
         if(cart == null || cart.getProductList().isEmpty()) {
             return false;
         }
