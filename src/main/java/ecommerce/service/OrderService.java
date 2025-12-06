@@ -21,7 +21,11 @@ public class OrderService {
     }
 
     // UPDATE AN ORDER STATUS
-    public boolean update(String order_id, OrderStatus status) {
+    public boolean update(User user, String order_id, OrderStatus status) {
+
+        // PERMISSION
+        if(user.getRole() == Role.CLIENT) return false;
+
         Order order =  orderRepo.getOrder(order_id);
 
         if(order == null) {
@@ -34,9 +38,15 @@ public class OrderService {
     }
 
     // VIEW ORDER CATALOG
-    public List<Order> viewAll(int view) {
+    public List<Order> viewAll(User user, int view) {
+
+        // PERMISSION
+        if(user.getRole() == Role.CLIENT) return null;
+
+        // local field
         List<Order> catalog = orderRepo.getAll();
 
+        // choose view
         switch(view) {
             case 0 -> catalog.sort(SORT_BY_STATUS);
             case 1 -> catalog.sort(SORT_BY_USER);

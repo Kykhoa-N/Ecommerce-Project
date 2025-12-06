@@ -22,24 +22,25 @@ public class Main {
         OrderService order = new OrderService(orderRepo);
         ProductService prod = new ProductService(productRepo, orderRepo, cartRepo);
 
-        auth.register("kyanh", "ktn5110", Role.ADMIN);
-        auth.register("kykhoa", "kn1029928", Role.ADMIN);
+        auth.register("kyanh", "ktn5110", Role.CLIENT);
+        auth.register("kykhoa", "kn1029928", Role.CLIENT);
         auth.register("jacob", "ja213214", Role.ADMIN);
         auth.register("nicole", "no1029928", Role.CLIENT);
 
-        User user = new User("nicole", "no1029928", Role.CLIENT);
+        User user1 = userRepo.getUser(userRepo.getAll().get(1).getId());
+        User user2 = userRepo.getUser(userRepo.getAll().get(2).getId());
 
-        cart.add(user, "apple", 40);
-        cart.add(user, "oranges", 4);
-        cart.add(user, "banana", 12);
-        cart.remove(user, "banana", 10);
+
+        cart.add(user1, "apple", 40);
+        cart.add(user1, "oranges", 4);
+        cart.add(user1, "banana", 12);
+        cart.remove(user1, "banana", 10);
 
         Cart cart1 = cartRepo.getAll().getFirst();
 
 
-
-        Order order1 = new Order(1,userRepo.getAll().getFirst().getId(), cart1.getProductList(), 35.00);
-        Order order2 = new Order(2,userRepo.getAll().get(1).getId(), cart1.getProductList(), 45.00);
+        Order order1 = new Order(1, userRepo.getAll().get(0).getId(), cart1.getProductList(), 35.00);
+        Order order2 = new Order(2, userRepo.getAll().get(1).getId(), cart1.getProductList(), 45.00);
         Order order3 = new Order(3, userRepo.getAll().get(2).getId(), cart1.getProductList(), 15.00);
         Order order4 = new Order(4, userRepo.getAll().get(3).getId(), cart1.getProductList(), 15.00);
         Order order5 = new Order(5, userRepo.getAll().get(1).getId(), cart1.getProductList(), 15.00);
@@ -49,10 +50,13 @@ public class Main {
         orderRepo.add(order4);
         orderRepo.add(order5);
 
-        order.update(order3.getId(), OrderStatus.DELIVERED);
+        order.update(user2, order3.getId(), OrderStatus.DELIVERED);
 
-        for(CartItem c: cart.viewAll(user)) {
-            System.out.printf("%-15s %-15s%n", c.getQuantity(), c.getProduct());
+        System.out.println(order.viewAll(user1, 0));
+
+        for(Order c: order.viewAll(user2, 0)) {
+            System.out.printf("%-15s %-15s%n", c.getStatus(), c.getId());
         }
+
     }
 }
