@@ -38,9 +38,15 @@ public class AuthService {
     }
 
     // VIEW USER CATALOG
-    public List<User> viewAll(int view) {
+    public List<User> viewAll(User user, int view) {
+
+        // PERMISSION
+        if(user.getRole() == Role.CLIENT) return null;
+
+        // local field
         List<User> catalog = userRepo.getAll();
 
+        // choose view
         switch(view) {
             case 0 -> catalog.sort(SORT_BY_ID);
             case 1 -> catalog.sort(SORT_BY_ROLE);

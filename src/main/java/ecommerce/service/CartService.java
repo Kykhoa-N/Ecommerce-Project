@@ -46,6 +46,7 @@ public class CartService {
         // PERMISSION
         if(user.getRole() == Role.ADMIN) return false;
 
+        // remove item from user cart
         Cart cart = cartRepo.getCart(user.getId());
         return cart.remove(name, quantity);
     }
