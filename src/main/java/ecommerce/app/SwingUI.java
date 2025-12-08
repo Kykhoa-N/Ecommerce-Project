@@ -26,7 +26,18 @@ public class SwingUI extends JFrame{
     }
 
     public void addLoginPanel() {
-        RoundedPanel loginPanel = UITools.createRoundPanel(20,Theme.PANEL,350, 480);
+        RoundedPanel loginPanel = UITools.createRoundPanel(20,Theme.PANEL,380, 480);
+        loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS));
+
+        JLabel title = UITools.createLabel("LOGIN",25,  Theme.TEXT, true);
+        loginPanel.add(UITools.orientLabel(title, SwingConstants.RIGHT, 50,0,0,0));
+
+
+        //JLabel name = UITools.createLabel("Name", 15, Theme.TEXT, false);
+        //loginPanel.add(UITools.orientLabel(name, SwingConstants.CENTER, 0,0,0,0));
+
+
+
         add(loginPanel);
     }
 
