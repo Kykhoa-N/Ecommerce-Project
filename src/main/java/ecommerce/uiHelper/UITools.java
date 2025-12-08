@@ -67,4 +67,9 @@ public class UITools {
         }
     }
 
+    public static JTextField createField() {
+        JTextField field = new JTextField();
+        return field;
+    }
+
 }
