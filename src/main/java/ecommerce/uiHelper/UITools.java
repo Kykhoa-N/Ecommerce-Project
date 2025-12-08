@@ -13,8 +13,8 @@ public class UITools {
         return panel;
     }
 
-    public static RoundedControl createRoundField(int radius, int width, int height) {
-        RoundedControl field = new RoundedControl(RoundedControl.Type.TEXT_FIELD, radius);
+    public static RoundedControl createRoundField(RoundedControl.Type type, int radius, int width, int height) {
+        RoundedControl field = new RoundedControl(type, radius);
         field.setMaximumSize(new Dimension(width, height));
         return field;
     }

@@ -60,12 +60,12 @@ public class SwingUI extends JFrame{
         // ADD NAME FIELD TO FORM
         JLabel username = UITools.createLabel( "Username",15,true);
         UITools.orientLabel(USERNAME_LABEL, username, Align.LEFT, 20, 0, 0, 0);
-        RoundedControl user_input = UITools.createRoundField(15, Integer.MAX_VALUE, 50);
+        RoundedControl user_input = UITools.createRoundField(RoundedControl.Type.TEXT_FIELD,15, Integer.MAX_VALUE, 50);
 
         // ADD PASS FIELD TO FORM
         JLabel password = UITools.createLabel( "Password",15,true);
         UITools.orientLabel(PASSWORD_LABEL, password, Align.LEFT, 20, 0, 0, 0);
-        RoundedControl pass_input = UITools.createRoundField(15, Integer.MAX_VALUE, 50);
+        RoundedControl pass_input = UITools.createRoundField(RoundedControl.Type.PASSWORD_FIELD, 15, Integer.MAX_VALUE, 50);
 
         // ADD BUTTON
         RoundedControl button = new RoundedControl(RoundedControl.Type.BUTTON, 15, "LOGIN", 15);
