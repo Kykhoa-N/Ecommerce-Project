@@ -26,19 +26,37 @@ public class SwingUI extends JFrame{
     }
 
     public void addLoginPanel() {
+
+        // CREATE LOGIN PANEL
         RoundedPanel loginPanel = UITools.createRoundPanel(20,Theme.PANEL,380, 480);
-        loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS));
+        loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
 
-        JLabel title = UITools.createLabel("LOGIN",25,  Theme.TEXT, true);
-        loginPanel.add(UITools.orientLabel(title, SwingConstants.RIGHT, 50,0,0,0));
+        // CREATE SECTIONS
+        JPanel HEADER = UITools.createXContainer(100);
+        JPanel FORM = UITools.createYContainer(Integer.MAX_VALUE);
+
+        // ADD TITLE TO HEADER
+        JLabel title = UITools.createLabel( "LOGIN",25,true);
+        UITools.orientLabel(HEADER, title, Align.CENTER, 0, 0, 0, 0);
+
+        // ADD NAME FIELD TO FORM
+        JLabel name = UITools.createLabel( "Name",15,true);
+        UITools.orientLabel(FORM, name, Align.LEFT, 0, 15, 0, 50);
+
+        Debug.colorPanel(HEADER, Color.GREEN);
+
+        // ADD TO LOGIN PANEL
+        loginPanel.add(HEADER);
+        loginPanel.add(FORM);
 
 
-        //JLabel name = UITools.createLabel("Name", 15, Theme.TEXT, false);
-        //loginPanel.add(UITools.orientLabel(name, SwingConstants.CENTER, 0,0,0,0));
+        // ADD TO SYSTEM
 
+        // ADD OUTER PANEL TO SCREEN
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.CENTER;
 
-
-        add(loginPanel);
+        add(loginPanel, gbc);
     }
 
 

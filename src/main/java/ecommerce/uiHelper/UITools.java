@@ -1,6 +1,5 @@
 package ecommerce.uiHelper;
 
-import ecommerce.uiHelper.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,39 +10,61 @@ public class UITools {
         panel.setBackground(rgb);
         panel.setPreferredSize(new Dimension(width, height));
         panel.setShadow(15, new Color(0,0,0,1));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         return panel;
     }
 
-    public static JLabel createLabel(String text, int size, Color color, boolean bold) {
+    public static JPanel createXContainer(int height) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setPreferredSize(new Dimension(Integer.MAX_VALUE, height));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
+        panel.setMinimumSize(new Dimension(Integer.MAX_VALUE, height));
+        return panel;
+    }
+
+    public static JPanel createYContainer(int height) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
+
+
+        return panel;
+    }
+
+    public static JLabel createLabel(String text, int size, boolean bold) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Segoe UI", bold ? Font.BOLD : Font.PLAIN, size));
-        label.setForeground(color);
+        label.setForeground(Theme.TEXT);
         return label;
     }
 
-    public static JLabel orientLabel(JLabel label, int alignment, int top, int left, int bottom, int right) {
-        label.setHorizontalAlignment(alignment);
+    public static void orientLabel(JPanel panel, JLabel label, int align, int top, int left, int bottom, int right) {
         label.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
 
-        /*
-        // stretch so alignment + text alignment matter
-        label.setMaximumSize(
-                new Dimension(Integer.MAX_VALUE, label.getPreferredSize().height)
-        );
-
-        // control TEXT alignment inside the label
-        if (alignment == Component.CENTER_ALIGNMENT) {
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-        } else if (alignment == Component.LEFT_ALIGNMENT) {
-            label.setHorizontalAlignment(SwingConstants.LEFT);
-        } else if (alignment == Component.RIGHT_ALIGNMENT) {
-            label.setHorizontalAlignment(SwingConstants.RIGHT);
+        if(align == Align.LEFT) {
+            label.setAlignmentX(Component.LEFT_ALIGNMENT);
+            panel.add(label);
+            panel.add(Box.createHorizontalGlue());
         }
-
-
-         */
-        return label;
+        else if(align == Align.RIGHT) {
+            label.setAlignmentX(Component.RIGHT_ALIGNMENT);
+            panel.add(Box.createHorizontalGlue());
+            panel.add(label);
+        }
+        else {
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(Box.createHorizontalGlue());
+            panel.add(label);
+            panel.add(Box.createHorizontalGlue());
+        }
     }
 
 }
