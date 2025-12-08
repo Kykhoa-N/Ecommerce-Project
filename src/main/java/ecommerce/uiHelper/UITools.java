@@ -19,25 +19,25 @@ public class UITools {
         return field;
     }
 
-    public static JPanel createXContainer(int height) {
+    public static JPanel createXContainer(int width, int height) {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.setPreferredSize(new Dimension(Integer.MAX_VALUE, height));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
-        panel.setMinimumSize(new Dimension(Integer.MAX_VALUE, height));
+        panel.setPreferredSize(new Dimension(width, height));
+        panel.setMaximumSize(new Dimension(width, height));
+        panel.setMinimumSize(new Dimension(width, height));
         return panel;
     }
 
-    public static JPanel createYContainer(int height) {
+    public static JPanel createYContainer(int width, int height) {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
+        panel.setMaximumSize(new Dimension(width, height));
 
 
         return panel;
