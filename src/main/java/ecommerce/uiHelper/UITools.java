@@ -5,18 +5,61 @@ import java.awt.*;
 
 public class UITools {
 
-    public static RoundedControl createRoundPanel(int radius, Color rgb, int width, int height) {
-        RoundedControl panel = new RoundedControl(RoundedControl.Type.CONTAINER, radius);
+    public static RoundedControl createRoundPanel(Color rgb, int width, int height, int padding) {
+        RoundedControl panel = new RoundedControl(ObjectType.PANEL);
+
         panel.setBackground(rgb);
         panel.setPreferredSize(new Dimension(width, height));
+        panel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         panel.setBorderColor(new Color(0,0,0,0));
         return panel;
     }
 
-    public static RoundedControl createRoundField(RoundedControl.Type type, int radius, int width, int height) {
-        RoundedControl field = new RoundedControl(type, radius);
+    public static RoundedControl createRoundField(JPanel panel, ObjectType objectType, int width, int height) {
+        RoundedControl field = new RoundedControl(objectType);
         field.setMaximumSize(new Dimension(width, height));
+        panel.setOpaque(true);
+        panel.setBackground(new Color(255,225,255, 0));
+        panel.add(field);
         return field;
+    }
+
+    public static RoundedControl createRoundButton(JPanel panel, ObjectType objectType, int width, int height, String text, int text_height) {
+        RoundedControl button = new RoundedControl(objectType, text, text_height);
+        button.setControlSize(width, height);
+
+        button.setNormalTextColor(Color.WHITE);
+        button.setHoverTextColor(Color.WHITE);
+        button.setNormalBackgroundColor(new Color(50, 120, 255));
+        button.setHoverBackgroundColor(new Color(39, 104, 230));
+        panel.add(button);
+
+        return button;
+    }
+
+    public static JLabel createLabel(JPanel panel, String text, int size, boolean bold, int align) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Segoe UI", bold ? Font.BOLD : Font.PLAIN, size));
+        label.setForeground(Theme.TEXT);
+
+
+        if(align == Align.LEFT) {
+            label.setAlignmentX(Component.LEFT_ALIGNMENT);
+            panel.add(label);
+            panel.add(Box.createHorizontalGlue());
+        }
+        else if(align == Align.RIGHT) {
+            label.setAlignmentX(Component.RIGHT_ALIGNMENT);
+            panel.add(Box.createHorizontalGlue());
+            panel.add(label);
+        }
+        else {
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(Box.createHorizontalGlue());
+            panel.add(label);
+            panel.add(Box.createHorizontalGlue());
+        }
+        return label;
     }
 
     public static JPanel createXContainer(int width, int height) {
@@ -38,37 +81,10 @@ public class UITools {
 
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.setMaximumSize(new Dimension(width, height));
+        panel.setMinimumSize(new Dimension(0, height));
 
 
         return panel;
-    }
-
-    public static JLabel createLabel(String text, int size, boolean bold) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Segoe UI", bold ? Font.BOLD : Font.PLAIN, size));
-        label.setForeground(Theme.TEXT);
-        return label;
-    }
-
-    public static void orientLabel(JPanel panel, JLabel label, int align, int top, int left, int bottom, int right) {
-        label.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
-
-        if(align == Align.LEFT) {
-            label.setAlignmentX(Component.LEFT_ALIGNMENT);
-            panel.add(label);
-            panel.add(Box.createHorizontalGlue());
-        }
-        else if(align == Align.RIGHT) {
-            label.setAlignmentX(Component.RIGHT_ALIGNMENT);
-            panel.add(Box.createHorizontalGlue());
-            panel.add(label);
-        }
-        else {
-            label.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(Box.createHorizontalGlue());
-            panel.add(label);
-            panel.add(Box.createHorizontalGlue());
-        }
     }
 
 }

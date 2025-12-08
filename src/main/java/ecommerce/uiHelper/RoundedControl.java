@@ -3,29 +3,26 @@ package ecommerce.uiHelper;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class RoundedControl extends JPanel {
 
-    public enum Type {
-        CONTAINER,
-        TEXT_FIELD,
-        PASSWORD_FIELD,
-        BUTTON
-    }
-
-    private final int radius;
-    private final Type type;
-
+    // FIELD
+    private final int radius = 15;
+    private final ObjectType objectType;
+    private JLabel label;
     private int textHeight = 0;
+    private int borderThickness = 1;
+
     private Color bgColor = Color.WHITE;
     private Color borderColor = new Color(200, 200, 200);
     private Color focusColor = new Color(80, 140, 255);
     private Color buttonColor = new Color(50, 120, 255);
     private Color buttonHoverColor = new Color(70, 140, 255);
-    private int borderThickness = 1;
-    private JLabel label;
+
     private Color hoverTextColor = null;
     private Color hoverBgColor = null;
 
@@ -37,24 +34,37 @@ public class RoundedControl extends JPanel {
 
     // --------- CONSTRUCTORS ---------
 
-    // Generic container
-    public RoundedControl(Type type, int radius) {
-        this(type, radius, null, 0);
+    // CONSTRUCTOR TYPE
+    public RoundedControl(ObjectType objectType) {
+        this(objectType, null, 0);
     }
 
-    // For TEXT_FIELD / PASSWORD_FIELD / BUTTON (with label text)
-    public RoundedControl(Type type, int radius, String text, int height) {
-        this.radius = radius;
-        this.type = type;
+    // CONSTRUCTOR TYPE WITH TEXT
+    public RoundedControl(ObjectType objectType,String text, int height) {
+        this.objectType = objectType;
         this.textHeight = height;
 
         setOpaque(false);
-        initLayout(text);
+        configureByType(text);
     }
 
     // --------- INITIALIZE BY TYPE ---------
-    private void initLayout(String text) {
-        if (type == Type.CONTAINER) {
+    private void configureByType(String text) {
+        /*
+        switch (objectType) {
+            case PANEL -> {
+                setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+                return;
+            }
+            case FIELD_TEXT -> {}
+            case FIELD_PASS -> {}
+            case BUTTON_BLOCK -> {}
+            case BUTTON_TEXT -> {}
+        }
+
+         */
+
+        if (objectType == ObjectType.PANEL) {
             // You can set any layout from outside
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             return;
@@ -62,21 +72,21 @@ public class RoundedControl extends JPanel {
 
         setLayout(new BorderLayout());
 
-        if (type == Type.TEXT_FIELD) {
+        if (objectType == ObjectType.FIELD_TEXT) {
             JTextField tf = new JTextField();
             styleTextComponent(tf);
             inner = tf;
             add(inner, BorderLayout.CENTER);
             fixHeight(45);
 
-        } else if (type == Type.PASSWORD_FIELD) {
+        } else if (objectType == ObjectType.FIELD_PASS) {
             JPasswordField pf = new JPasswordField();
             styleTextComponent(pf);
             inner = pf;
             add(inner, BorderLayout.CENTER);
             fixHeight(45);
 
-        } else if (type == Type.BUTTON) {
+        } else if (objectType == ObjectType.BUTTON_BLOCK) {
             label = new JLabel(text != null ? text : "BUTTON", SwingConstants.CENTER);
             label.setFont(new Font("Segoe UI", Font.BOLD, textHeight));
 
@@ -91,16 +101,16 @@ public class RoundedControl extends JPanel {
         }
 
         // Focus highlight for text/password fields
-        if (type == Type.TEXT_FIELD || type == Type.PASSWORD_FIELD) {
-            inner.addFocusListener(new java.awt.event.FocusAdapter() {
+        if (objectType == ObjectType.FIELD_TEXT || objectType == ObjectType.FIELD_PASS) {
+            inner.addFocusListener(new FocusAdapter() {
                 @Override
-                public void focusGained(java.awt.event.FocusEvent e) {
+                public void focusGained(FocusEvent e) {
                     borderColor = focusColor;
                     repaint();
                 }
 
                 @Override
-                public void focusLost(java.awt.event.FocusEvent e) {
+                public void focusLost(FocusEvent e) {
                     borderColor = new Color(200, 200, 200);
                     repaint();
                 }
@@ -222,12 +232,12 @@ public class RoundedControl extends JPanel {
 
     // --------- PUBLIC HELPERS ---------
 
-    // For TEXT_FIELD / PASSWORD_FIELD
+    // For TEXT_FIELD / PASSWORD
     public String getText() {
-        if (type == Type.TEXT_FIELD && inner instanceof JTextField tf) {
+        if (objectType == ObjectType.FIELD_TEXT && inner instanceof JTextField tf) {
             return tf.getText();
         }
-        if (type == Type.PASSWORD_FIELD && inner instanceof JPasswordField pf) {
+        if (objectType == ObjectType.FIELD_PASS && inner instanceof JPasswordField pf) {
             return new String(pf.getPassword());
         }
         return "";
@@ -248,7 +258,7 @@ public class RoundedControl extends JPanel {
         repaint();
     }
 
-    public Type getType() {
-        return type;
+    public ObjectType getType() {
+        return objectType;
     }
 }
