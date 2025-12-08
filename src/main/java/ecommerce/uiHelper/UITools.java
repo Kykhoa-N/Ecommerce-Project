@@ -5,14 +5,18 @@ import java.awt.*;
 
 public class UITools {
 
-    public static RoundedPanel createRoundPanel(int radius, Color rgb, int width, int height) {
-        RoundedPanel panel = new RoundedPanel(radius);
+    public static RoundedControl createRoundPanel(int radius, Color rgb, int width, int height) {
+        RoundedControl panel = new RoundedControl(RoundedControl.Type.CONTAINER, radius);
         panel.setBackground(rgb);
         panel.setPreferredSize(new Dimension(width, height));
-        panel.setShadow(15, new Color(0,0,0,1));
-        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-
+        panel.setBorderColor(new Color(0,0,0,0));
         return panel;
+    }
+
+    public static RoundedControl createRoundField(int radius, int width, int height) {
+        RoundedControl field = new RoundedControl(RoundedControl.Type.TEXT_FIELD, radius);
+        field.setMaximumSize(new Dimension(width, height));
+        return field;
     }
 
     public static JPanel createXContainer(int height) {
@@ -65,11 +69,6 @@ public class UITools {
             panel.add(label);
             panel.add(Box.createHorizontalGlue());
         }
-    }
-
-    public static JTextField createField() {
-        JTextField field = new JTextField();
-        return field;
     }
 
 }
