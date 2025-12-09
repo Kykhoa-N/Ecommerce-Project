@@ -13,10 +13,12 @@ public class RegisterPage extends JPanel {
     private final SwingUI parent;
     private final AuthService authService;
 
+    // DATA FIELD
     private RoundObject user_name_field;
     private RoundObject user_id_field;
     private JComboBox<Role> user_role_option;
     private RoundObject auth_register_button;
+    private RoundObject login_page_button;
 
 
     public RegisterPage(SwingUI parent, AuthService authService) {
@@ -30,9 +32,7 @@ public class RegisterPage extends JPanel {
 
     private void buildUI() {
 
-        // DATA FIELD
-        RoundObject login_page_button;
-
+        // CREATE REGISTER PANEL
         RoundObject registerPanel = UITools.createRoundPanel(Theme.PANEL,380, 585, 40);
         registerPanel.setLayout(new BoxLayout(registerPanel, BoxLayout.Y_AXIS));
 
@@ -65,12 +65,12 @@ public class RegisterPage extends JPanel {
         JLabel header_label = UITools.createLabel(HEADER,"REGISTER",25,true, Align.CENTER);
 
         // CREATE USER SECTION
-        JLabel user_label = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
+        JLabel user_label = UITools.createLabel(USERLabel, "Name",15,true, Align.LEFT);
         user_name_field = UITools.createRoundField(USERField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
         user_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE PASSWORD SECTION
-        JLabel pass_label = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
+        JLabel pass_label = UITools.createLabel(PASSLabel, "User ID",15,true, Align.LEFT);
         user_id_field = UITools.createRoundField(PASSField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
         pass_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
@@ -141,7 +141,6 @@ public class RegisterPage extends JPanel {
                 String password = user_id_field.getText();
                 Role role = (Role) user_role_option.getSelectedItem();
 
-
                 if (username.isEmpty() || password.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             RegisterPage.this,
@@ -152,12 +151,12 @@ public class RegisterPage extends JPanel {
                     return;
                 }
 
-                boolean success = authService.register(username, password, role);
+                boolean register = authService.register(username, password, role);
 
-                if (!success) {
+                if (!register) {
                     JOptionPane.showMessageDialog(
                             RegisterPage.this,
-                            "Username already exists.",
+                            "User ID already exists.",
                             "Registration Failed",
                             JOptionPane.ERROR_MESSAGE
                     );

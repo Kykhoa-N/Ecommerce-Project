@@ -20,6 +20,7 @@ public class AuthService {
 
     // REGISTER USER
     public boolean register(String name, String id, Role role) {
+        if(name.isEmpty() || id.isEmpty()) return false;
         if(userRepo.getUser(id) == null) {
             return userRepo.add(new User(name, id, role));
         }

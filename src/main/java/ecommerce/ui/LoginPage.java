@@ -1,5 +1,7 @@
 package ecommerce.ui;
 
+import ecommerce.model.*;
+import ecommerce.service.*;
 import ecommerce.uiHelper.*;
 import ecommerce.app.SwingUI;
 import javax.swing.*;
@@ -9,9 +11,12 @@ import java.awt.event.*;
 public class LoginPage extends JPanel {
 
     private final SwingUI parent;
+    private final AuthService authService;
 
-    public LoginPage(SwingUI parent) {
+    public LoginPage(SwingUI parent, AuthService authService) {
         this.parent = parent;
+        this.authService = authService;
+
         setOpaque(false);
         setLayout(new GridBagLayout());
         buildUI();
@@ -57,12 +62,12 @@ public class LoginPage extends JPanel {
         JLabel header_label = UITools.createLabel(HEADER,"LOGIN",25,true, Align.CENTER);
 
         // CREATE USER SECTION
-        JLabel user_label = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
+        JLabel user_label = UITools.createLabel(USERLabel, "Name",15,true, Align.LEFT);
         user_name_field = UITools.createRoundField(USERField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
         user_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE PASSWORD SECTION
-        JLabel pass_label = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
+        JLabel pass_label = UITools.createLabel(PASSLabel, "User ID",15,true, Align.LEFT);
         user_id_field = UITools.createRoundField(PASSField, ObjectType.PASSFIELD, Integer.MAX_VALUE, 50);
         pass_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
@@ -114,6 +119,40 @@ public class LoginPage extends JPanel {
 
         // DATA MANAGER
         DataTool.routeButton(parent, auth_register_button, "REGISTER");
+
+        auth_login_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                String username = user_name_field.getText();
+                String password = user_id_field.getText();
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(
+                            LoginPage.this,
+                            "Please fill out all fields.",
+                            "Missing Information",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                User user = authService.login(username, password);
+
+                if (user == null) {
+                    JOptionPane.showMessageDialog(
+                            LoginPage.this,
+                            "Invalid Account",
+                            "Login Failed",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+                
+                System.out.println("SUCCESSFULLY LOGIN");
+                parent.showScreen("PRODUCT");
+            }
+        });
 
         // ADD TO SYSTEM
         add(loginPanel);

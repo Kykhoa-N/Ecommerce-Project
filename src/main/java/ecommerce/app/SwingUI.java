@@ -48,11 +48,14 @@ public class SwingUI extends JFrame{
     }
 
     private void initScreens() {
-        LoginPage login = new LoginPage(this);
+        LoginPage login = new LoginPage(this, authService);
         RegisterPage register = new RegisterPage(this, authService);
+        ProductPage product = new ProductPage(this);
 
-        cardPanel.add(register, "REGISTER");
         cardPanel.add(login, "LOGIN");
+        cardPanel.add(register, "REGISTER");
+        cardPanel.add(product, "PRODUCT");
+
     }
 
     public void showScreen(String name) {
