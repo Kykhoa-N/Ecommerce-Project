@@ -13,12 +13,6 @@ public class RegisterPage extends JPanel {
     private final SwingUI parent;
     private final AuthService authService;
 
-    // DATA FIELD
-    private RoundObject user_name_field;
-    private RoundObject user_id_field;
-    private JComboBox<Role> user_role_option;
-    private RoundObject auth_register_button;
-    private RoundObject login_page_button;
 
 
     public RegisterPage(SwingUI parent, AuthService authService) {
@@ -31,6 +25,13 @@ public class RegisterPage extends JPanel {
     }
 
     private void buildUI() {
+
+        // DATA FIELD
+        RoundObject user_name_field;
+        RoundObject user_id_field;
+        JComboBox<Role> user_role_option;
+        RoundObject auth_register_button;
+        RoundObject login_page_button;
 
         // CREATE REGISTER PANEL
         RoundObject registerPanel = UITools.createRoundPanel(Theme.PANEL,380, 585, 40);

@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class ProductPage extends JPanel {
+public class DashboardPage extends JPanel {
 
     private final SwingUI parent;
 
-    public ProductPage(SwingUI parent) {
+    public DashboardPage(SwingUI parent) {
         this.parent = parent;
 
         setOpaque(false);
