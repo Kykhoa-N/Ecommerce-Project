@@ -1,5 +1,6 @@
 package ecommerce.ui;
 
+import ecommerce.model.*;
 import ecommerce.uiHelper.*;
 import ecommerce.app.SwingUI;
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class RegisterPage extends JPanel {
 
     private RoundObject user_name_field;
     private RoundObject user_id_field;
-    private RoundObject user_role_field;
+    private JComboBox<Role> roleDropdown;
     private RoundObject auth_register_button;
 
 
@@ -73,9 +74,19 @@ public class RegisterPage extends JPanel {
         user_id_field = UITools.createRoundField(PASSField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
         passlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
-        // CREATE PASSWORD SECTION
+        // CREATE ROLE SECTION
         JLabel rolelabel = UITools.createLabel(ROLELabel, "Role",15,true, Align.LEFT);
-        user_role_field = UITools.createRoundField(ROLEField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
+
+        roleDropdown = new JComboBox<>(Role.values());
+        roleDropdown.setFocusable(false);
+        roleDropdown.setRenderer(roleDropdown.getRenderer()); // keeps default look
+
+        // Optional styling to match your UI a bit better
+        roleDropdown.setPreferredSize(new Dimension(Integer.MAX_VALUE, 40)); // height similar to fields
+
+        // Add to the same panel where the role field would go
+        ROLEField.add(roleDropdown);
+
         rolelabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE REGISTER SECTION
@@ -138,24 +149,37 @@ public class RegisterPage extends JPanel {
 
                 String username = user_name_field.getText();
                 String password = user_id_field.getText();
-                String role     = user_role_field.getText();
+                Role role = (Role) roleDropdown.getSelectedItem();
 
 
-                //boolean success = authService.register(username, password, role);
-                boolean success = true;
-
-                if (!success) {
-                    JOptionPane.showMessageDialog(RegisterPage.this,
-                            "Username already exists or invalid input.",
-                            "Registration Failed",
-                            JOptionPane.ERROR_MESSAGE);
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(
+                            RegisterPage.this,
+                            "Please fill out all fields.",
+                            "Missing Information",
+                            JOptionPane.ERROR_MESSAGE
+                    );
                     return;
                 }
 
-                JOptionPane.showMessageDialog(RegisterPage.this,
+                boolean success = authService.register(username, password, role);
+
+                if (!success) {
+                    JOptionPane.showMessageDialog(
+                            RegisterPage.this,
+                            "Username already exists.",
+                            "Registration Failed",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                JOptionPane.showMessageDialog(
+                        RegisterPage.this,
                         "Registration successful!",
                         "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE
+                );
 
                 parent.showScreen("LOGIN");
             }
