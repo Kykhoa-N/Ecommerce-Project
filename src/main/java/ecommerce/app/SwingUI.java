@@ -1,5 +1,6 @@
 package ecommerce.app;
 
+import ecommerce.model.*;
 import ecommerce.repo.*;
 import ecommerce.service.*;
 import ecommerce.ui.*;
@@ -11,6 +12,7 @@ public class SwingUI extends JFrame{
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
+    private User current_user;
 
     // REPO FIELD
     private final CartRepo cartRepo = new CartRepo();
@@ -52,9 +54,9 @@ public class SwingUI extends JFrame{
         RegisterPage register = new RegisterPage(this, authService);
         ProductPage product = new ProductPage(this);
 
+        cardPanel.add(product, "PRODUCT");
         cardPanel.add(login, "LOGIN");
         cardPanel.add(register, "REGISTER");
-        cardPanel.add(product, "PRODUCT");
 
     }
 
@@ -62,7 +64,11 @@ public class SwingUI extends JFrame{
         cardLayout.show(cardPanel, name);
     }
 
-    public UserRepo getUserRepo() {
-        return userRepo;
+    public User getCurrentUser() {
+        return current_user;
+    }
+
+    public void setCurrentUser(User user) {
+        this.current_user = user;
     }
 }

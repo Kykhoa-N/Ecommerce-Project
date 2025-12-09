@@ -148,8 +148,9 @@ public class LoginPage extends JPanel {
                     );
                     return;
                 }
-                
+
                 System.out.println("SUCCESSFULLY LOGIN");
+                parent.setCurrentUser(user);
                 parent.showScreen("PRODUCT");
             }
         });

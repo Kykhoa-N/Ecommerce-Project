@@ -21,7 +21,7 @@ public class ProductPage extends JPanel {
     private void buildUI() {
 
         // CREATE PRODUCT PANEL
-        RoundObject productPanel = UITools.createRoundPanel(Theme.PANEL,380, 490, 40);
+        RoundObject productPanel = UITools.createRoundPanel(Theme.PANEL,1000, 500, 40);
         productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS));
 
         add(productPanel);
