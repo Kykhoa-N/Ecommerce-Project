@@ -25,5 +25,4 @@ public class UserRepo {
     public List<User> getAll() {
         return new ArrayList<>(repo);
     }
-
 }

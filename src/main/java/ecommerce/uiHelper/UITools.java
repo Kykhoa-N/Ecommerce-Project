@@ -62,8 +62,11 @@ public class UITools {
         box.setBackground(Theme.PANEL);
         box.setPreferredSize(new Dimension(width, height));
 
+        int VPad = 6;
+        int HPad = 10;
+
         ((JLabel) box.getRenderer())
-                .setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+                .setBorder(BorderFactory.createEmptyBorder(VPad, HPad, VPad, HPad));
 
         box.setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -75,7 +78,7 @@ public class UITools {
                         list, value, index, isSelected, cellHasFocus
                 );
 
-                label.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+                label.setBorder(BorderFactory.createEmptyBorder(VPad, HPad, VPad, HPad));
                 return label;
             }
         });

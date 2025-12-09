@@ -1,23 +1,24 @@
 package ecommerce.app;
 
-import ecommerce.model.*;
 import ecommerce.repo.*;
 import ecommerce.service.*;
 import ecommerce.ui.*;
 import ecommerce.uiHelper.*;
-import javax.swing.*;
 import java.awt.*;
-import ecommerce.uiHelper.ObjectType;
+import javax.swing.*;
 
 public class SwingUI extends JFrame{
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
 
+    // REPO FIELD
     private final CartRepo cartRepo = new CartRepo();
     private final OrderRepo orderRepo = new OrderRepo();
     private final ProductRepo productRepo = new ProductRepo();
     private final UserRepo userRepo = new UserRepo();
+
+    // SERVICE FIELD
     private final AuthService authService = new AuthService(userRepo);
     private final CartService cartService = new CartService(cartRepo, productRepo);
     private final OrderService orderService = new OrderService(orderRepo);
