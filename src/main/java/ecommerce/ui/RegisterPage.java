@@ -4,14 +4,24 @@ import ecommerce.uiHelper.*;
 import ecommerce.app.SwingUI;
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.*;
+import ecommerce.service.*;
 
 public class RegisterPage extends JPanel {
 
     private final SwingUI parent;
+    private final AuthService authService;
 
-    public RegisterPage(SwingUI parent) {
+    private RoundObject user_name_field;
+    private RoundObject user_id_field;
+    private RoundObject user_role_field;
+    private RoundObject auth_register_button;
+
+
+    public RegisterPage(SwingUI parent, AuthService authService) {
         this.parent = parent;
+        this.authService = authService;
+
         setOpaque(false);
         setLayout(new GridBagLayout());
         buildUI();
@@ -20,10 +30,6 @@ public class RegisterPage extends JPanel {
     private void buildUI() {
 
         // DATA FIELD
-        RoundObject user_name_field;
-        RoundObject user_id_field;
-        RoundObject user_role_field;
-        RoundObject auth_register_button;
         RoundObject login_page_button;
 
         RoundObject registerPanel = UITools.createRoundPanel(Theme.PANEL,380, 585, 40);
@@ -125,6 +131,35 @@ public class RegisterPage extends JPanel {
 
         // DATA MANAGER
         DataTool.routeButton(parent, login_page_button, "LOGIN");
+
+        auth_register_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                String username = user_name_field.getText();
+                String password = user_id_field.getText();
+                String role     = user_role_field.getText();
+
+
+                //boolean success = authService.register(username, password, role);
+                boolean success = true;
+
+                if (!success) {
+                    JOptionPane.showMessageDialog(RegisterPage.this,
+                            "Username already exists or invalid input.",
+                            "Registration Failed",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                JOptionPane.showMessageDialog(RegisterPage.this,
+                        "Registration successful!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                parent.showScreen("LOGIN");
+            }
+        });
 
         add(registerPanel);
     }

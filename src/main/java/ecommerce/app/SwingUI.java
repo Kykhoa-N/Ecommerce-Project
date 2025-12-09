@@ -1,7 +1,9 @@
 package ecommerce.app;
 
-import ecommerce.ui.LoginPage;
-import ecommerce.ui.RegisterPage;
+import ecommerce.model.*;
+import ecommerce.repo.*;
+import ecommerce.service.*;
+import ecommerce.ui.*;
 import ecommerce.uiHelper.*;
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,16 @@ public class SwingUI extends JFrame{
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
+
+    private final CartRepo cartRepo = new CartRepo();
+    private final OrderRepo orderRepo = new OrderRepo();
+    private final ProductRepo productRepo = new ProductRepo();
+    private final UserRepo userRepo = new UserRepo();
+    private final AuthService authService = new AuthService(userRepo);
+    private final CartService cartService = new CartService(cartRepo, productRepo);
+    private final OrderService orderService = new OrderService(orderRepo);
+    private final ProductService productService = new ProductService(productRepo, orderRepo, cartRepo);
+    private final ReportService reportService = new ReportService(orderRepo, productRepo);
 
     public SwingUI() {
 
@@ -36,7 +48,7 @@ public class SwingUI extends JFrame{
 
     private void initScreens() {
         LoginPage login = new LoginPage(this);
-        RegisterPage register = new RegisterPage(this);
+        RegisterPage register = new RegisterPage(this, authService);
 
         cardPanel.add(login, "LOGIN");
         cardPanel.add(register, "REGISTER");
