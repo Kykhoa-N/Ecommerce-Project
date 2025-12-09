@@ -2,22 +2,24 @@ package ecommerce.repo;
 
 import ecommerce.model.*;
 import java.util.*;
-
-// FILE IMPORTS
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import ecommerce.uiHelper.*;
 
 public class OrderRepo {
 
     // FIELD
     private final List<Order> repo = new ArrayList<>();;
 
+    // DATABASE HELPER METHOD
+    private static final String DATABASE_PATH = "src/main/java/ecommerce/database/OrderDatabase.txt";
+    public OrderRepo() {
+        repo.addAll(FileDBLoader.load(DATABASE_PATH, Order::new));
+    }
+
     // REPO METHOD
     public boolean add(Order order) {
-        return repo.add(order);
+        repo.add(order);
+        FileDBWriter.appendLine(DATABASE_PATH, order.toDataString()); // add to database
+        return true;
     }
 
     public Order getOrder(String id) {

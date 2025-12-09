@@ -10,20 +10,16 @@ public class UserRepo {
     private final List<User> repo = new ArrayList<>();
 
     // DATABASE HELPER METHOD
-    private static final String USER_DATABASE_PATH = "src/main/java/ecommerce/database/UserDatabase.txt";
-
+    private static final String DATABASE_PATH = "src/main/java/ecommerce/database/UserDatabase.txt";
     public UserRepo() {
-        repo.addAll(FileDBLoader.load(USER_DATABASE_PATH, User::new));
+        repo.addAll(FileDBLoader.load(DATABASE_PATH, User::new));
     }
 
     // REPO METHOD
     public boolean add(User user) {
-        boolean added = repo.add(user);
-
-        // add to database
-        if (added) FileDBWriter.appendLine(USER_DATABASE_PATH, user.toDataString());
-
-        return added;
+        repo.add(user);
+        FileDBWriter.appendLine(DATABASE_PATH, user.toDataString()); // add to database
+        return true;
     }
 
     public User getUser(String id) {

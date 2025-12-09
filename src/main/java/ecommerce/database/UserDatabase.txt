@@ -2,3 +2,4 @@ Wick,John,ADMIN
 Martini,Cherry,CLIENT
 Nguyen,Kyanh,ADMIN
 Strongman,Hercules,CLIENT
+Poppin,Mary,CLIENT

@@ -15,6 +15,45 @@ public class Cart {
         this.product_list = new HashMap<>();
     }
 
+    // DATABASE HELPER METHOD
+    public static Cart fromCSV(String csvLine) {
+        String[] parts = csvLine.split(",");
+        Cart cart = new Cart(parts[0]);
+        if (parts.length < 2 || parts[1].isBlank()) {
+            return cart;
+        }
+        String[] items = parts[1].split("\\|");
+        for (String item : items) {
+            String[] pair = item.split(":");
+            cart.product_list.put(
+                    pair[0],
+                    Integer.parseInt(pair[1])
+            );
+        }
+        return cart;
+    }
+
+    public String toDataString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(user_id);
+        sb.append(",");
+
+        if (!product_list.isEmpty()) {
+            product_list.forEach((product, quantity) -> {
+                sb.append(product)
+                        .append(":")
+                        .append(quantity)
+                        .append("|");
+            });
+
+            // remove trailing '|'
+            sb.setLength(sb.length() - 1);
+        }
+
+        return sb.toString();
+    }
+
     // GETTER METHOD
     public String getUserId() {
         return user_id;

@@ -2,22 +2,23 @@ package ecommerce.repo;
 
 import ecommerce.model.*;
 import java.util.*;
-
-// FILE IMPORTS
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import ecommerce.uiHelper.*;
 
 public class CartRepo {
 
     // FIELD
     private final List<Cart> repo = new ArrayList<>();
 
+    // DATABASE HELPER METHOD
+    private static final String DATABASE_PATH = "src/main/java/ecommerce/database/CartDatabase.txt";
+    public CartRepo() {
+        repo.addAll(FileDBLoader.load(DATABASE_PATH, Cart::new));
+    }
+
     // REPO METHOD
     public void add(Cart cart) {
         repo.add(cart);
+        FileDBWriter.appendLine(DATABASE_PATH, cart.toDataString()); // add to database
     }
 
     public boolean remove(String user_id) {

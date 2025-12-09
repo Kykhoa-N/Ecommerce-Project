@@ -11,11 +11,24 @@ public class Product {
 
     // CONSTRUCTOR
     public Product(String name, String category, double price, int quantity) {
-        this.id = category + name;
         this.name = name;
+        this.id = category + name;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    // DATABASE HELPER METHOD
+    public Product(String csvLine) {
+        String[] parts = csvLine.split(",");
+        this.name = parts[0];
+        this.id = parts[1];
+        this.category = parts[2];
+        this.price = Double.parseDouble(parts[3]);
+        this.quantity = Integer.parseInt(parts[4]);
+    }
+    public String toDataString() {
+        return id + "," + name + "," + category  + "," + price   + "," + quantity ;
     }
 
     // GETTER METHOD
