@@ -52,20 +52,20 @@ public class SwingUI extends JFrame{
     private void initScreens() {
         LoginPage loginPage = new LoginPage(this, authService);
         RegisterPage registerPage = new RegisterPage(this, authService);
-        ProductPage dashboardPage = new ProductPage(this);
-        ProductPage productPage = new ProductPage(this);
-        ProductPage cartPage = new ProductPage(this);
-        OrderPage orderPage = new OrderPage(this);
-        ReportPage reportPage = new ReportPage(this);
+        DashboardPage dashboardPage = new DashboardPage(this);
+        //ProductPage productPage = new ProductPage(this);
+        //ProductPage cartPage = new ProductPage(this);
+        //OrderPage orderPage = new OrderPage(this);
+        //ReportPage reportPage = new ReportPage(this);
 
 
+        cardPanel.add(dashboardPage, "DASHBOARD");
         cardPanel.add(loginPage, "LOGIN");
         cardPanel.add(registerPage, "REGISTER");
-        cardPanel.add(dashboardPage, "DASHBOARD");
-        cardPanel.add(productPage, "PRODUCT");
-        cardPanel.add(cartPage, "CART");
-        cardPanel.add(orderPage, "ORDER");
-        cardPanel.add(reportPage, "REPORT");
+        //cardPanel.add(productPage, "PRODUCT");
+        //cardPanel.add(cartPage, "CART");
+        //cardPanel.add(orderPage, "ORDER");
+        //cardPanel.add(reportPage, "REPORT");
 
     }
 
