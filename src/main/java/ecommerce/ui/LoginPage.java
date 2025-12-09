@@ -81,6 +81,9 @@ public class LoginPage extends JPanel {
         auth_register_button.setupButton(Theme.TRANSPARENT, Theme.TRANSPARENT, Theme.GRAY, Theme.BLUE);
         register_text.setForeground(Theme.GRAY);
 
+        // -- DEBUG AREA --
+        Debug.colorPanel(HEADER, Color.ORANGE);
+
         // SECTION ORGANIZER
         loginPanel.add(HEADER);
         loginPanel.add(FORM);
