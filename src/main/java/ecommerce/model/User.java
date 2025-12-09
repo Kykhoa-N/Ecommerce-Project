@@ -3,14 +3,14 @@ package ecommerce.model;
 public class User {
 
     // FIELD
-    private final String name;
     private final String id;
+    private final String name;
     private final Role role;
 
     // CONSTRUCTOR
     public User(String name, String id, Role role) {
-        this.name = name;
         this.id = id;
+        this.name = name;
         this.role = role;
     }
 
