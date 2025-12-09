@@ -1,5 +1,7 @@
 package ecommerce.app;
 
+import ecommerce.ui.LoginPage;
+import ecommerce.ui.RegisterPage;
 import ecommerce.uiHelper.*;
 import javax.swing.*;
 import java.awt.*;
@@ -7,123 +9,40 @@ import ecommerce.uiHelper.ObjectType;
 
 public class SwingUI extends JFrame{
 
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
+
     public SwingUI() {
 
         initGUI(); // Window Setup
-
-        initLoginPanel(); // Login Panel setup
-
+        initScreens(); // Login Panel setup
         setVisible(true); // End
     }
 
     public void initGUI() {
         setTitle("Ecommerce Store");
         setSize(1500, 800);
-        getContentPane().setBackground(Theme.BACKGROUND);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setLayout(new GridBagLayout());
+        // Create the CardLayout + card panel
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+        cardPanel.setBackground(Theme.BACKGROUND);
+
+        // Use the cardPanel as the main content of the frame
+        setContentPane(cardPanel);
     }
 
-    public void initLoginPanel() {
+    private void initScreens() {
+        LoginPage login = new LoginPage(this);
+        RegisterPage register = new RegisterPage(this);
 
-        // DATA FIELD
-        RoundObject user_name_field;
-        RoundObject user_id_field;
-        RoundObject auth_login_button;
-        RoundObject auth_register_button;
-
-        // CREATE LOGIN PANEL
-        RoundObject loginPanel = UITools.createRoundPanel(Theme.PANEL,380, 480, 40);
-        loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
-
-        // INIT REGION
-        JPanel HEADER = UITools.createXContainer(Integer.MAX_VALUE, 25);
-        JPanel FORM = UITools.createYContainer(Integer.MAX_VALUE, Integer.MAX_VALUE);
-
-        // INIT SECTIONS
-        JPanel FORMUser = UITools.createYContainer(Integer.MAX_VALUE,100);
-        JPanel FORMPass = UITools.createYContainer(Integer.MAX_VALUE,100);
-        JPanel FORMLogin = UITools.createYContainer(Integer.MAX_VALUE,40);
-        JPanel FORMDivider = UITools.createXContainer(Integer.MAX_VALUE,50);
-        JPanel FORMRegister = UITools.createXContainer(Integer.MAX_VALUE,50);
-
-        // INIT BLOCKS
-        JPanel USERLabel = UITools.createXContainer(Integer.MAX_VALUE,50);
-        JPanel USERField = UITools.createYContainer(Integer.MAX_VALUE,50);
-        JPanel PASSLabel = UITools.createXContainer(Integer.MAX_VALUE,50);
-        JPanel PASSField = UITools.createYContainer(Integer.MAX_VALUE,50);
-        JPanel DIVLeft = UITools.createXContainer(255/2, 1);
-        JPanel DIVText = UITools.createXContainer(45,50);
-        JPanel DIVRight = UITools.createXContainer(255/2, 1);
-        JPanel REGText = UITools.createXContainer(180, Integer.MAX_VALUE);
-        JPanel REGButton = UITools.createXContainer(120,Integer.MAX_VALUE);
-
-
-        // CREATE HEADER REGION
-        JLabel headerlabel = UITools.createLabel(HEADER,"LOGIN",25,true, Align.CENTER);
-
-        // CREATE USER SECTION
-        JLabel userlabel = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
-        user_name_field = UITools.createRoundField(USERField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
-        userlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-
-        // CREATE PASSWORD SECTION
-        JLabel passlabel = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
-        user_id_field = UITools.createRoundField(PASSField, ObjectType.PASSFIELD, Integer.MAX_VALUE, 50);
-        passlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-
-        // CREATE LOGIN SECTION
-        auth_login_button = UITools.createRoundButton(FORMLogin, ObjectType.BUTTON, Integer.MAX_VALUE, 40, "LOGIN", 15);
-        auth_login_button.setupButton(Theme.BLUE, Theme.HOVERBLUE, Theme.PANEL, Theme.PANEL);
-
-        // CREATE DIVIDER SECTION
-        JLabel divider = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
-        divider.setForeground(Theme.GRAY);
-        Debug.colorPanel(DIVLeft, Theme.GRAY);
-        Debug.colorPanel(DIVRight, Theme.GRAY);
-
-        // CREATE REGISTER SECTION
-        JLabel register_text = UITools.createLabel(REGText,"Don't have an account?",13,false, Align.RIGHT);
-        auth_register_button = UITools.createRoundButton(REGButton, ObjectType.BUTTON,60,18,"SIGNUP", 13);
-        auth_register_button.setupButton(Theme.TRANSPARENT, Theme.TRANSPARENT, Theme.GRAY, Theme.BLUE);
-        register_text.setForeground(Theme.GRAY);
-
-        // SECTION ORGANIZER
-        loginPanel.add(HEADER);
-        loginPanel.add(FORM);
-
-        // SEGMENT ORGANIZER
-        FORM.add(FORMUser);
-        FORM.add(FORMPass);
-        FORM.add(Box.createVerticalStrut(40));
-        FORM.add(FORMLogin);
-        FORM.add(Box.createVerticalStrut(20));
-        FORM.add(FORMDivider);
-        FORM.add(FORMRegister);
-
-        // AREA ORGANIZER
-        FORMUser.add(USERLabel);
-        FORMUser.add(USERField);
-
-        FORMPass.add(PASSLabel);
-        FORMPass.add(PASSField);
-
-        FORMDivider.add(DIVLeft);
-        FORMDivider.add(DIVText);
-        FORMDivider.add(DIVRight);
-
-        FORMRegister.add(REGText);
-        FORMRegister.add(REGButton);
-
-
-        REGButton.add(Box.createHorizontalStrut(5));
-        REGButton.add(auth_register_button);
-
-        // ADD TO SYSTEM
-        add(loginPanel);
+        cardPanel.add(login, "LOGIN");
+        cardPanel.add(register, "REGISTER");
     }
 
-
+    public void showScreen(String name) {
+        cardLayout.show(cardPanel, name);
+    }
 }
