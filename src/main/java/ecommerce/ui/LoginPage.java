@@ -54,25 +54,25 @@ public class LoginPage extends JPanel {
 
 
         // CREATE HEADER REGION
-        JLabel headerlabel = UITools.createLabel(HEADER,"LOGIN",25,true, Align.CENTER);
+        JLabel header_label = UITools.createLabel(HEADER,"LOGIN",25,true, Align.CENTER);
 
         // CREATE USER SECTION
-        JLabel userlabel = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
+        JLabel user_label = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
         user_name_field = UITools.createRoundField(USERField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
-        userlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        user_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE PASSWORD SECTION
-        JLabel passlabel = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
+        JLabel pass_label = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
         user_id_field = UITools.createRoundField(PASSField, ObjectType.PASSFIELD, Integer.MAX_VALUE, 50);
-        passlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        pass_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE LOGIN SECTION
         auth_login_button = UITools.createRoundButton(FORMLogin, ObjectType.BUTTON, Integer.MAX_VALUE, 40, "LOGIN", 15);
         auth_login_button.setupButton(Theme.BLUE, Theme.HOVERBLUE, Theme.PANEL, Theme.PANEL);
 
         // CREATE DIVIDER SECTION
-        JLabel divider = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
-        divider.setForeground(Theme.GRAY);
+        JLabel divider_text = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
+        divider_text.setForeground(Theme.GRAY);
         Debug.colorPanel(DIVLeft, Theme.GRAY);
         Debug.colorPanel(DIVRight, Theme.GRAY);
 

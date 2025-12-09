@@ -56,6 +56,33 @@ public class UITools {
         return label;
     }
 
+    public static <T> JComboBox<T> createDropBox(JPanel panel, T[] options, int width, int height) {
+        JComboBox<T> box = new JComboBox<>(options);
+        box.setFocusable(false);
+        box.setBackground(Theme.PANEL);
+        box.setPreferredSize(new Dimension(width, height));
+
+        ((JLabel) box.getRenderer())
+                .setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+
+        box.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+
+                JLabel label = (JLabel) super.getListCellRendererComponent(
+                        list, value, index, isSelected, cellHasFocus
+                );
+
+                label.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+                return label;
+            }
+        });
+        panel.add(box);
+        return box;
+    }
+
     public static JPanel createXContainer(int width, int height) {
         JPanel panel = new JPanel();
         panel.setOpaque(false);

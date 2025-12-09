@@ -15,7 +15,7 @@ public class RegisterPage extends JPanel {
 
     private RoundObject user_name_field;
     private RoundObject user_id_field;
-    private JComboBox<Role> roleDropdown;
+    private JComboBox<Role> user_role_option;
     private RoundObject auth_register_button;
 
 
@@ -54,7 +54,7 @@ public class RegisterPage extends JPanel {
         JPanel PASSLabel = UITools.createXContainer(Integer.MAX_VALUE,50);
         JPanel PASSField = UITools.createYContainer(Integer.MAX_VALUE,50);
         JPanel ROLELabel = UITools.createXContainer(Integer.MAX_VALUE,50);
-        JPanel ROLEField = UITools.createYContainer(Integer.MAX_VALUE,50);
+        JPanel ROLEOption = UITools.createYContainer(Integer.MAX_VALUE,50);
         JPanel DIVLeft = UITools.createXContainer((int) (300*(0.425)), 1);
         JPanel DIVText = UITools.createXContainer((int) (300*(0.15)),50);
         JPanel DIVRight = UITools.createXContainer((int) (300*(0.425)), 1);
@@ -62,40 +62,30 @@ public class RegisterPage extends JPanel {
         JPanel LOGButton = UITools.createXContainer((int) (300*(0.35)),Integer.MAX_VALUE);
 
         // CREATE HEADER REGION
-        JLabel headerlabel = UITools.createLabel(HEADER,"REGISTER",25,true, Align.CENTER);
+        JLabel header_label = UITools.createLabel(HEADER,"REGISTER",25,true, Align.CENTER);
 
         // CREATE USER SECTION
-        JLabel userlabel = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
+        JLabel user_label = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
         user_name_field = UITools.createRoundField(USERField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
-        userlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        user_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE PASSWORD SECTION
-        JLabel passlabel = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
+        JLabel pass_label = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
         user_id_field = UITools.createRoundField(PASSField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
-        passlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        pass_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE ROLE SECTION
-        JLabel rolelabel = UITools.createLabel(ROLELabel, "Role",15,true, Align.LEFT);
-
-        roleDropdown = new JComboBox<>(Role.values());
-        roleDropdown.setFocusable(false);
-        roleDropdown.setRenderer(roleDropdown.getRenderer()); // keeps default look
-
-        // Optional styling to match your UI a bit better
-        roleDropdown.setPreferredSize(new Dimension(Integer.MAX_VALUE, 40)); // height similar to fields
-
-        // Add to the same panel where the role field would go
-        ROLEField.add(roleDropdown);
-
-        rolelabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        JLabel role_label = UITools.createLabel(ROLELabel, "Role",15,true, Align.LEFT);
+        user_role_option = UITools.createDropBox(ROLEOption, Role.values(), Integer.MAX_VALUE, 50);
+        role_label.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE REGISTER SECTION
         auth_register_button = UITools.createRoundButton(FORMRegister, ObjectType.BUTTON, Integer.MAX_VALUE, 40, "REGISTER", 15);
         auth_register_button.setupButton(Theme.BLUE, Theme.HOVERBLUE, Theme.PANEL, Theme.PANEL);
 
         // CREATE DIVIDER SECTION
-        JLabel divider = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
-        divider.setForeground(Theme.GRAY);
+        JLabel divider_text = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
+        divider_text.setForeground(Theme.GRAY);
         Debug.colorPanel(DIVLeft, Theme.GRAY);
         Debug.colorPanel(DIVRight, Theme.GRAY);
 
@@ -131,7 +121,7 @@ public class RegisterPage extends JPanel {
         FORMPass.add(PASSField);
 
         FORMRole.add(ROLELabel);
-        FORMRole.add(ROLEField);
+        FORMRole.add(ROLEOption);
 
         FORMDivider.add(DIVLeft);
         FORMDivider.add(DIVText);
@@ -149,7 +139,7 @@ public class RegisterPage extends JPanel {
 
                 String username = user_name_field.getText();
                 String password = user_id_field.getText();
-                Role role = (Role) roleDropdown.getSelectedItem();
+                Role role = (Role) user_role_option.getSelectedItem();
 
 
                 if (username.isEmpty() || password.isEmpty()) {
