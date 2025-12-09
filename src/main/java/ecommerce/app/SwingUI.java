@@ -14,6 +14,9 @@ public class SwingUI extends JFrame{
     private JPanel cardPanel;
     private User current_user;
 
+    // PAGE FIELD
+    DashboardPage dashboardPage;
+
     // REPO FIELD
     private final CartRepo cartRepo = new CartRepo();
     private final OrderRepo orderRepo = new OrderRepo();
@@ -52,15 +55,15 @@ public class SwingUI extends JFrame{
     private void initScreens() {
         LoginPage loginPage = new LoginPage(this, authService);
         RegisterPage registerPage = new RegisterPage(this, authService);
-        DashboardPage dashboardPage = new DashboardPage(this);
+        dashboardPage = new DashboardPage(this);
         //ProductPage productPage = new ProductPage(this);
         //ProductPage cartPage = new ProductPage(this);
         //OrderPage orderPage = new OrderPage(this);
         //ReportPage reportPage = new ReportPage(this);
 
 
-        cardPanel.add(dashboardPage, "DASHBOARD");
         cardPanel.add(loginPage, "LOGIN");
+        cardPanel.add(dashboardPage, "DASHBOARD");
         cardPanel.add(registerPage, "REGISTER");
         //cardPanel.add(productPage, "PRODUCT");
         //cardPanel.add(cartPage, "CART");
@@ -79,5 +82,9 @@ public class SwingUI extends JFrame{
 
     public void setCurrentUser(User user) {
         this.current_user = user;
+    }
+
+    public DashboardPage getDashboard() {
+        return dashboardPage;
     }
 }

@@ -3,3 +3,5 @@ Martini,Cherry,CLIENT
 Nguyen,Kyanh,ADMIN
 Strongman,Hercules,CLIENT
 Poppin,Mary,CLIENT
+kn1029928,Kykhoa,ADMIN
+jg50,Nick,CLIENT
