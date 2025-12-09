@@ -170,7 +170,8 @@ public class RegisterPage extends JPanel {
                         "Success",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-
+                System.out.println("SUCCESSFULLY REGISTERED");
+                System.out.println(parent.getUserRepo().getAll());
                 parent.showScreen("LOGIN");
             }
         });

@@ -57,4 +57,8 @@ public class SwingUI extends JFrame{
     public void showScreen(String name) {
         cardLayout.show(cardPanel, name);
     }
+
+    public UserRepo getUserRepo() {
+        return userRepo;
+    }
 }
