@@ -98,6 +98,19 @@ public class UITools {
         return panel;
     }
 
+    public static JPanel createXContainer(Color color, int width, int height) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setBackground(color);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setPreferredSize(new Dimension(width, height));
+        panel.setMaximumSize(new Dimension(width, height));
+        panel.setMinimumSize(new Dimension(width, height));
+        return panel;
+    }
+
     public static JPanel createYContainer(int width, int height) {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
@@ -105,12 +118,26 @@ public class UITools {
 
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.setMaximumSize(new Dimension(width, height));
+        panel.setPreferredSize(new Dimension(width, height));
         panel.setMinimumSize(new Dimension(0, height));
 
 
         return panel;
     }
 
+    public static JPanel createYContainer(Color color, int width, int height) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setBackground(color);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setMaximumSize(new Dimension(width, height));
+        panel.setPreferredSize(new Dimension(width, height));
+        panel.setMinimumSize(new Dimension(0, height));
+
+        return panel;
+    }
 
 
 }

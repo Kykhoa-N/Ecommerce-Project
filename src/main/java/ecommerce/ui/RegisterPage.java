@@ -56,9 +56,9 @@ public class RegisterPage extends JPanel {
         JPanel PASSField = UITools.createYContainer(Integer.MAX_VALUE,50);
         JPanel ROLELabel = UITools.createXContainer(Integer.MAX_VALUE,50);
         JPanel ROLEOption = UITools.createYContainer(Integer.MAX_VALUE,50);
-        JPanel DIVLeft = UITools.createXContainer((int) (300*(0.425)), 1);
+        JPanel DIVLeft = UITools.createXContainer(Theme.GRAY, (int) (300*(0.425)), 1);
         JPanel DIVText = UITools.createXContainer((int) (300*(0.15)),50);
-        JPanel DIVRight = UITools.createXContainer((int) (300*(0.425)), 1);
+        JPanel DIVRight = UITools.createXContainer(Theme.GRAY, (int) (300*(0.425)), 1);
         JPanel LOGText = UITools.createXContainer((int) (300*(0.65)), Integer.MAX_VALUE);
         JPanel LOGButton = UITools.createXContainer((int) (300*(0.35)),Integer.MAX_VALUE);
 
@@ -87,18 +87,12 @@ public class RegisterPage extends JPanel {
         // CREATE DIVIDER SECTION
         JLabel divider_text = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
         divider_text.setForeground(Theme.GRAY);
-        Debug.colorPanel(DIVLeft, Theme.GRAY);
-        Debug.colorPanel(DIVRight, Theme.GRAY);
 
         // CREATE LOGIN SECTION
         JLabel login_text = UITools.createLabel(LOGText,"Already have an account?",13,false, Align.RIGHT);
         login_page_button = UITools.createRoundButton(LOGButton, ObjectType.BUTTON,60,18,"LOGIN", 13);
         login_page_button.setupButton(Theme.TRANSPARENT, Theme.TRANSPARENT, Theme.GRAY, Theme.BLUE);
         login_text.setForeground(Theme.GRAY);
-
-        // -- DEBUG AREA --
-        //Debug.colorPanel(HEADER, Color.RED);
-
 
         // SECTION ORGANIZER
         registerPanel.add(HEADER);
