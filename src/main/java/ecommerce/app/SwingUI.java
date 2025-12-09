@@ -66,32 +66,27 @@ public class SwingUI extends JFrame{
 
         // CREATE USER SECTION
         JLabel userlabel = UITools.createLabel(USERLabel, "Username",15,true, Align.LEFT);
-        user_name_field = UITools.createRoundField(USERField, ObjectType.FIELD_TEXT, Integer.MAX_VALUE, 50);
+        user_name_field = UITools.createRoundField(USERField, ObjectType.TEXTFIELD, Integer.MAX_VALUE, 50);
         userlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE PASSWORD SECTION
         JLabel passlabel = UITools.createLabel(PASSLabel, "Password",15,true, Align.LEFT);
-        user_id_field = UITools.createRoundField(PASSField, ObjectType.FIELD_PASS, Integer.MAX_VALUE, 50);
+        user_id_field = UITools.createRoundField(PASSField, ObjectType.PASSFIELD, Integer.MAX_VALUE, 50);
         passlabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         // CREATE LOGIN SECTION
-        auth_login_button = UITools.createRoundButton(FORMLogin, ObjectType.BUTTON_BLOCK, Integer.MAX_VALUE, 40, "LOGIN", 15);
+        auth_login_button = UITools.createRoundButton(FORMLogin, ObjectType.BUTTON, Integer.MAX_VALUE, 40, "LOGIN", 15);
+        auth_login_button.setupButton(Theme.BLUE, Theme.HOVERBLUE, Theme.PANEL, Theme.PANEL);
 
         // CREATE DIVIDER SECTION
         JLabel divider = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
-        divider.setForeground(Theme.LIGHTGRAY);
+        divider.setForeground(Theme.GRAY);
 
         // CREATE REGISTER SECTION
         JLabel register_text = UITools.createLabel(REGText,"Don't have an account?",13,false, Align.RIGHT);
-        auth_register_button = UITools.createRoundButton(REGButton, ObjectType.BUTTON_TEXT,60,18,"SIGNUP", 13);
-        register_text.setForeground(Theme.LIGHTGRAY);
-
-        //uth_register_button.setBorderColor(new Color(0, 0, 0, 0));
-        auth_register_button.setColorNormalText(Theme.LIGHTGRAY);
-        auth_register_button.setColorHoverText(new Color(50, 120, 255));
-        auth_register_button.setNormalBackgroundColor(Color.WHITE);
-        auth_register_button.setHoverBackgroundColor(Color.WHITE);
-
+        auth_register_button = UITools.createRoundButton(REGButton, ObjectType.BUTTON,60,18,"SIGNUP", 13);
+        auth_register_button.setupButton(Theme.TRANSPARENT, Theme.TRANSPARENT, Theme.GRAY, Theme.BLUE);
+        register_text.setForeground(Theme.GRAY);
 
         // --- DEBUG AREA ---
         /*
@@ -105,8 +100,8 @@ public class SwingUI extends JFrame{
          */
         //Debug.colorPanel(FORMPass, Color.ORANGE);
 
-        Debug.colorPanel(DIVLeft, Theme.LIGHTGRAY);
-        Debug.colorPanel(DIVRight, Theme.LIGHTGRAY);
+        Debug.colorPanel(DIVLeft, Theme.GRAY);
+        Debug.colorPanel(DIVRight, Theme.GRAY);
 
 
         // SECTION ORGANIZER

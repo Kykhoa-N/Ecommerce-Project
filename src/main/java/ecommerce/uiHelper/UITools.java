@@ -5,21 +5,21 @@ import java.awt.*;
 
 public class UITools {
 
-    public static RoundedControl createRoundPanel(Color rgb, int width, int height, int padding) {
+    public static RoundedControl createRoundPanel(Color color, int width, int height, int padding) {
         RoundedControl panel = new RoundedControl(ObjectType.PANEL);
 
-        panel.setBackground(rgb);
+        panel.setColor(color);
         panel.setPreferredSize(new Dimension(width, height));
         panel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
-        panel.setColorBorder(new Color(0,0,0,0));
+        panel.setBorderThickness(0);
         return panel;
     }
 
     public static RoundedControl createRoundField(JPanel panel, ObjectType objectType, int width, int height) {
         RoundedControl field = new RoundedControl(objectType);
         field.setMaximumSize(new Dimension(width, height));
-        panel.setOpaque(true);
-        panel.setBackground(new Color(255,225,255, 0));
+        panel.setOpaque(false);
+        field.setColor(Theme.TRANSPARENT);
         panel.add(field);
         return field;
     }
@@ -27,13 +27,7 @@ public class UITools {
     public static RoundedControl createRoundButton(JPanel panel, ObjectType objectType, int width, int height, String text, int text_height) {
         RoundedControl button = new RoundedControl(objectType, text, text_height);
         button.setControlSize(width, height);
-
-        button.setColorNormalText(Color.WHITE);
-        button.setColorHoverText(Color.WHITE);
-        button.setNormalBackgroundColor(Theme.BLUE);
-        button.setHoverBackgroundColor(Theme.HOVERBLUE);
         panel.add(button);
-
         return button;
     }
 

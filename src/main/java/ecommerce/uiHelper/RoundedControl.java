@@ -12,36 +12,23 @@ public class RoundedControl extends JPanel {
 
     // FIELD
     private JComponent component;
-    private JLabel label;
+    private Color color = null;
 
     private final ObjectType objectType;
     private int textHeight = 0;
     private int borderThickness = 1;
-
-    private Color colorBackground = Color.WHITE;
-    private Color colorBorder = Theme.LIGHTGRAY;
-
-    // BUTTON FIELD
-    private Color colorHoverButton = null;
-    private Color colorHoverText = null;
-    private Color colorNormalButton = null;
-    private Color colorNormalText = null;
+    private Color colorBorder = Theme.TRANSPARENT;
 
 
-
-
-    // --------- CONSTRUCTORS ---------
-
-    // CONSTRUCTOR TYPE
+    // CONSTRUCTOR FOR PANEL AND FIELD
     public RoundedControl(ObjectType objectType) {
         this(objectType, null, 0);
     }
 
-    // CONSTRUCTOR TYPE WITH TEXT
+    // CONSTRUCTOR FOR BUTTON
     public RoundedControl(ObjectType objectType,String text, int height) {
         this.objectType = objectType;
         this.textHeight = height;
-
         setOpaque(false);
         configureByType(text);
     }
@@ -49,6 +36,7 @@ public class RoundedControl extends JPanel {
     // INITIALIZE BY TYPE
     private void configureByType(String text) {
 
+        // set up by object type
         if(objectType.equals(ObjectType.PANEL)) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         }
@@ -57,82 +45,71 @@ public class RoundedControl extends JPanel {
 
             switch (objectType) {
 
-                case FIELD_TEXT -> {
+                case TEXTFIELD -> {
                     component = styleTextComponent(new JTextField());
+                    focusColor(component);
                     lockHeight(45);
                 }
 
-                case FIELD_PASS -> {
+                case PASSFIELD -> {
                     component = styleTextComponent(new JPasswordField());
+                    focusColor(component);
                     lockHeight(45);
                 }
 
-                case BUTTON_BLOCK -> {
+                case BUTTON -> {
                     component = new JLabel(text != null ? text : "BUTTON", SwingConstants.CENTER);
                     component.setFont(new Font("Segoe UI", Font.BOLD, textHeight));
-                    component.setForeground(Color.WHITE);
-
-                    colorBackground = Theme.BLUE;
-
-                    colorBorder = Theme.BLUE;
                     lockHeight(45);
-
-                    setupButtonHover();
-                }
-
-                case BUTTON_TEXT -> {
-                    component = new JLabel(text != null ? text : "BUTTON", SwingConstants.CENTER);
-                    component.setFont(new Font("Segoe UI", Font.BOLD, textHeight));
-
-
-                    colorBackground = Theme.BLUE;
-                    colorBorder = Theme.BLUE;
-                    lockHeight(45);
-
-                    setupButtonHover();
-
                 }
             }
 
             add(component, BorderLayout.CENTER);
         }
+    }
 
-
-        // Focus highlight for text/password fields
-        if (objectType == ObjectType.FIELD_TEXT || objectType == ObjectType.FIELD_PASS) {
-            component.addFocusListener(new FocusAdapter() {
+    // HIGHLIGHT FIELD WHEN CLICKED
+    private void focusColor(JComponent component) {
+        colorBorder = Theme.GRAY;
+        repaint();
+        component.addFocusListener(
+            new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
                     colorBorder = Theme.BLUE;
                     repaint();
                 }
-
                 @Override
                 public void focusLost(FocusEvent e) {
-                    colorBorder = new Color(200, 200, 200);
+                    colorBorder = Theme.GRAY;
                     repaint();
                 }
-            });
-        }
+            }
+        );
     }
 
+    // SETUP BUTTON COLOR
+    public void setupButton(Color colorNormalButton, Color colorHoverButton, Color colorNormalText, Color colorHoverText) {
+        color = colorNormalButton;
+        component.setForeground(colorNormalText);
 
-    public void setColorNormalText(Color c) {
-        this.colorNormalText = c;
-        setForeground(c);
-    }
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Apply hover color changes
+                component.setForeground(colorHoverText);
+                color = colorHoverButton;
+                repaint();
+            }
 
-    public void setColorHoverText(Color c) {
-        this.colorHoverText = c;
-    }
-
-    public void setNormalBackgroundColor(Color c) {
-        this.colorNormalButton = c;
-        this.colorBackground = c;
-    }
-
-    public void setHoverBackgroundColor(Color c) {
-        this.colorHoverButton = c;
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Restore normal colors
+                component.setForeground(colorNormalText);
+                color = colorNormalButton;
+                repaint();
+            }
+        });
     }
 
     private JComponent styleTextComponent(JTextComponent comp) {
@@ -148,46 +125,6 @@ public class RoundedControl extends JPanel {
         setMinimumSize(new Dimension(Integer.MAX_VALUE, h));
     }
 
-    private void setupButtonHover() {
-        // Apply defaults only if user didn’t customize them
-        if (colorNormalText == null)
-            colorNormalText = getForeground();
-
-        if (colorNormalButton == null)
-            colorNormalButton = colorBackground;
-
-        if (colorHoverText == null)
-            colorHoverText = getForeground();
-
-        if (colorHoverButton == null)
-            colorHoverButton = colorBackground;
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Apply hover color changes
-                setForeground(colorHoverText);
-                colorBackground = colorHoverButton;
-                repaint();
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restore normal colors
-                setForeground(colorNormalText);
-                colorBackground = colorNormalButton;
-                repaint();
-            }
-        });
-    }
-
-    @Override
-    public void setForeground(Color fg) {
-        super.setForeground(fg);
-        if (label != null) {
-            label.setForeground(fg);  // update the label color too
-        }
-    }
 
     public void setBorderThickness(int t) {
         this.borderThickness = t;
@@ -202,7 +139,18 @@ public class RoundedControl extends JPanel {
         repaint();
     }
 
-    // --------- PAINT ---------
+    // PAINT TOOL
+    public void setColor(Color c) {
+        this.color = c;
+        repaint();
+    }
+
+    public void setColorBorder(Color c) {
+        this.colorBorder = c;
+        repaint();
+    }
+
+    // PAINT COMPONENT
     @Override
     protected void paintComponent(Graphics g) {
         int border_roundness = 15;
@@ -213,7 +161,7 @@ public class RoundedControl extends JPanel {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Background
-        g2.setColor(colorBackground);
+        g2.setColor(color);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), border_roundness, border_roundness);
 
         // Border with thickness
@@ -235,31 +183,12 @@ public class RoundedControl extends JPanel {
 
     // For TEXT_FIELD / PASSWORD
     public String getText() {
-        if (objectType == ObjectType.FIELD_TEXT && component instanceof JTextField tf) {
+        if (objectType == ObjectType.TEXTFIELD && component instanceof JTextField tf) {
             return tf.getText();
         }
-        if (objectType == ObjectType.FIELD_PASS && component instanceof JPasswordField pf) {
+        if (objectType == ObjectType.PASSFIELD && component instanceof JPasswordField pf) {
             return new String(pf.getPassword());
         }
         return "";
-    }
-
-    // If you want direct access
-    public JComponent getComponent() {
-        return component;
-    }
-
-    public void setColorBackground(Color c) {
-        this.colorBackground = c;
-        repaint();
-    }
-
-    public void setColorBorder(Color c) {
-        this.colorBorder = c;
-        repaint();
-    }
-
-    public ObjectType getType() {
-        return objectType;
     }
 }
