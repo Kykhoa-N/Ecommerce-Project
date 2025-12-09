@@ -27,15 +27,29 @@ public class DashboardPage extends JPanel {
         RoundObject logout_button;
 
         // CREATE REGION
-        JPanel SIDEBAR = UITools.createYContainer(Theme.PANEL, 220, Integer.MAX_VALUE);
+        JPanel SIDEBAR = UITools.createYContainer(Theme.DARKNAVY, 240, Integer.MAX_VALUE);
         JPanel CONTENT = UITools.createYContainer(Theme.BACKGROUND, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-        // CREATE PRODUCT PANEL
-        //RoundObject adminPanel = UITools.createRoundPanel(Theme.PANEL,500, 500, 40);
-        //adminPanel.setLayout(new BoxLayout(adminPanel, BoxLayout.Y_AXIS));
+        // CREATE SECTIONS
+        JPanel SIDEProfile = UITools.createYContainer(Theme.BLUE, Integer.MAX_VALUE, 50);
+        JPanel SIDEService = UITools.createYContainer(Theme.BACKGROUND, Integer.MAX_VALUE, 50);
+        JPanel SIDELogout = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
 
+        // CREATE BLOCKS
+        JPanel PROFName = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
+        JPanel PROFId = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
+        JPanel SERVStock = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
+        JPanel SERVOrders = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
+        JPanel SERVReport = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
+
+
+        // ORGANIZE SECTIONS
+        SIDEBAR.add(SIDEProfile);
+        SIDEBAR.add(SIDEService);
+        SIDEBAR.add(SIDELogout);
+
+        // ADD TO SYSTEM
         add(SIDEBAR, BorderLayout.WEST);
         add(CONTENT, BorderLayout.CENTER);
-        //add(adminPanel);
     }
 }

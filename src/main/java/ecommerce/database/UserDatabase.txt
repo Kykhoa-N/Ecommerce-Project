@@ -1,3 +1,4 @@
-Chocolate,Mint,ADMIN
-Kykhoa,Nguyen,ADMIN
-Nicole,Orellana,CLIENT
+Wick,John,ADMIN
+Martini,Cherry,CLIENT
+Nguyen,Kyanh,ADMIN
+Strongman,Hercules,CLIENT

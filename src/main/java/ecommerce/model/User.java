@@ -14,6 +14,17 @@ public class User {
         this.role = role;
     }
 
+    // DATABASE HELPER METHOD
+    public User(String csvLine) {
+        String[] parts = csvLine.split(",");
+        this.id   = parts[0];
+        this.name = parts[1];
+        this.role = Role.valueOf(parts[2].trim().toUpperCase());
+    }
+    public String toDataString() {
+        return id + "," + name + "," + role;
+    }
+
     // GETTER METHOD
     public String getName() {
         return name;
