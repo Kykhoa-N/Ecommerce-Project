@@ -29,13 +29,13 @@ public class SwingUI extends JFrame{
     public void initLoginPanel() {
 
         // DATA FIELD
-        RoundedControl user_name_field;
-        RoundedControl user_id_field;
-        RoundedControl auth_login_button;
-        RoundedControl auth_register_button;
+        RoundObject user_name_field;
+        RoundObject user_id_field;
+        RoundObject auth_login_button;
+        RoundObject auth_register_button;
 
         // CREATE LOGIN PANEL
-        RoundedControl loginPanel = UITools.createRoundPanel(Theme.PANEL,380, 480, 40);
+        RoundObject loginPanel = UITools.createRoundPanel(Theme.PANEL,380, 480, 40);
         loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
 
         // INIT REGION
@@ -54,11 +54,11 @@ public class SwingUI extends JFrame{
         JPanel USERField = UITools.createYContainer(Integer.MAX_VALUE,50);
         JPanel PASSLabel = UITools.createXContainer(Integer.MAX_VALUE,50);
         JPanel PASSField = UITools.createYContainer(Integer.MAX_VALUE,50);
-        JPanel DIVLeft = UITools.createXContainer((380-80-45)/2, 1);
+        JPanel DIVLeft = UITools.createXContainer(255/2, 1);
         JPanel DIVText = UITools.createXContainer(45,50);
-        JPanel DIVRight = UITools.createXContainer((380-80-45)/2, 1);
-        JPanel REGText = UITools.createXContainer((int)((380-80)*.60), Integer.MAX_VALUE);
-        JPanel REGButton = UITools.createXContainer((int)((380-80)*.40),Integer.MAX_VALUE);
+        JPanel DIVRight = UITools.createXContainer(255/2, 1);
+        JPanel REGText = UITools.createXContainer(180, Integer.MAX_VALUE);
+        JPanel REGButton = UITools.createXContainer(120,Integer.MAX_VALUE);
 
 
         // CREATE HEADER REGION
@@ -81,28 +81,14 @@ public class SwingUI extends JFrame{
         // CREATE DIVIDER SECTION
         JLabel divider = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
         divider.setForeground(Theme.GRAY);
+        Debug.colorPanel(DIVLeft, Theme.GRAY);
+        Debug.colorPanel(DIVRight, Theme.GRAY);
 
         // CREATE REGISTER SECTION
         JLabel register_text = UITools.createLabel(REGText,"Don't have an account?",13,false, Align.RIGHT);
         auth_register_button = UITools.createRoundButton(REGButton, ObjectType.BUTTON,60,18,"SIGNUP", 13);
         auth_register_button.setupButton(Theme.TRANSPARENT, Theme.TRANSPARENT, Theme.GRAY, Theme.BLUE);
         register_text.setForeground(Theme.GRAY);
-
-        // --- DEBUG AREA ---
-        /*
-        Debug.colorPanel(HEADER, Color.GREEN);
-        Debug.colorPanel(FORM, Color.RED);
-        Debug.colorPanel(USERFIELD, Color.BLUE);
-        Debug.colorPanel(PASSFIELD, Color.ORANGE);
-        Debug.colorPanel(REGISTER_TEXT, Color.GREEN);
-        Debug.colorPanel(FORMRegister, Color.RED);
-        Debug.colorPanel(REGISTER_BUTTON, Color.ORANGE);
-         */
-        //Debug.colorPanel(FORMPass, Color.ORANGE);
-
-        Debug.colorPanel(DIVLeft, Theme.GRAY);
-        Debug.colorPanel(DIVRight, Theme.GRAY);
-
 
         // SECTION ORGANIZER
         loginPanel.add(HEADER);

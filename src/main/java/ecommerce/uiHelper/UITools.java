@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class UITools {
 
-    public static RoundedControl createRoundPanel(Color color, int width, int height, int padding) {
-        RoundedControl panel = new RoundedControl(ObjectType.PANEL);
+    public static RoundObject createRoundPanel(Color color, int width, int height, int padding) {
+        RoundObject panel = new RoundObject(ObjectType.PANEL);
 
         panel.setColor(color);
         panel.setPreferredSize(new Dimension(width, height));
@@ -15,8 +15,8 @@ public class UITools {
         return panel;
     }
 
-    public static RoundedControl createRoundField(JPanel panel, ObjectType objectType, int width, int height) {
-        RoundedControl field = new RoundedControl(objectType);
+    public static RoundObject createRoundField(JPanel panel, ObjectType objectType, int width, int height) {
+        RoundObject field = new RoundObject(objectType);
         field.setMaximumSize(new Dimension(width, height));
         panel.setOpaque(false);
         field.setColor(Theme.TRANSPARENT);
@@ -24,8 +24,8 @@ public class UITools {
         return field;
     }
 
-    public static RoundedControl createRoundButton(JPanel panel, ObjectType objectType, int width, int height, String text, int text_height) {
-        RoundedControl button = new RoundedControl(objectType, text, text_height);
+    public static RoundObject createRoundButton(JPanel panel, ObjectType objectType, int width, int height, String text, int text_height) {
+        RoundObject button = new RoundObject(objectType, text, text_height);
         button.setControlSize(width, height);
         panel.add(button);
         return button;
@@ -80,5 +80,7 @@ public class UITools {
 
         return panel;
     }
+
+
 
 }

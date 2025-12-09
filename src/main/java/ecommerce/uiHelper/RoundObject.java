@@ -3,12 +3,9 @@ package ecommerce.uiHelper;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
-public class RoundedControl extends JPanel {
+public class RoundObject extends JPanel {
 
     // FIELD
     private JComponent component;
@@ -21,12 +18,12 @@ public class RoundedControl extends JPanel {
 
 
     // CONSTRUCTOR FOR PANEL AND FIELD
-    public RoundedControl(ObjectType objectType) {
+    public RoundObject(ObjectType objectType) {
         this(objectType, null, 0);
     }
 
     // CONSTRUCTOR FOR BUTTON
-    public RoundedControl(ObjectType objectType,String text, int height) {
+    public RoundObject(ObjectType objectType, String text, int height) {
         this.objectType = objectType;
         this.textHeight = height;
         setOpaque(false);
