@@ -11,7 +11,7 @@ public class UITools {
         panel.setBackground(rgb);
         panel.setPreferredSize(new Dimension(width, height));
         panel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
-        panel.setBorderColor(new Color(0,0,0,0));
+        panel.setColorBorder(new Color(0,0,0,0));
         return panel;
     }
 
@@ -28,10 +28,10 @@ public class UITools {
         RoundedControl button = new RoundedControl(objectType, text, text_height);
         button.setControlSize(width, height);
 
-        button.setNormalTextColor(Color.WHITE);
-        button.setHoverTextColor(Color.WHITE);
-        button.setNormalBackgroundColor(new Color(50, 120, 255));
-        button.setHoverBackgroundColor(new Color(39, 104, 230));
+        button.setColorNormalText(Color.WHITE);
+        button.setColorHoverText(Color.WHITE);
+        button.setNormalBackgroundColor(Theme.BLUE);
+        button.setHoverBackgroundColor(Theme.HOVERBLUE);
         panel.add(button);
 
         return button;

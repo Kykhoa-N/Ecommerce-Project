@@ -4,7 +4,10 @@
       <w>buttontext</w>
       <w>fieldpass</w>
       <w>fieldtext</w>
+      <w>graytext</w>
       <w>headerlabel</w>
+      <w>hoverblue</w>
+      <w>lightgray</w>
       <w>passfield</w>
       <w>passlabel</w>
       <w>rfield</w>

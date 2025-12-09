@@ -79,16 +79,16 @@ public class SwingUI extends JFrame{
 
         // CREATE DIVIDER SECTION
         JLabel divider = UITools.createLabel(DIVText, "OR", 15, true, Align.CENTER);
-        divider.setForeground(Theme.GRAYTEXT);
+        divider.setForeground(Theme.LIGHTGRAY);
 
         // CREATE REGISTER SECTION
         JLabel register_text = UITools.createLabel(REGText,"Don't have an account?",13,false, Align.RIGHT);
-        auth_register_button = UITools.createRoundButton(REGButton, ObjectType.BUTTON_BLOCK,60,18,"SIGNUP", 13);
-        register_text.setForeground(Theme.GRAYTEXT);
+        auth_register_button = UITools.createRoundButton(REGButton, ObjectType.BUTTON_TEXT,60,18,"SIGNUP", 13);
+        register_text.setForeground(Theme.LIGHTGRAY);
 
         //uth_register_button.setBorderColor(new Color(0, 0, 0, 0));
-        auth_register_button.setNormalTextColor(Theme.GRAYTEXT);
-        auth_register_button.setHoverTextColor(new Color(50, 120, 255));
+        auth_register_button.setColorNormalText(Theme.LIGHTGRAY);
+        auth_register_button.setColorHoverText(new Color(50, 120, 255));
         auth_register_button.setNormalBackgroundColor(Color.WHITE);
         auth_register_button.setHoverBackgroundColor(Color.WHITE);
 
@@ -105,8 +105,8 @@ public class SwingUI extends JFrame{
          */
         //Debug.colorPanel(FORMPass, Color.ORANGE);
 
-        Debug.colorPanel(DIVLeft, Theme.GRAYTEXT);
-        Debug.colorPanel(DIVRight, Theme.GRAYTEXT);
+        Debug.colorPanel(DIVLeft, Theme.LIGHTGRAY);
+        Debug.colorPanel(DIVRight, Theme.LIGHTGRAY);
 
 
         // SECTION ORGANIZER

@@ -11,26 +11,24 @@ import java.awt.event.MouseEvent;
 public class RoundedControl extends JPanel {
 
     // FIELD
-    private final int radius = 15;
-    private final ObjectType objectType;
+    private JComponent component;
     private JLabel label;
+
+    private final ObjectType objectType;
     private int textHeight = 0;
     private int borderThickness = 1;
 
-    private Color bgColor = Color.WHITE;
-    private Color borderColor = new Color(200, 200, 200);
-    private Color focusColor = new Color(80, 140, 255);
-    private Color buttonColor = new Color(50, 120, 255);
-    private Color buttonHoverColor = new Color(70, 140, 255);
+    private Color colorBackground = Color.WHITE;
+    private Color colorBorder = Theme.LIGHTGRAY;
 
-    private Color hoverTextColor = null;
-    private Color hoverBgColor = null;
-
-    private Color normalTextColor = null;
-    private Color normalBgColor = null;
+    // BUTTON FIELD
+    private Color colorHoverButton = null;
+    private Color colorHoverText = null;
+    private Color colorNormalButton = null;
+    private Color colorNormalText = null;
 
 
-    private JComponent inner;      // JTextField, JPasswordField, or JLabel for button
+
 
     // --------- CONSTRUCTORS ---------
 
@@ -48,70 +46,70 @@ public class RoundedControl extends JPanel {
         configureByType(text);
     }
 
-    // --------- INITIALIZE BY TYPE ---------
+    // INITIALIZE BY TYPE
     private void configureByType(String text) {
-        /*
-        switch (objectType) {
-            case PANEL -> {
-                setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-                return;
-            }
-            case FIELD_TEXT -> {}
-            case FIELD_PASS -> {}
-            case BUTTON_BLOCK -> {}
-            case BUTTON_TEXT -> {}
-        }
 
-         */
-
-        if (objectType == ObjectType.PANEL) {
-            // You can set any layout from outside
+        if(objectType.equals(ObjectType.PANEL)) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            return;
+        }
+        else {
+            setLayout(new BorderLayout());
+
+            switch (objectType) {
+
+                case FIELD_TEXT -> {
+                    component = styleTextComponent(new JTextField());
+                    lockHeight(45);
+                }
+
+                case FIELD_PASS -> {
+                    component = styleTextComponent(new JPasswordField());
+                    lockHeight(45);
+                }
+
+                case BUTTON_BLOCK -> {
+                    component = new JLabel(text != null ? text : "BUTTON", SwingConstants.CENTER);
+                    component.setFont(new Font("Segoe UI", Font.BOLD, textHeight));
+                    component.setForeground(Color.WHITE);
+
+                    colorBackground = Theme.BLUE;
+
+                    colorBorder = Theme.BLUE;
+                    lockHeight(45);
+
+                    setupButtonHover();
+                }
+
+                case BUTTON_TEXT -> {
+                    component = new JLabel(text != null ? text : "BUTTON", SwingConstants.CENTER);
+                    component.setFont(new Font("Segoe UI", Font.BOLD, textHeight));
+
+
+                    colorBackground = Theme.BLUE;
+                    colorBorder = Theme.BLUE;
+                    lockHeight(45);
+
+                    setupButtonHover();
+
+                }
+            }
+
+            add(component, BorderLayout.CENTER);
         }
 
-        setLayout(new BorderLayout());
-
-        if (objectType == ObjectType.FIELD_TEXT) {
-            JTextField tf = new JTextField();
-            styleTextComponent(tf);
-            inner = tf;
-            add(inner, BorderLayout.CENTER);
-            fixHeight(45);
-
-        } else if (objectType == ObjectType.FIELD_PASS) {
-            JPasswordField pf = new JPasswordField();
-            styleTextComponent(pf);
-            inner = pf;
-            add(inner, BorderLayout.CENTER);
-            fixHeight(45);
-
-        } else if (objectType == ObjectType.BUTTON_BLOCK) {
-            label = new JLabel(text != null ? text : "BUTTON", SwingConstants.CENTER);
-            label.setFont(new Font("Segoe UI", Font.BOLD, textHeight));
-
-            inner = label;
-            add(inner, BorderLayout.CENTER);
-
-            bgColor = buttonColor;
-            borderColor = buttonColor;
-            fixHeight(45);
-
-            setupButtonHover();
-        }
 
         // Focus highlight for text/password fields
         if (objectType == ObjectType.FIELD_TEXT || objectType == ObjectType.FIELD_PASS) {
-            inner.addFocusListener(new FocusAdapter() {
+            component.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
-                    borderColor = focusColor;
+                    colorBorder = Theme.BLUE;
                     repaint();
                 }
 
                 @Override
                 public void focusLost(FocusEvent e) {
-                    borderColor = new Color(200, 200, 200);
+                    colorBorder = new Color(200, 200, 200);
                     repaint();
                 }
             });
@@ -119,31 +117,32 @@ public class RoundedControl extends JPanel {
     }
 
 
-    public void setNormalTextColor(Color c) {
-        this.normalTextColor = c;
+    public void setColorNormalText(Color c) {
+        this.colorNormalText = c;
         setForeground(c);
     }
 
-    public void setHoverTextColor(Color c) {
-        this.hoverTextColor = c;
+    public void setColorHoverText(Color c) {
+        this.colorHoverText = c;
     }
 
     public void setNormalBackgroundColor(Color c) {
-        this.normalBgColor = c;
-        this.bgColor = c;
+        this.colorNormalButton = c;
+        this.colorBackground = c;
     }
 
     public void setHoverBackgroundColor(Color c) {
-        this.hoverBgColor = c;
+        this.colorHoverButton = c;
     }
 
-    private void styleTextComponent(JTextComponent comp) {
+    private JComponent styleTextComponent(JTextComponent comp) {
         comp.setOpaque(false);
         comp.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
         comp.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        return comp;
     }
 
-    private void fixHeight(int h) {
+    private void lockHeight(int h) {
         setPreferredSize(new Dimension(Integer.MAX_VALUE, h));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, h));
         setMinimumSize(new Dimension(Integer.MAX_VALUE, h));
@@ -151,32 +150,32 @@ public class RoundedControl extends JPanel {
 
     private void setupButtonHover() {
         // Apply defaults only if user didn’t customize them
-        if (normalTextColor == null)
-            normalTextColor = getForeground();
+        if (colorNormalText == null)
+            colorNormalText = getForeground();
 
-        if (normalBgColor == null)
-            normalBgColor = bgColor;
+        if (colorNormalButton == null)
+            colorNormalButton = colorBackground;
 
-        if (hoverTextColor == null)
-            hoverTextColor = getForeground();
+        if (colorHoverText == null)
+            colorHoverText = getForeground();
 
-        if (hoverBgColor == null)
-            hoverBgColor = bgColor;
+        if (colorHoverButton == null)
+            colorHoverButton = colorBackground;
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 // Apply hover color changes
-                setForeground(hoverTextColor);
-                bgColor = hoverBgColor;
+                setForeground(colorHoverText);
+                colorBackground = colorHoverButton;
                 repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 // Restore normal colors
-                setForeground(normalTextColor);
-                bgColor = normalBgColor;
+                setForeground(colorNormalText);
+                colorBackground = colorNormalButton;
                 repaint();
             }
         });
@@ -206,25 +205,27 @@ public class RoundedControl extends JPanel {
     // --------- PAINT ---------
     @Override
     protected void paintComponent(Graphics g) {
+        int border_roundness = 15;
+
         Graphics2D g2 = (Graphics2D) g;
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Background
-        g2.setColor(bgColor);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
+        g2.setColor(colorBackground);
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), border_roundness, border_roundness);
 
         // Border with thickness
-        g2.setColor(borderColor);
+        g2.setColor(colorBorder);
         g2.setStroke(new BasicStroke(borderThickness));
         g2.drawRoundRect(
                 borderThickness / 2,
                 borderThickness / 2,
                 getWidth() - borderThickness,
                 getHeight() - borderThickness,
-                radius,
-                radius
+                border_roundness,
+                border_roundness
         );
 
         super.paintComponent(g);
@@ -234,27 +235,27 @@ public class RoundedControl extends JPanel {
 
     // For TEXT_FIELD / PASSWORD
     public String getText() {
-        if (objectType == ObjectType.FIELD_TEXT && inner instanceof JTextField tf) {
+        if (objectType == ObjectType.FIELD_TEXT && component instanceof JTextField tf) {
             return tf.getText();
         }
-        if (objectType == ObjectType.FIELD_PASS && inner instanceof JPasswordField pf) {
+        if (objectType == ObjectType.FIELD_PASS && component instanceof JPasswordField pf) {
             return new String(pf.getPassword());
         }
         return "";
     }
 
     // If you want direct access
-    public JComponent getInner() {
-        return inner;
+    public JComponent getComponent() {
+        return component;
     }
 
-    public void setBackgroundColor(Color c) {
-        this.bgColor = c;
+    public void setColorBackground(Color c) {
+        this.colorBackground = c;
         repaint();
     }
 
-    public void setBorderColor(Color c) {
-        this.borderColor = c;
+    public void setColorBorder(Color c) {
+        this.colorBorder = c;
         repaint();
     }
 
