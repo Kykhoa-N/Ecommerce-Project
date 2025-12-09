@@ -26,7 +26,7 @@ public class LoginPage extends JPanel {
         RoundObject auth_register_button;
 
         // CREATE LOGIN PANEL
-        RoundObject loginPanel = UITools.createRoundPanel(Theme.PANEL,380, 480, 40);
+        RoundObject loginPanel = UITools.createRoundPanel(Theme.PANEL,380, 490, 40);
         loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
 
         // INIT REGION
@@ -45,11 +45,11 @@ public class LoginPage extends JPanel {
         JPanel USERField = UITools.createYContainer(Integer.MAX_VALUE,50);
         JPanel PASSLabel = UITools.createXContainer(Integer.MAX_VALUE,50);
         JPanel PASSField = UITools.createYContainer(Integer.MAX_VALUE,50);
-        JPanel DIVLeft = UITools.createXContainer(255/2, 1);
-        JPanel DIVText = UITools.createXContainer(45,50);
-        JPanel DIVRight = UITools.createXContainer(255/2, 1);
-        JPanel REGText = UITools.createXContainer(180, Integer.MAX_VALUE);
-        JPanel REGButton = UITools.createXContainer(120,Integer.MAX_VALUE);
+        JPanel DIVLeft = UITools.createXContainer((int) (300*(0.425)), 1);
+        JPanel DIVText = UITools.createXContainer((int) (300*(0.15)),50);
+        JPanel DIVRight = UITools.createXContainer((int) (300*(0.425)), 1);
+        JPanel REGText = UITools.createXContainer((int) (300*(0.6)), Integer.MAX_VALUE);
+        JPanel REGButton = UITools.createXContainer((int) (300*(0.4)),Integer.MAX_VALUE);
 
 
         // CREATE HEADER REGION
@@ -82,7 +82,7 @@ public class LoginPage extends JPanel {
         register_text.setForeground(Theme.GRAY);
 
         // -- DEBUG AREA --
-        Debug.colorPanel(HEADER, Color.ORANGE);
+        //Debug.colorPanel(HEADER, Color.ORANGE);
 
         // SECTION ORGANIZER
         loginPanel.add(HEADER);
@@ -110,9 +110,6 @@ public class LoginPage extends JPanel {
 
         FORMRegister.add(REGText);
         FORMRegister.add(REGButton);
-
-        REGButton.add(Box.createHorizontalStrut(5));
-        REGButton.add(auth_register_button);
 
         // DATA MANAGER
         DataTool.routeButton(parent, auth_register_button, "REGISTER");
