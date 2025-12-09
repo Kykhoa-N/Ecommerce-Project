@@ -59,8 +59,8 @@ public class SwingUI extends JFrame{
         //ReportPage reportPage = new ReportPage(this);
 
 
-        cardPanel.add(loginPage, "LOGIN");
         cardPanel.add(dashboardPage, "DASHBOARD");
+        cardPanel.add(loginPage, "LOGIN");
         cardPanel.add(registerPage, "REGISTER");
         //cardPanel.add(productPage, "PRODUCT");
         //cardPanel.add(cartPage, "CART");

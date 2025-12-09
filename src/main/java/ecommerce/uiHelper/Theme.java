@@ -12,6 +12,7 @@ public class Theme {
     public static final Color HOVERGRAY = Color.decode("#999393");
     public static final Color BLUE = Color.decode("#3278ff");
     public static final Color HOVERBLUE = Color.decode("#2768e6");
-    public static final Color SAGE = Color.decode("#6aa868");
+    public static final Color NAVY = Color.decode("#27487d");
     public static final Color DARKNAVY = Color.decode("#0e192b");
+    public static final Color SAGE = Color.decode("#6aa868");
 }

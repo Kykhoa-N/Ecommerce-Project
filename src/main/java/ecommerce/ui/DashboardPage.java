@@ -31,9 +31,9 @@ public class DashboardPage extends JPanel {
         JPanel CONTENT = UITools.createYContainer(Theme.BACKGROUND, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         // CREATE SECTIONS
-        JPanel SIDEProfile = UITools.createYContainer(Theme.BLUE, Integer.MAX_VALUE, 50);
-        JPanel SIDEService = UITools.createYContainer(Theme.BACKGROUND, Integer.MAX_VALUE, 50);
-        JPanel SIDELogout = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
+        JPanel SIDEProfile = UITools.createYContainer(Theme.BLUE, Integer.MAX_VALUE, (int)(parent.getHeight()*0.25));
+        JPanel SIDEService = UITools.createYContainer(Theme.NAVY, Integer.MAX_VALUE, (int)(parent.getHeight()*0.60));
+        JPanel SIDELogout = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, (int)(parent.getHeight()*0.11));
 
         // CREATE BLOCKS
         JPanel PROFName = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
