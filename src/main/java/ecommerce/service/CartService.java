@@ -34,7 +34,8 @@ public class CartService {
         }
 
         // Don't Add If: Product Non-Exist or Not Enough Stock
-        if(product == null || product.getQuantity() < quantity) {
+        cart.add(name, 0);
+        if(product == null || (product.getQuantity() - cart.getProductList().get(name)) < quantity) {
             return false;
         }
         return cart.add(name, quantity);

@@ -11,12 +11,22 @@ public class DashboardPage extends JPanel {
 
     private final SwingUI parent;
 
+    // CUSTOM REGIONS FIELD
     private JPanel SIDEBAR;
     private JPanel CONTENT;
+
+    // CUSTOM SECTIONS FIELD
     private JPanel SIDEProfile;
     private JPanel SIDEService;
-    private JPanel SIDELogout;
-    RoundObject logout_button;
+
+    // ADMIN BLOCKS FIELD
+    private JPanel SERVInventory;
+    private JPanel SERVOrders;
+    private JPanel SERVReports;
+
+    // CLIENT BLOCKS FIELD
+    private JPanel SERVStore;
+    private JPanel SERVCart;
 
     public DashboardPage(SwingUI parent) {
         this.parent = parent;
@@ -26,15 +36,15 @@ public class DashboardPage extends JPanel {
         buildUI();
     }
 
-    public void updateForUser(User current_user) {
+    public void updateUserDash(User current_user) {
         if (current_user == null) return;
 
+        // UPDATE PROFILE
         SIDEProfile.removeAll();
-
         JLabel name_label = UITools.createLabel(SIDEProfile, current_user.getName(), 17, true, Align.LEFT);
         JLabel id_label = UITools.createLabel(SIDEProfile, current_user.getId(), 17, true, Align.LEFT);
         JLabel role_label = UITools.createLabel(SIDEProfile, current_user.getRole().name(), 13, true, Align.LEFT);
-        name_label.setBorder(BorderFactory.createEmptyBorder(40, 45, 0, 0));
+        name_label.setBorder(BorderFactory.createEmptyBorder(75, 45, 0, 0));
         id_label.setBorder(BorderFactory.createEmptyBorder(0, 45, 0, 0));
         role_label.setBorder(BorderFactory.createEmptyBorder(5, 45, 0, 0));
 
@@ -42,57 +52,78 @@ public class DashboardPage extends JPanel {
         id_label.setForeground(Theme.PANEL);
         role_label.setForeground(Theme.GRAY);
 
+        // UPDATE SERVICES
+        SIDEService.removeAll();
+        if(current_user.getRole() == Role.ADMIN) {
+            SIDEService.add(SERVInventory);
+            SIDEService.add(SERVOrders);
+            SIDEService.add(SERVReports);
+        } else {
+            SIDEService.add(SERVStore);
+            SIDEService.add(SERVCart);
+        }
 
-
-
+        // REPAINT
         SIDEProfile.revalidate();
         SIDEProfile.repaint();
-
-
-        // SERVReport.setVisible(current_user.getRole() == Role.ADMIN);
+        SIDEService.revalidate();
+        SIDEService.repaint();
     }
 
     private void buildUI() {
 
-        // DATA FIELD
-        RoundObject Product_page_button;
-        RoundObject order_page_button;
-        RoundObject report_page_button;
-        RoundObject logout_button;
+        // DIMENSION FIELD
+        int sidebar_width = 240;
+        int button_width = sidebar_width-35;
+        int button_height = 40;
+        int service_height = 55;
 
         // CREATE REGION
-        SIDEBAR = UITools.createYContainer(Theme.DARKNAVY, 240, Integer.MAX_VALUE);
-        CONTENT = UITools.createYContainer(Theme.BACKGROUND, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        SIDEBAR = UITools.createYContainer(Theme.DARKNAVY, sidebar_width, Integer.MAX_VALUE);
+        CONTENT = UITools.createYContainer(Theme.GRAY, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         // CREATE SECTIONS
-        SIDEProfile = UITools.createYContainer(Integer.MAX_VALUE, (int)(800*0.25));
-        SIDEService = UITools.createYContainer(Theme.SAGE, Integer.MAX_VALUE, (int)(800*0.60));
-        SIDELogout = UITools.createYContainer(Integer.MAX_VALUE, (int)(800*0.11));
+        SIDEProfile = UITools.createYContainer(Integer.MAX_VALUE, (int)(parent.getHeight()*0.28));
+        SIDEService = UITools.createYContainer(sidebar_width, (int)(parent.getHeight()*0.57));
+        JPanel SIDESetting = UITools.createYContainer(Integer.MAX_VALUE, (int)(parent.getHeight()*0.15));
 
         // CREATE BLOCKS
-        //JPanel PROFName = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
-        //JPanel PROFId = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
-        JPanel SERVStock = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
-        JPanel SERVOrders = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
-        JPanel SERVReport = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 50);
+        SERVInventory = UITools.createYContainer(Integer.MAX_VALUE, service_height);
+        SERVOrders = UITools.createYContainer(Integer.MAX_VALUE, service_height);
+        SERVReports = UITools.createYContainer(Integer.MAX_VALUE, service_height);
+        SERVStore = UITools.createYContainer(Integer.MAX_VALUE, service_height);
+        SERVCart = UITools.createYContainer(Integer.MAX_VALUE, service_height);
+        JPanel SETLogout = UITools.createYContainer(Integer.MAX_VALUE, service_height);;
 
-        // CREATE PROFILE SECTION
-        //JLabel name_label = UITools.createLabel(SIDEProfile, current_user.getName(),15,true, Align.LEFT);
-        //JLabel id_label = UITools.createLabel(SIDEProfile, current_user.getName(),15,true, Align.LEFT);
-        //JLabel role_label = UITools.createLabel(SIDEProfile, current_user.getRole().name(),15,true, Align.LEFT);
+        // CREATE ADMIN SERVICES
+        RoundObject inventory_button = UITools.createRoundButton(SERVInventory, ObjectType.BUTTON, button_width, button_height, "Inventory", 15);
+        inventory_button.setupButton(Theme.SHADENAVY, Theme.BLUE, Theme.PANEL, Theme.PANEL);
+        RoundObject orders_button = UITools.createRoundButton(SERVOrders, ObjectType.BUTTON, button_width, button_height, "Orders", 15);
+        orders_button.setupButton(Theme.SHADENAVY, Theme.BLUE, Theme.PANEL, Theme.PANEL);
+        RoundObject reports_button = UITools.createRoundButton(SERVReports, ObjectType.BUTTON, button_width, button_height, "Reports", 15);
+        reports_button.setupButton(Theme.SHADENAVY, Theme.BLUE, Theme.PANEL, Theme.PANEL);
 
+        // CREATE CLIENT SERVICES
+        RoundObject store_button = UITools.createRoundButton(SERVStore, ObjectType.BUTTON, button_width, button_height, "Store", 15);
+        store_button.setupButton(Theme.SHADENAVY, Theme.BLUE, Theme.PANEL, Theme.PANEL);
+        RoundObject cart_button = UITools.createRoundButton(SERVCart, ObjectType.BUTTON, button_width, button_height, "Cart", 15);
+        cart_button.setupButton(Theme.SHADENAVY, Theme.BLUE, Theme.PANEL, Theme.PANEL);
 
-        // CREATE LOGIN SECTION
-        SIDELogout.add(Box.createVerticalStrut(20));
-        logout_button = UITools.createRoundButton(SIDELogout, ObjectType.BUTTON, Integer.MAX_VALUE, 40, "LOGOUT", 15);
+        // CREATE LOGOUT SECTION
+        RoundObject logout_button = UITools.createRoundButton(SETLogout, ObjectType.BUTTON, button_width, button_height, "LOGOUT", 15);
         logout_button.setupButton(Theme.BLUE, Theme.HOVERBLUE, Theme.PANEL, Theme.PANEL);
 
         // ORGANIZE SECTIONS
         SIDEBAR.setLayout(new BoxLayout(SIDEBAR, BoxLayout.Y_AXIS));
         SIDEBAR.add(SIDEProfile);
         SIDEBAR.add(SIDEService);
-        SIDEBAR.add(SIDELogout);
+        SIDEBAR.add(SIDESetting);
 
+        // ORGANIZE BLOCKS
+        SIDESetting.add(Box.createVerticalStrut(25));
+        SIDESetting.add(SETLogout);
+
+        // DATA MANAGER
         DataTool.routeButton(parent, logout_button, "LOGIN");
 
         // ADD TO SYSTEM

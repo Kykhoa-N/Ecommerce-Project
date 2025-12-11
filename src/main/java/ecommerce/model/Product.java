@@ -28,7 +28,7 @@ public class Product {
         this.quantity = Integer.parseInt(parts[4]);
     }
     public String toDataString() {
-        return id + "," + name + "," + category  + "," + price   + "," + quantity ;
+        return name + "," + id + "," + category  + "," + price   + "," + quantity ;
     }
 
     // GETTER METHOD

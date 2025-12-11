@@ -1,7 +1,2 @@
-Wick,John,ADMIN
-Martini,Cherry,CLIENT
-Nguyen,Kyanh,ADMIN
-Strongman,Hercules,CLIENT
-Poppin,Mary,CLIENT
-kn1029928,Kykhoa,ADMIN
-jg50,Nick,CLIENT
+kn1029928,Ky-Khoa,ADMIN
+ktn5110,Ky-Anh,CLIENT

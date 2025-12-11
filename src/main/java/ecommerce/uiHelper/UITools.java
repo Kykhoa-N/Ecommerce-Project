@@ -119,7 +119,7 @@ public class UITools {
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.setMaximumSize(new Dimension(width, height));
         panel.setPreferredSize(new Dimension(width, height));
-        panel.setMinimumSize(new Dimension(0, height));
+        panel.setMinimumSize(new Dimension(width, height));
 
 
         return panel;
@@ -134,7 +134,7 @@ public class UITools {
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.setMaximumSize(new Dimension(width, height));
         panel.setPreferredSize(new Dimension(width, height));
-        panel.setMinimumSize(new Dimension(0, height));
+        panel.setMinimumSize(new Dimension(width, height));
 
         return panel;
     }

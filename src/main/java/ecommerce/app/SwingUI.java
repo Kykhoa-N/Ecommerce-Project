@@ -10,6 +10,10 @@ import javax.swing.*;
 
 public class SwingUI extends JFrame{
 
+    // DIMENSION
+    private final int width = 1500;
+    private final int height = 800;
+
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private User current_user;
@@ -39,7 +43,7 @@ public class SwingUI extends JFrame{
 
     public void initGUI() {
         setTitle("Ecommerce Store");
-        setSize(1500, 800);
+        setSize(width, height);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -62,8 +66,8 @@ public class SwingUI extends JFrame{
         //ReportPage reportPage = new ReportPage(this);
 
 
-        cardPanel.add(loginPage, "LOGIN");
         cardPanel.add(dashboardPage, "DASHBOARD");
+        cardPanel.add(loginPage, "LOGIN");
         cardPanel.add(registerPage, "REGISTER");
         //cardPanel.add(productPage, "PRODUCT");
         //cardPanel.add(cartPage, "CART");
@@ -86,5 +90,13 @@ public class SwingUI extends JFrame{
 
     public DashboardPage getDashboard() {
         return dashboardPage;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

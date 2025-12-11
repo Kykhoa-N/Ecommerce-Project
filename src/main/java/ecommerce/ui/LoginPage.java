@@ -144,9 +144,8 @@ public class LoginPage extends JPanel {
                     return;
                 }
 
-                System.out.println("SUCCESSFULLY LOGIN");
                 parent.setCurrentUser(user);
-                parent.getDashboard().updateForUser(user);
+                parent.getDashboard().updateUserDash(user);
                 parent.showScreen("DASHBOARD");
             }
         });

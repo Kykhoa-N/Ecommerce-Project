@@ -10,9 +10,10 @@ public class Theme {
     public static final Color TEXT = Color.decode("#07080c");
     public static final Color GRAY = Color.decode("#b0acac");
     public static final Color HOVERGRAY = Color.decode("#999393");
-    public static final Color BLUE = Color.decode("#3278ff");
-    public static final Color HOVERBLUE = Color.decode("#2768e6");
+    public static final Color BLUE = Color.decode("#477af3");
+    public static final Color HOVERBLUE = Color.decode("#4170e0");
     public static final Color NAVY = Color.decode("#27487d");
     public static final Color DARKNAVY = Color.decode("#0e192b");
+    public static final Color SHADENAVY = Color.decode("#111c32");
     public static final Color SAGE = Color.decode("#6aa868");
 }
