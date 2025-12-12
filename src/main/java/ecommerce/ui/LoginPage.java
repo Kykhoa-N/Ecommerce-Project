@@ -147,6 +147,13 @@ public class LoginPage extends JPanel {
                 parent.setCurrentUser(user);
                 parent.getDashboard().updateUserDash(user);
                 parent.showScreen("DASHBOARD");
+                CardLayout cl = (CardLayout) parent.getDashboard().getContentPanel().getLayout();
+
+                if (user.getRole() == Role.ADMIN) {
+                    cl.show(parent.getDashboard().getContentPanel(), "INVENTORY");
+                } else {
+                    cl.show(parent.getDashboard().getContentPanel(), "STORE");
+                }
             }
         });
 

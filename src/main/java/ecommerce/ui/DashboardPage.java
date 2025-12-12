@@ -61,40 +61,6 @@ public class DashboardPage extends JPanel {
         updateUserDash(new User("KyKhoa Nguyen", "ktn1029928", Role.ADMIN));
     }
 
-    public void updateUserDash(User current_user) {
-        if (current_user == null) return;
-
-        // UPDATE PROFILE
-        SIDEProfile.removeAll();
-        JLabel name_label = UITools.createLabel(SIDEProfile, current_user.getName(), 17, true, Align.LEFT);
-        JLabel id_label = UITools.createLabel(SIDEProfile, current_user.getId(), 17, true, Align.LEFT);
-        JLabel role_label = UITools.createLabel(SIDEProfile, current_user.getRole().name(), 13, true, Align.LEFT);
-        name_label.setBorder(BorderFactory.createEmptyBorder(75, 45, 0, 0));
-        id_label.setBorder(BorderFactory.createEmptyBorder(0, 45, 0, 0));
-        role_label.setBorder(BorderFactory.createEmptyBorder(5, 45, 0, 0));
-
-        name_label.setForeground(Theme.PANEL);
-        id_label.setForeground(Theme.PANEL);
-        role_label.setForeground(Theme.GRAY);
-
-        // UPDATE SERVICES
-        SIDEService.removeAll();
-        if(current_user.getRole() == Role.ADMIN) {
-            SIDEService.add(SERVInventory);
-            SIDEService.add(SERVOrders);
-            SIDEService.add(SERVReports);
-        } else {
-            SIDEService.add(SERVStore);
-            SIDEService.add(SERVCart);
-        }
-
-        // REPAINT
-        SIDEProfile.revalidate();
-        SIDEProfile.repaint();
-        SIDEService.revalidate();
-        SIDEService.repaint();
-    }
-
     private void buildUI() {
 
         // DIMENSION FIELD
@@ -163,5 +129,43 @@ public class DashboardPage extends JPanel {
         // ADD TO SYSTEM
         add(SIDEBAR, BorderLayout.WEST);
         add(CONTENT, BorderLayout.CENTER);
+    }
+
+    public void updateUserDash(User current_user) {
+        if (current_user == null) return;
+
+        // UPDATE PROFILE
+        SIDEProfile.removeAll();
+        JLabel name_label = UITools.createLabel(SIDEProfile, current_user.getName(), 17, true, Align.LEFT);
+        JLabel id_label = UITools.createLabel(SIDEProfile, current_user.getId(), 17, true, Align.LEFT);
+        JLabel role_label = UITools.createLabel(SIDEProfile, current_user.getRole().name(), 13, true, Align.LEFT);
+        name_label.setBorder(BorderFactory.createEmptyBorder(75, 45, 0, 0));
+        id_label.setBorder(BorderFactory.createEmptyBorder(0, 45, 0, 0));
+        role_label.setBorder(BorderFactory.createEmptyBorder(5, 45, 0, 0));
+
+        name_label.setForeground(Theme.PANEL);
+        id_label.setForeground(Theme.PANEL);
+        role_label.setForeground(Theme.GRAY);
+
+        // UPDATE SERVICES
+        SIDEService.removeAll();
+        if(current_user.getRole() == Role.ADMIN) {
+            SIDEService.add(SERVInventory);
+            SIDEService.add(SERVOrders);
+            SIDEService.add(SERVReports);
+        } else {
+            SIDEService.add(SERVStore);
+            SIDEService.add(SERVCart);
+        }
+
+        // REPAINT
+        SIDEProfile.revalidate();
+        SIDEProfile.repaint();
+        SIDEService.revalidate();
+        SIDEService.repaint();
+    }
+
+    public JPanel getContentPanel() {
+        return this.CONTENT;
     }
 }
