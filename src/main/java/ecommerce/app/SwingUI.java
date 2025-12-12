@@ -23,6 +23,9 @@ public class SwingUI extends JFrame{
 
     // REPO FIELD
     private final UserRepo userRepo = new UserRepo();
+    private final CartRepo cartRepo = new CartRepo();
+    private final OrderRepo orderRepo = new OrderRepo();
+    private final ProductRepo productRepo = new ProductRepo();
 
     // SERVICE FIELD
     private final AuthService authService = new AuthService(userRepo);
@@ -92,4 +95,21 @@ public class SwingUI extends JFrame{
     public int getHeight() {
         return height;
     }
+
+    public ProductRepo getProductRepo() {
+        return productRepo;
+    }
+
+    public CartRepo getCartRepo() {
+        return cartRepo;
+    }
+
+    public OrderRepo getOrderRepo() {
+        return orderRepo;
+    }
+
+    public UserRepo getUserRepo() {
+        return userRepo;
+    }
+
 }

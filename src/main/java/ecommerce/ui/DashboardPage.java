@@ -25,10 +25,10 @@ public class DashboardPage extends JPanel {
     private final OrderRepo orderRepo = new OrderRepo();
     private final ProductRepo productRepo = new ProductRepo();
 
-    private final CartService cartService = new CartService(cartRepo, productRepo);
-    private final OrderService orderService = new OrderService(orderRepo);
-    private final ProductService productService = new ProductService(productRepo, orderRepo, cartRepo);
-    private final ReportService reportService = new ReportService(orderRepo, productRepo);
+    private final CartService cartService;
+    private final OrderService orderService;
+    private final ProductService productService;
+    private final ReportService reportService;
 
     // PAGES FIELD
     InventoryPage inventoryPage;
@@ -50,6 +50,10 @@ public class DashboardPage extends JPanel {
 
     public DashboardPage(SwingUI parent) {
         this.parent = parent;
+        cartService = new CartService(parent.getCartRepo(), parent.getProductRepo());
+        orderService = new OrderService(parent.getOrderRepo());
+        productService = new ProductService(parent.getProductRepo(), parent.getOrderRepo(), parent.getCartRepo());
+        reportService = new ReportService(parent.getOrderRepo(), parent.getProductRepo());
 
         setOpaque(false);
         setLayout(new BorderLayout());

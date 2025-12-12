@@ -26,7 +26,7 @@ public class OrderPage extends JPanel {
     private void buildUI() {
 
         // CREATE ORDER PANEL
-        RoundObject orderPanel = UITools.createRoundPanel(Theme.SAGE,(int) (parent.getWidth()*0.8313), (int) (parent.getHeight()*.9549), 40);
+        RoundObject orderPanel = UITools.createRoundPanel(Theme.NAVY,(int) (parent.getWidth()*0.8313), (int) (parent.getHeight()*.9549), 40);
         orderPanel.setLayout(new BoxLayout(orderPanel, BoxLayout.Y_AXIS));
 
         add(orderPanel);
