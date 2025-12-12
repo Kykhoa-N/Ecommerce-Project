@@ -23,10 +23,10 @@ public class InventoryPage extends JPanel {
 
     private void buildUI() {
 
-        // CREATE PRODUCT PANEL
-        RoundObject clientPanel = UITools.createRoundPanel(Theme.PANEL,500, 500, 40);
-        clientPanel.setLayout(new BoxLayout(clientPanel, BoxLayout.Y_AXIS));
+        // CREATE INVENTORY PANEL
+        RoundObject inventoryPanel = UITools.createRoundPanel(Theme.BLUE,(int) (parent.getWidth()*0.8313), (int) (parent.getHeight()*.9549), 40);
+        inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS));
 
-        add(clientPanel);
+        add(inventoryPanel);
     }
 }

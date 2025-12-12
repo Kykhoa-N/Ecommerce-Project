@@ -43,6 +43,7 @@ public class DashboardPage extends JPanel {
 
         contentLayout = new CardLayout();
         CONTENT = new JPanel(contentLayout);
+        CONTENT.setBackground(Theme.BACKGROUND);
 
         inventoryPage = new InventoryPage(parent);
         orderPage = new OrderPage(parent);
@@ -104,7 +105,6 @@ public class DashboardPage extends JPanel {
 
         // CREATE REGION
         SIDEBAR = UITools.createYContainer(Theme.DARKNAVY, sidebar_width, Integer.MAX_VALUE);
-        //CONTENT = UITools.createYContainer(Theme.GRAY, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         // CREATE SECTIONS
         SIDEProfile = UITools.createYContainer(Integer.MAX_VALUE, (int)(parent.getHeight()*0.28));
@@ -154,41 +154,11 @@ public class DashboardPage extends JPanel {
 
         // DATA MANAGER
         DataTool.routeButton(parent, logout_button, "LOGIN");
-
-        inventory_button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                ((CardLayout) CONTENT.getLayout()).show(CONTENT, "INVENTORY");
-            }
-        });
-
-        orders_button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                contentLayout.show(CONTENT, "ORDER");
-            }
-        });
-
-        reports_button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                contentLayout.show(CONTENT, "REPORT");
-            }
-        });
-
-        store_button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                contentLayout.show(CONTENT, "STORE");
-            }
-        });
-
-        cart_button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                contentLayout.show(CONTENT, "CART");
-            }
-        });
+        DataTool.routeButton(contentLayout, CONTENT, inventory_button, "INVENTORY");
+        DataTool.routeButton(contentLayout, CONTENT, orders_button, "ORDER");
+        DataTool.routeButton(contentLayout, CONTENT, reports_button, "REPORT");
+        DataTool.routeButton(contentLayout, CONTENT, store_button, "STORE");
+        DataTool.routeButton(contentLayout, CONTENT, cart_button, "CART");
 
         // ADD TO SYSTEM
         add(SIDEBAR, BorderLayout.WEST);

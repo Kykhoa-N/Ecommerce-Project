@@ -23,10 +23,10 @@ public class StorePage extends JPanel {
 
     private void buildUI() {
 
-        // CREATE PRODUCT PANEL
-        RoundObject clientPanel = UITools.createRoundPanel(Theme.PANEL,500, 500, 40);
-        clientPanel.setLayout(new BoxLayout(clientPanel, BoxLayout.Y_AXIS));
+        // CREATE STORE PANEL
+        RoundObject storePanel = UITools.createRoundPanel(Theme.NAVY,(int) (parent.getWidth()*0.8313), (int) (parent.getHeight()*.9549), 40);
+        storePanel.setLayout(new BoxLayout(storePanel, BoxLayout.Y_AXIS));
 
-        add(clientPanel);
+        add(storePanel);
     }
 }
