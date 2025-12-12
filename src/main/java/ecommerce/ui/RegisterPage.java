@@ -1,12 +1,12 @@
 package ecommerce.ui;
 
 import ecommerce.model.*;
+import ecommerce.service.*;
 import ecommerce.uiHelper.*;
 import ecommerce.app.SwingUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import ecommerce.service.*;
 
 public class RegisterPage extends JPanel {
 

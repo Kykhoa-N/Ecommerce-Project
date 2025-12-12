@@ -9,11 +9,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class OrderPage extends JPanel {
+public class InventoryPage extends JPanel {
 
     private final SwingUI parent;
 
-    public OrderPage(SwingUI parent) {
+    public InventoryPage(SwingUI parent) {
         this.parent = parent;
 
         setOpaque(false);

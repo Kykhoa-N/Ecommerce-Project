@@ -1,30 +1,37 @@
 package ecommerce.ui;
 
 import ecommerce.model.*;
+import ecommerce.service.*;
 import ecommerce.uiHelper.*;
 import ecommerce.app.SwingUI;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 
 public class DashboardPage extends JPanel {
 
     private final SwingUI parent;
 
-    // CUSTOM REGIONS FIELD
     private JPanel SIDEBAR;
     private JPanel CONTENT;
+    private CardLayout contentLayout;
+
+    // PAGES FIELD
+    InventoryPage inventoryPage;
+    OrderPage orderPage;
+    ReportPage reportPage;
+    StorePage storePage;
+    CartPage cartPage;
 
     // CUSTOM SECTIONS FIELD
     private JPanel SIDEProfile;
     private JPanel SIDEService;
 
-    // ADMIN BLOCKS FIELD
+    // CUSTOM BLOCKS FIELD
     private JPanel SERVInventory;
     private JPanel SERVOrders;
     private JPanel SERVReports;
-
-    // CLIENT BLOCKS FIELD
     private JPanel SERVStore;
     private JPanel SERVCart;
 
@@ -33,7 +40,24 @@ public class DashboardPage extends JPanel {
 
         setOpaque(false);
         setLayout(new BorderLayout());
+
+        contentLayout = new CardLayout();
+        CONTENT = new JPanel(contentLayout);
+
+        inventoryPage = new InventoryPage(parent);
+        orderPage = new OrderPage(parent);
+        reportPage = new ReportPage(parent);
+        storePage = new StorePage(parent);
+        cartPage = new CartPage(parent);
+
+        CONTENT.add(inventoryPage, "INVENTORY");
+        CONTENT.add(orderPage, "ORDER");
+        CONTENT.add(reportPage, "REPORT");
+        CONTENT.add(storePage, "STORE");
+        CONTENT.add(cartPage, "CART");
+
         buildUI();
+        updateUserDash(new User("KyKhoa Nguyen", "ktn1029928", Role.ADMIN));
     }
 
     public void updateUserDash(User current_user) {
@@ -80,7 +104,7 @@ public class DashboardPage extends JPanel {
 
         // CREATE REGION
         SIDEBAR = UITools.createYContainer(Theme.DARKNAVY, sidebar_width, Integer.MAX_VALUE);
-        CONTENT = UITools.createYContainer(Theme.GRAY, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        //CONTENT = UITools.createYContainer(Theme.GRAY, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         // CREATE SECTIONS
         SIDEProfile = UITools.createYContainer(Integer.MAX_VALUE, (int)(parent.getHeight()*0.28));
@@ -113,6 +137,11 @@ public class DashboardPage extends JPanel {
         RoundObject logout_button = UITools.createRoundButton(SETLogout, ObjectType.BUTTON, button_width, button_height, "LOGOUT", 15);
         logout_button.setupButton(Theme.BLUE, Theme.HOVERBLUE, Theme.PANEL, Theme.PANEL);
 
+        JLabel placeholder = new JLabel("Welcome!", SwingConstants.CENTER);
+        placeholder.setFont(new Font("Arial", Font.BOLD, 24));
+        CONTENT.add(placeholder);
+
+
         // ORGANIZE SECTIONS
         SIDEBAR.setLayout(new BoxLayout(SIDEBAR, BoxLayout.Y_AXIS));
         SIDEBAR.add(SIDEProfile);
@@ -125,6 +154,41 @@ public class DashboardPage extends JPanel {
 
         // DATA MANAGER
         DataTool.routeButton(parent, logout_button, "LOGIN");
+
+        inventory_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ((CardLayout) CONTENT.getLayout()).show(CONTENT, "INVENTORY");
+            }
+        });
+
+        orders_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                contentLayout.show(CONTENT, "ORDER");
+            }
+        });
+
+        reports_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                contentLayout.show(CONTENT, "REPORT");
+            }
+        });
+
+        store_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                contentLayout.show(CONTENT, "STORE");
+            }
+        });
+
+        cart_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                contentLayout.show(CONTENT, "CART");
+            }
+        });
 
         // ADD TO SYSTEM
         add(SIDEBAR, BorderLayout.WEST);

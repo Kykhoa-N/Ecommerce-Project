@@ -10,13 +10,13 @@ import javax.swing.*;
 
 public class SwingUI extends JFrame{
 
+    private JPanel cardPanel;
+    private CardLayout cardLayout;
+    private User current_user;
+
     // DIMENSION
     private final int width = 1500;
     private final int height = 800;
-
-    private CardLayout cardLayout;
-    private JPanel cardPanel;
-    private User current_user;
 
     // PAGE FIELD
     DashboardPage dashboardPage;
@@ -60,20 +60,10 @@ public class SwingUI extends JFrame{
         LoginPage loginPage = new LoginPage(this, authService);
         RegisterPage registerPage = new RegisterPage(this, authService);
         dashboardPage = new DashboardPage(this);
-        //ProductPage productPage = new ProductPage(this);
-        //ProductPage cartPage = new ProductPage(this);
-        //OrderPage orderPage = new OrderPage(this);
-        //ReportPage reportPage = new ReportPage(this);
-
 
         cardPanel.add(dashboardPage, "DASHBOARD");
         cardPanel.add(loginPage, "LOGIN");
         cardPanel.add(registerPage, "REGISTER");
-        //cardPanel.add(productPage, "PRODUCT");
-        //cardPanel.add(cartPage, "CART");
-        //cardPanel.add(orderPage, "ORDER");
-        //cardPanel.add(reportPage, "REPORT");
-
     }
 
     public void showScreen(String name) {
