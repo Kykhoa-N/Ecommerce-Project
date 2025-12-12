@@ -12,21 +12,28 @@ import java.awt.event.*;
 public class InventoryPage extends JPanel {
 
     private final SwingUI parent;
+    private final ProductService productService;
 
-    public InventoryPage(SwingUI parent) {
+    private  JPanel TOOLBAR;
+    private  JPanel CONTENT;
+
+    public InventoryPage(SwingUI parent, ProductService productService) {
         this.parent = parent;
+        this.productService = productService;
 
         setOpaque(false);
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
         buildUI();
     }
 
     private void buildUI() {
 
-        // CREATE INVENTORY PANEL
-        RoundObject inventoryPanel = UITools.createRoundPanel(Theme.BLUE,(int) (parent.getWidth()*0.8313), (int) (parent.getHeight()*.9549), 40);
-        inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS));
+        // CREATE REGION
+        TOOLBAR = UITools.createXContainer(Theme.SAGE, Integer.MAX_VALUE, 100);
+        CONTENT = UITools.createYContainer(Theme.BACKGROUND, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-        add(inventoryPanel);
+        // ADD TO SYSTEM
+        add(TOOLBAR, BorderLayout.NORTH);
+        add(CONTENT, BorderLayout.CENTER);
     }
 }

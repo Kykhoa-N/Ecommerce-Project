@@ -12,9 +12,11 @@ import java.awt.event.*;
 public class CartPage extends JPanel {
 
     private final SwingUI parent;
+    private final CartService cartService;
 
-    public CartPage(SwingUI parent) {
+    public CartPage(SwingUI parent, CartService cartService) {
         this.parent = parent;
+        this.cartService = cartService;
 
         setOpaque(false);
         setLayout(new GridBagLayout());

@@ -1,6 +1,9 @@
 package ecommerce.ui;
 
 import ecommerce.model.*;
+import ecommerce.repo.CartRepo;
+import ecommerce.repo.OrderRepo;
+import ecommerce.repo.ProductRepo;
 import ecommerce.service.*;
 import ecommerce.uiHelper.*;
 import ecommerce.app.SwingUI;
@@ -11,11 +14,21 @@ import java.awt.event.*;
 
 public class DashboardPage extends JPanel {
 
+    // FIELD
     private final SwingUI parent;
 
     private JPanel SIDEBAR;
     private JPanel CONTENT;
     private CardLayout contentLayout;
+
+    private final CartRepo cartRepo = new CartRepo();
+    private final OrderRepo orderRepo = new OrderRepo();
+    private final ProductRepo productRepo = new ProductRepo();
+
+    private final CartService cartService = new CartService(cartRepo, productRepo);
+    private final OrderService orderService = new OrderService(orderRepo);
+    private final ProductService productService = new ProductService(productRepo, orderRepo, cartRepo);
+    private final ReportService reportService = new ReportService(orderRepo, productRepo);
 
     // PAGES FIELD
     InventoryPage inventoryPage;
@@ -45,11 +58,11 @@ public class DashboardPage extends JPanel {
         CONTENT = new JPanel(contentLayout);
         CONTENT.setBackground(Theme.BACKGROUND);
 
-        inventoryPage = new InventoryPage(parent);
-        orderPage = new OrderPage(parent);
-        reportPage = new ReportPage(parent);
-        storePage = new StorePage(parent);
-        cartPage = new CartPage(parent);
+        inventoryPage = new InventoryPage(parent, productService);
+        orderPage = new OrderPage(parent, orderService);
+        reportPage = new ReportPage(parent, reportService);
+        storePage = new StorePage(parent, productService);
+        cartPage = new CartPage(parent, cartService);
 
         CONTENT.add(inventoryPage, "INVENTORY");
         CONTENT.add(orderPage, "ORDER");

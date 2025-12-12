@@ -12,9 +12,11 @@ import java.awt.event.*;
 public class ReportPage extends JPanel {
 
     private final SwingUI parent;
+    private final ReportService reportService;
 
-    public ReportPage(SwingUI parent) {
+    public ReportPage(SwingUI parent, ReportService reportService) {
         this.parent = parent;
+        this.reportService = reportService;
 
         setOpaque(false);
         setLayout(new GridBagLayout());

@@ -12,9 +12,11 @@ import java.awt.event.*;
 public class StorePage extends JPanel {
 
     private final SwingUI parent;
+    private final ProductService productService;
 
-    public StorePage(SwingUI parent) {
+    public StorePage(SwingUI parent, ProductService productService) {
         this.parent = parent;
+        this.productService = productService;
 
         setOpaque(false);
         setLayout(new GridBagLayout());

@@ -22,19 +22,22 @@ public class SwingUI extends JFrame{
     DashboardPage dashboardPage;
 
     // REPO FIELD
-    private final CartRepo cartRepo = new CartRepo();
-    private final OrderRepo orderRepo = new OrderRepo();
-    private final ProductRepo productRepo = new ProductRepo();
     private final UserRepo userRepo = new UserRepo();
 
     // SERVICE FIELD
     private final AuthService authService = new AuthService(userRepo);
-    private final CartService cartService = new CartService(cartRepo, productRepo);
-    private final OrderService orderService = new OrderService(orderRepo);
-    private final ProductService productService = new ProductService(productRepo, orderRepo, cartRepo);
-    private final ReportService reportService = new ReportService(orderRepo, productRepo);
 
     public SwingUI() {
+
+        /* Test Helper
+        User user = new User("John", "Wick", Role.ADMIN);
+        productService.add(user, "Banana", "Fruit", 2.17, 20);
+        productService.add(user, "Apple", "Fruit", 1.56, 20);
+        productService.add(user, "Milk", "Produce", 5.31, 20);
+        productService.add(user, "Sausage", "Meat", 6.42, 20);
+        productService.add(user, "Turkey", "Meat", 8.18, 20);
+        productService.add(user, "Eggs", "Produce", 2.99, 20);
+         */
 
         initGUI(); // Window Setup
         initScreens(); // Login Panel setup
