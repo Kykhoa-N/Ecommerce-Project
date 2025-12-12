@@ -16,7 +16,6 @@ public class RoundObject extends JPanel {
     private int borderThickness = 1;
     private Color colorBorder = Theme.TRANSPARENT;
 
-
     // CONSTRUCTOR FOR PANEL AND FIELD
     public RoundObject(ObjectType objectType) {
         this(objectType, null, 0);
@@ -27,6 +26,7 @@ public class RoundObject extends JPanel {
         this.objectType = objectType;
         this.textHeight = height;
         setOpaque(false);
+
         configureByType(text);
     }
 

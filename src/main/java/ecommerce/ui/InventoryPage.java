@@ -134,4 +134,5 @@ public class InventoryPage extends JPanel {
         CONTENT.revalidate();
         CONTENT.repaint();
     }
+
 }

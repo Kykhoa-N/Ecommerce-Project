@@ -75,7 +75,6 @@ public class DashboardPage extends JPanel {
         CONTENT.add(cartPage, "CART");
 
         buildUI();
-        updateUserDash(new User("KyKhoa Nguyen", "ktn1029928", Role.ADMIN));
     }
 
     private void buildUI() {

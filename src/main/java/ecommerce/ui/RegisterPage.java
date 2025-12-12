@@ -171,4 +171,5 @@ public class RegisterPage extends JPanel {
 
         add(registerPanel);
     }
+
 }

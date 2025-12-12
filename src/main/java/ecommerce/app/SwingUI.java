@@ -31,17 +31,6 @@ public class SwingUI extends JFrame{
     private final AuthService authService = new AuthService(userRepo);
 
     public SwingUI() {
-
-        /* Test Helper
-        User user = new User("John", "Wick", Role.ADMIN);
-        productService.add(user, "Banana", "Fruit", 2.17, 20);
-        productService.add(user, "Apple", "Fruit", 1.56, 20);
-        productService.add(user, "Milk", "Produce", 5.31, 20);
-        productService.add(user, "Sausage", "Meat", 6.42, 20);
-        productService.add(user, "Turkey", "Meat", 8.18, 20);
-        productService.add(user, "Eggs", "Produce", 2.99, 20);
-         */
-
         initGUI(); // Window Setup
         initScreens(); // Login Panel setup
         setVisible(true); // End
@@ -67,9 +56,9 @@ public class SwingUI extends JFrame{
         RegisterPage registerPage = new RegisterPage(this, authService);
         dashboardPage = new DashboardPage(this);
 
-        cardPanel.add(dashboardPage, "DASHBOARD");
         cardPanel.add(loginPage, "LOGIN");
         cardPanel.add(registerPage, "REGISTER");
+        cardPanel.add(dashboardPage, "DASHBOARD");
     }
 
     public void showScreen(String name) {

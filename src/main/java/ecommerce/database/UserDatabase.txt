@@ -1,2 +1,0 @@
-kn1029928,Ky-Khoa,ADMIN
-ktn5110,Ky-Anh,CLIENT
